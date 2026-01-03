@@ -24,8 +24,8 @@ format_change <- function(x, digits = 0) {
   paste0(sign, format_number(x, digits))
 }
 
-# Calculate people that could be housed (assuming 3 people per unit average)
-locked_to_people <- function(locked_units, people_per_unit = 3) {
+# Calculate people that could be housed (1 person per tiny home unit)
+locked_to_people <- function(locked_units, people_per_unit = 1) {
   locked_units * people_per_unit
 }
 

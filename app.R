@@ -113,15 +113,6 @@ ui <- page_fillable(
             span(class = "breakdown-label", "In construction:"),
             span(class = "breakdown-value", paste0(format_number(housing_summary$construction), " units"))
           )
-        ),
-        div(
-          class = "locked-impact",
-          paste0(
-            format_number(housing_summary$locked),
-            " locked units ≈ ",
-            format_number(locked_to_people(housing_summary$locked)),
-            " people who could be sheltered tonight"
-          )
         )
       )
     )
