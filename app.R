@@ -1,11 +1,9 @@
 # Seattle Mayoral Accountability Dashboard
 # Tracking Mayor Wilson's homelessness commitments with public data
 
-library(shiny)
-library(bslib)
-library(plotly)
-library(dplyr)
-library(zoo)
+# Install pacman if not available, then use it for all other packages
+if (!require("pacman", quietly = TRUE)) install.packages("pacman")
+pacman::p_load(shiny, bslib, plotly, dplyr, zoo)
 
 # Source helper functions
 source("R/data_load.R")
