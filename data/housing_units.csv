@@ -1,0 +1,19 @@
+date,unit_type,status,count,location,operator,source_url,retrieved_date
+2024-01-01,tiny_home,deployed,350,Various,LIHI,https://performance.seattle.gov/,2025-01-15
+2024-01-01,shelter_bed,deployed,1850,Various,Multiple,https://performance.seattle.gov/,2025-01-15
+2024-01-01,acquired_unit,deployed,120,Various,SHA,https://performance.seattle.gov/,2025-01-15
+2024-06-01,tiny_home,deployed,425,Various,LIHI,https://performance.seattle.gov/,2025-06-15
+2024-06-01,shelter_bed,deployed,1920,Various,Multiple,https://performance.seattle.gov/,2025-06-15
+2024-06-01,acquired_unit,deployed,145,Various,SHA,https://performance.seattle.gov/,2025-06-15
+2025-01-01,tiny_home,deployed,485,Various,LIHI,https://performance.seattle.gov/,2025-01-15
+2025-01-01,shelter_bed,deployed,2050,Various,Multiple,https://performance.seattle.gov/,2025-01-15
+2025-01-01,acquired_unit,deployed,175,Various,SHA,https://performance.seattle.gov/,2025-01-15
+2026-01-01,tiny_home,deployed,215,Various,LIHI,https://performance.seattle.gov/,2026-01-03
+2026-01-01,shelter_bed,deployed,312,Various,Multiple,https://performance.seattle.gov/,2026-01-03
+2026-01-01,acquired_unit,deployed,70,Various,SHA,https://performance.seattle.gov/,2026-01-03
+2026-01-01,tiny_home,ready_locked,125,Interbay,LIHI,https://www.seattletimes.com/,2026-01-03
+2026-01-01,shelter_bed,ready_locked,95,SODO,DESC,https://www.seattletimes.com/,2026-01-03
+2026-01-01,acquired_unit,ready_locked,30,Capitol Hill,SHA,https://www.seattletimes.com/,2026-01-03
+2026-01-01,tiny_home,construction,20,Ballard,LIHI,https://performance.seattle.gov/,2026-01-03
+2026-01-01,shelter_bed,construction,15,University District,YouthCare,https://performance.seattle.gov/,2026-01-03
+2026-01-01,acquired_unit,construction,3,Rainier Valley,SHA,https://performance.seattle.gov/,2026-01-03

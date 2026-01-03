@@ -1,0 +1,25 @@
+fiscal_year,category,amount,source,source_url,retrieved_date
+2014,city_homelessness,45000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2014,kcrha_contribution,0,KCRHA Budget,https://kcrha.org/,2025-01-15
+2015,city_homelessness,52000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2015,kcrha_contribution,0,KCRHA Budget,https://kcrha.org/,2025-01-15
+2016,city_homelessness,63000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2016,kcrha_contribution,0,KCRHA Budget,https://kcrha.org/,2025-01-15
+2017,city_homelessness,78000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2017,kcrha_contribution,0,KCRHA Budget,https://kcrha.org/,2025-01-15
+2018,city_homelessness,89000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2018,kcrha_contribution,0,KCRHA Budget,https://kcrha.org/,2025-01-15
+2019,city_homelessness,105000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2019,kcrha_contribution,0,KCRHA Budget,https://kcrha.org/,2025-01-15
+2020,city_homelessness,125000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2020,kcrha_contribution,0,KCRHA Budget,https://kcrha.org/,2025-01-15
+2021,city_homelessness,145000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2021,kcrha_contribution,85000000,KCRHA Budget,https://kcrha.org/,2025-01-15
+2022,city_homelessness,168000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2022,kcrha_contribution,125000000,KCRHA Budget,https://kcrha.org/,2025-01-15
+2023,city_homelessness,192000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2023,kcrha_contribution,145000000,KCRHA Budget,https://kcrha.org/,2025-01-15
+2024,city_homelessness,218000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2024,kcrha_contribution,165000000,KCRHA Budget,https://kcrha.org/,2025-01-15
+2025,city_homelessness,235000000,Seattle Budget Office,https://www.seattle.gov/city-budget-office,2025-01-15
+2025,kcrha_contribution,178000000,KCRHA Budget,https://kcrha.org/,2025-01-15
