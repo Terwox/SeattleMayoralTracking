@@ -55,6 +55,47 @@ load_spending <- function(path = "data/spending.csv") {
   return(df)
 }
 
+# Load housing units data (verified figures only)
+load_housing_units <- function(path = "data/housing_units.csv") {
+  df <- read_csv(path, col_types = cols(
+    date = col_date(),
+    unit_type = col_character(),
+    status = col_character(),
+    count = col_integer(),
+    notes = col_character(),
+    source = col_character(),
+    source_url = col_character(),
+    retrieved_date = col_date()
+  ))
+
+  return(df)
+}
+
+# Get housing summary
+get_housing_summary <- function(housing_df) {
+  locked <- housing_df %>%
+    filter(status == "locked_in_storage") %>%
+    summarise(total = sum(count, na.rm = TRUE)) %>%
+    pull(total)
+
+  deployed_wilson <- housing_df %>%
+    filter(status == "deployed_wilson") %>%
+    summarise(total = sum(count, na.rm = TRUE)) %>%
+    pull(total)
+
+  locked_row <- housing_df %>%
+    filter(status == "locked_in_storage") %>%
+    slice_max(date, n = 1)
+
+  list(
+    locked = locked,
+    deployed_wilson = deployed_wilson,
+    locked_source = locked_row$source,
+    locked_source_url = locked_row$source_url,
+    locked_date = locked_row$date
+  )
+}
+
 # Get latest unsheltered count and change
 get_unsheltered_summary <- function(pit_df) {
   latest <- pit_df %>%
@@ -105,7 +146,8 @@ load_all_data <- function() {
   list(
     pit = load_pit_counts(),
     overdose = load_overdose_deaths(),
-    spending = load_spending()
+    spending = load_spending(),
+    housing = load_housing_units()
   )
 }
 
@@ -114,7 +156,8 @@ get_last_update <- function(data_list) {
   dates <- c(
     max(data_list$pit$retrieved_date, na.rm = TRUE),
     max(data_list$overdose$retrieved_date, na.rm = TRUE),
-    max(data_list$spending$retrieved_date, na.rm = TRUE)
+    max(data_list$spending$retrieved_date, na.rm = TRUE),
+    max(data_list$housing$retrieved_date, na.rm = TRUE)
   )
   max(dates)
 }

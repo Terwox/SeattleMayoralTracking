@@ -17,6 +17,7 @@ data <- load_all_data()
 # Pre-calculate summaries
 unsheltered_summary <- get_unsheltered_summary(data$pit)
 overdose_summary <- get_overdose_summary(data$overdose)
+housing_summary <- get_housing_summary(data$housing)
 last_update <- get_last_update(data)
 
 # UI
@@ -153,6 +154,54 @@ ui <- page_fillable(
         color: #319795;
         font-size: 0.7rem;
       }
+      .housing-card {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        border: 2px solid #d97706;
+      }
+      .housing-stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+      }
+      .housing-locked {
+        text-align: center;
+      }
+      .housing-locked-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #92400e;
+      }
+      .housing-locked-label {
+        font-size: 0.9rem;
+        color: #92400e;
+        font-weight: 600;
+      }
+      .housing-deployed {
+        text-align: center;
+      }
+      .housing-deployed-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #065f46;
+      }
+      .housing-deployed-label {
+        font-size: 0.9rem;
+        color: #065f46;
+        font-weight: 600;
+      }
+      .housing-arrow {
+        font-size: 2rem;
+        color: #d97706;
+      }
+      .housing-note {
+        font-size: 0.8rem;
+        color: #92400e;
+        font-style: italic;
+        text-align: center;
+        padding: 0.5rem;
+        border-top: 1px solid #d97706;
+      }
     "))
   ),
 
@@ -171,8 +220,42 @@ ui <- page_fillable(
       class = "data-warning-text",
       "This dashboard shows ONLY verified data with traceable sources. ",
       "Many commonly cited metrics (quarterly estimates, homeless-specific overdose deaths, ",
-      "housing unit counts, cost-per-person-housed) cannot be verified from public sources ",
+      "cost-per-person-housed) cannot be verified from public sources ",
       "and are NOT included. Click the (?) buttons for methodology details."
+    )
+  ),
+
+  # Emergency Housing Card (highlighted)
+  card(
+    class = "index-card housing-card",
+    card_header(
+      class = "card-header-custom",
+      div(
+        span("EMERGENCY HOUSING: MAYOR WILSON'S STARTING POINT", class = "card-title"),
+        actionButton("info_housing", "?", class = "info-btn")
+      )
+    ),
+    card_body(
+      div(
+        class = "housing-stat",
+        div(
+          class = "housing-locked",
+          div(class = "housing-locked-number", format_number(housing_summary$locked)),
+          div(class = "housing-locked-label", "TINY HOMES LOCKED IN STORAGE")
+        ),
+        div(class = "housing-arrow", HTML("&rarr;")),
+        div(
+          class = "housing-deployed",
+          div(class = "housing-deployed-number", format_number(housing_summary$deployed_wilson)),
+          div(class = "housing-deployed-label", "NEW UNITS DEPLOYED (WILSON)")
+        )
+      ),
+      div(
+        class = "housing-note",
+        "It's Day 1. As of ", format(housing_summary$locked_date, "%b %Y"), ", ",
+        format_number(housing_summary$locked), " tiny homes sat unused in SODO storage lots. ",
+        tags$a(href = housing_summary$locked_source_url, target = "_blank", "(Source)")
+      )
     )
   ),
 
@@ -297,9 +380,9 @@ ui <- page_fillable(
       tags$ul(
         tags$li(tags$strong("Quarterly homeless estimates: "), "KCRHA does not publish these. Only biennial PIT counts exist."),
         tags$li(tags$strong("Homeless-specific overdose deaths: "), "Not publicly reported by King County in a verifiable format."),
-        tags$li(tags$strong("Emergency housing unit counts: "), "No consistent public reporting. Mayor's dashboard data disputed by journalists."),
+        tags$li(tags$strong("Total deployed shelter capacity: "), "No consistent public reporting. Mayor's dashboard data disputed by Axios."),
         tags$li(tags$strong("Cost per person housed: "), "Requires placement data that KCRHA does not publish quarterly."),
-        tags$li(tags$strong("2020 spending: "), "Budget reporting format changed; comparable figures not available.")
+        tags$li(tags$strong("Current locked unit count: "), "250 figure is from Oct 2024. No official tracking exists.")
       ),
       p(
         style = "font-style: italic; color: #718096;",
@@ -390,6 +473,16 @@ server <- function(input, output, session) {
 
   observeEvent(input$info_spending, {
     content <- methodology_content("spending")
+    showModal(modalDialog(
+      title = content$title,
+      content$methodology,
+      easyClose = TRUE,
+      footer = modalButton("Close")
+    ))
+  })
+
+  observeEvent(input$info_housing, {
+    content <- methodology_content("housing")
     showModal(modalDialog(
       title = content$title,
       content$methodology,

@@ -70,6 +70,22 @@ methodology_content <- function(index_name) {
         </ul>
         <p><strong>Data Gap:</strong> Consistent year-over-year spending data is difficult to track due to changing budget categories and agency responsibilities.</p>
       ")
+    ),
+    "housing" = list(
+      title = "Emergency Housing Units",
+      methodology = HTML("
+        <p><strong>Data Source:</strong> Seattle Times investigative reporting (Danny Westneat, Oct 2024)</p>
+        <p><strong>What it measures:</strong> Tiny homes built but sitting unused in storage.</p>
+        <p><strong>Context:</strong></p>
+        <ul>
+          <li>As of October 2024, 250+ tiny homes were locked in 3 SODO storage lots</li>
+          <li>Homes built by Sound Foundations NW, largely with private donations</li>
+          <li>KCRHA cited 'difficulty finding suitable sites' as the primary obstacle</li>
+          <li>This number grew from 71 in 2022 to 250+ in 2024</li>
+        </ul>
+        <p><strong>Why this matters:</strong> These are ready-to-deploy units that could immediately house people but remain unused due to bureaucratic and political barriers.</p>
+        <p><strong>Data Gap:</strong> No official city dashboard tracks locked/unused housing inventory. This figure comes from journalism.</p>
+      ")
     )
   )
   return(content)
