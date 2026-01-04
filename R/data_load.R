@@ -73,26 +73,33 @@ load_housing_units <- function(path = "data/housing_units.csv") {
 
 # Get housing summary
 get_housing_summary <- function(housing_df) {
-  locked <- housing_df %>%
+  # Get the latest locked count
+  locked_row <- housing_df %>%
     filter(status == "locked_in_storage") %>%
-    summarise(total = sum(count, na.rm = TRUE)) %>%
-    pull(total)
+    slice_max(date, n = 1)
+
+  # Get the earliest locked record to calculate duration
+  first_locked <- housing_df %>%
+    filter(status == "locked_in_storage") %>%
+    slice_min(date, n = 1)
 
   deployed_wilson <- housing_df %>%
     filter(status == "deployed_wilson") %>%
     summarise(total = sum(count, na.rm = TRUE)) %>%
     pull(total)
 
-  locked_row <- housing_df %>%
-    filter(status == "locked_in_storage") %>%
-    slice_max(date, n = 1)
+  # Calculate months locked
+  months_locked <- as.numeric(difftime(Sys.Date(), first_locked$date, units = "days")) / 30.44
 
   list(
-    locked = locked,
+    locked = locked_row$count,
+    locked_initial = first_locked$count,
+    locked_initial_date = first_locked$date,
     deployed_wilson = deployed_wilson,
     locked_source = locked_row$source,
     locked_source_url = locked_row$source_url,
-    locked_date = locked_row$date
+    locked_date = locked_row$date,
+    months_locked = round(months_locked)
   )
 }
 

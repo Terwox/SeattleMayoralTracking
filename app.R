@@ -252,8 +252,10 @@ ui <- page_fillable(
       ),
       div(
         class = "housing-note",
-        "It's Day 1. As of ", format(housing_summary$locked_date, "%b %Y"), ", ",
-        format_number(housing_summary$locked), " tiny homes sat unused in SODO storage lots. ",
+        tags$strong(paste0(housing_summary$months_locked, "+ MONTHS IN STORAGE. ")),
+        "First reported Oct 2022 (", format_number(housing_summary$locked_initial), " units). ",
+        "As of ", format(housing_summary$locked_date, "%b %Y"), ": ",
+        format_number(housing_summary$locked), " units sitting unused. ",
         tags$a(href = housing_summary$locked_source_url, target = "_blank", "(Source)")
       )
     )
