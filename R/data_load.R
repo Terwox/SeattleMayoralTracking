@@ -88,17 +88,18 @@ get_housing_summary <- function(housing_df) {
     summarise(total = sum(count, na.rm = TRUE)) %>%
     pull(total)
 
-  # Calculate months locked
-  months_locked <- as.numeric(difftime(Sys.Date(), first_locked$date, units = "days")) / 30.44
+  # Calculate months locked - use first() to get scalar values
+  first_locked_date <- first_locked$date[1]
+  months_locked <- as.numeric(difftime(Sys.Date(), first_locked_date, units = "days")) / 30.44
 
   list(
-    locked = locked_row$count,
-    locked_initial = first_locked$count,
-    locked_initial_date = first_locked$date,
+    locked = locked_row$count[1],
+    locked_initial = first_locked$count[1],
+    locked_initial_date = first_locked_date,
     deployed_wilson = deployed_wilson,
-    locked_source = locked_row$source,
-    locked_source_url = locked_row$source_url,
-    locked_date = locked_row$date,
+    locked_source = locked_row$source[1],
+    locked_source_url = locked_row$source_url[1],
+    locked_date = locked_row$date[1],
     months_locked = round(months_locked)
   )
 }
