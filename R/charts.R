@@ -18,17 +18,18 @@ colors <- list(
 medium_gray = "#a0aec0"
 )
 
-# Base theme for all charts
+# Base theme for all charts - minimum 11pt text
 theme_dashboard <- function() {
   theme_minimal() +
     theme(
-      text = element_text(family = "sans", color = colors$primary),
+      text = element_text(family = "sans", color = colors$primary, size = 11),
       plot.title = element_text(size = 14, face = "bold", margin = margin(b = 10)),
-      plot.subtitle = element_text(size = 11, color = colors$medium_gray),
-      axis.title = element_text(size = 10),
-      axis.text = element_text(size = 9),
+      plot.subtitle = element_text(size = 12, color = colors$medium_gray),
+      axis.title = element_text(size = 12),
+      axis.text = element_text(size = 11),
       legend.position = "bottom",
       legend.title = element_blank(),
+      legend.text = element_text(size = 11),
       panel.grid.minor = element_blank(),
       panel.grid.major.x = element_blank(),
       plot.background = element_rect(fill = "white", color = NA),
@@ -56,14 +57,14 @@ chart_pit_counts <- function(pit_df) {
     geom_text(
       aes(y = total_homeless, label = format(total_homeless, big.mark = ",")),
       vjust = -0.5,
-      size = 3,
+      size = 4,
       color = colors$primary
     ) +
     # Data labels for unsheltered
     geom_text(
       aes(y = unsheltered, label = format(unsheltered, big.mark = ",")),
       vjust = 1.5,
-      size = 2.5,
+      size = 4,
       color = "white"
     ) +
     scale_y_continuous(
@@ -93,7 +94,7 @@ chart_overdose <- function(overdose_df) {
     geom_text(
       aes(label = format(total_overdose_deaths, big.mark = ",")),
       vjust = -0.5,
-      size = 3,
+      size = 4,
       color = colors$primary
     ) +
     scale_y_continuous(
@@ -163,7 +164,7 @@ chart_spending <- function(spending_df) {
     geom_text(
       aes(label = ifelse(is.na(amount_m), "", paste0("$", round(amount_m), "M"))),
       vjust = -0.5,
-      size = 2.5,
+      size = 4,
       color = colors$primary
     ) +
     scale_fill_manual(
@@ -182,10 +183,10 @@ chart_spending <- function(spending_df) {
     ) +
     theme_dashboard() +
     theme(
-      strip.text = element_text(size = 9, face = "bold", color = colors$primary),
+      strip.text = element_text(size = 11, face = "bold", color = colors$primary),
       strip.background = element_rect(fill = "#f7fafc", color = NA),
       panel.spacing = unit(1, "lines"),
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 7)
+      axis.text.x = element_text(angle = 45, hjust = 1, size = 11)
     )
 
   ggplotly(p, tooltip = c("x", "y")) %>%
@@ -242,7 +243,7 @@ chart_hic_inventory <- function(hic_df) {
           label = format(total_system, big.mark = ",")),
       inherit.aes = FALSE,
       vjust = -0.5,
-      size = 3,
+      size = 4,
       color = colors$primary
     ) +
     scale_fill_manual(
@@ -260,7 +261,7 @@ chart_hic_inventory <- function(hic_df) {
     ) +
     theme_dashboard() +
     theme(
-      axis.text.x = element_text(size = 8),
+      axis.text.x = element_text(size = 11),
       legend.position = "bottom"
     )
 
@@ -294,21 +295,8 @@ chart_thv_outcomes <- function(thv_df) {
     geom_text(
       aes(label = paste0(value, "%")),
       vjust = -0.5,
-      size = 3.5,
+      size = 4.5,
       color = colors$primary
-    ) +
-    # Annotations
-    annotate(
-      "text", x = 0.6, y = 19,
-      label = "Congregate shelter (19%)",
-      hjust = 0, vjust = -0.5,
-      size = 2.5, color = colors$negative
-    ) +
-    annotate(
-      "text", x = 0.6, y = 32,
-      label = "National avg (32%)",
-      hjust = 0, vjust = -0.5,
-      size = 2.5, color = colors$alert
     ) +
     scale_y_continuous(
       labels = function(x) paste0(x, "%"),
@@ -317,10 +305,118 @@ chart_thv_outcomes <- function(thv_df) {
     ) +
     labs(
       x = NULL,
-      y = "Exit to Permanent Housing"
+      y = "Exit to Permanent Housing",
+      title = "Tiny Home Villages vs Other Shelter Types",
+      subtitle = "Congregate = traditional shared dorm-style shelters"
     ) +
-    theme_dashboard()
+    theme_dashboard() +
+    theme(
+      plot.title = element_text(size = 13, face = "bold", hjust = 0.5),
+      plot.subtitle = element_text(size = 11, hjust = 0.5, color = "#718096")
+    )
+
+  # Use plotly annotations instead of ggplot annotate for better rendering
+  ggplotly(p, tooltip = c("x", "y")) %>%
+    layout(
+      hovermode = "x",
+      annotations = list(
+        list(
+          x = 1, xref = "paper", xanchor = "right",
+          y = 19, yref = "y", yanchor = "bottom",
+          text = "Congregate shelter (19%)",
+          showarrow = FALSE,
+          font = list(size = 12, color = colors$negative)
+        ),
+        list(
+          x = 1, xref = "paper", xanchor = "right",
+          y = 32, yref = "y", yanchor = "bottom",
+          text = "National avg (32%)",
+          showarrow = FALSE,
+          font = list(size = 12, color = colors$alert)
+        )
+      )
+    )
+}
+
+# Chart 6: Locked Tiny Homes Over Time
+chart_locked_units <- function(housing_df) {
+  # Get locked units data
+  locked_data <- housing_df %>%
+    filter(status == "locked_in_storage") %>%
+    arrange(date)
+
+  # Add a future projection point for Wilson's term
+  wilson_start <- as.Date("2026-01-03")
+
+  # Create plot data with Wilson baseline
+  plot_data <- locked_data %>%
+    select(date, count) %>%
+    bind_rows(
+      tibble(
+        date = wilson_start,
+        count = max(locked_data$count)  # Start at current level
+      )
+    )
+
+  p <- ggplot(plot_data, aes(x = date, y = count)) +
+    # Area fill
+    geom_area(fill = "#fef3c7", alpha = 0.7) +
+    # Line
+    geom_line(color = "#d97706", size = 2) +
+    # Points
+    geom_point(color = "#92400e", size = 4) +
+    # Data labels
+    geom_text(
+      aes(label = count),
+      vjust = -1,
+      size = 5,
+      fontface = "bold",
+      color = "#92400e"
+    ) +
+    # Wilson start line
+    geom_vline(
+      xintercept = wilson_start,
+      linetype = "dashed",
+      color = "#319795",
+      size = 1
+    ) +
+    # Annotation for Wilson
+    annotate(
+      "text",
+      x = wilson_start + 30,
+      y = max(plot_data$count) * 0.5,
+      label = "Wilson\nstarts",
+      hjust = 0,
+      size = 4,
+      color = "#319795",
+      fontface = "bold"
+    ) +
+    scale_y_continuous(
+      limits = c(0, max(plot_data$count) * 1.2),
+      expand = expansion(mult = c(0, 0.05)),
+      breaks = seq(0, 300, 50)
+    ) +
+    scale_x_date(
+      date_breaks = "6 months",
+      date_labels = "%b\n%Y",
+      limits = c(min(plot_data$date) - 30, wilson_start + 180)
+    ) +
+    labs(
+      x = NULL,
+      y = "Units Locked in Storage",
+      title = "Tiny Homes Locked in Storage"
+    ) +
+    theme_dashboard() +
+    theme(
+      plot.title = element_text(
+        size = 14,
+        face = "bold",
+        color = "#92400e",
+        hjust = 0.5
+      ),
+      panel.grid.major.y = element_line(color = "#e2e8f0")
+    )
 
   ggplotly(p, tooltip = c("x", "y")) %>%
-    layout(hovermode = "x")
+    layout(hovermode = "x unified")
 }

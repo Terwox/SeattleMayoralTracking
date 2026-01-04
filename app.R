@@ -25,7 +25,7 @@ hth_summary <- get_hth_summary(data$hth)
 last_update <- get_last_update(data)
 
 # UI
-ui <- page_fillable(
+ui <- page_fluid(
   theme = bs_theme(
     version = 5,
     bg = "#ffffff",
@@ -51,7 +51,7 @@ ui <- page_fillable(
         letter-spacing: 0.05em;
       }
       .header-subtitle {
-        font-size: 0.9rem;
+        font-size: 1rem;
         opacity: 0.8;
         margin: 0.25rem 0 0 0;
       }
@@ -67,7 +67,7 @@ ui <- page_fillable(
       }
       .card-title {
         font-weight: 600;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         letter-spacing: 0.05em;
         color: #2d3748;
       }
@@ -93,7 +93,7 @@ ui <- page_fillable(
         color: #2d3748;
       }
       .metric-label {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         color: #718096;
       }
       .metric-change-positive {
@@ -117,11 +117,11 @@ ui <- page_fillable(
         margin-bottom: 0.5rem;
       }
       .data-warning-text {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         color: #744210;
       }
       .source-link {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         color: #718096;
       }
       .source-link a {
@@ -130,7 +130,7 @@ ui <- page_fillable(
       .dashboard-footer {
         text-align: center;
         padding: 1rem;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         color: #718096;
         border-top: 1px solid #e2e8f0;
         margin-top: 1rem;
@@ -141,7 +141,7 @@ ui <- page_fillable(
       }
       .data-table {
         width: 100%;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         margin-top: 0.5rem;
       }
       .data-table th {
@@ -156,7 +156,7 @@ ui <- page_fillable(
       }
       .data-table a {
         color: #319795;
-        font-size: 0.7rem;
+        font-size: 0.85rem;
       }
       .housing-card {
         background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
@@ -205,7 +205,7 @@ ui <- page_fillable(
         color: #d97706;
       }
       .housing-note {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         color: #92400e;
         font-style: italic;
         text-align: center;
@@ -235,7 +235,7 @@ ui <- page_fillable(
         min-width: 80px;
       }
       .timeline-date {
-        font-size: 0.7rem;
+        font-size: 0.85rem;
         color: #92400e;
         font-weight: 600;
       }
@@ -248,7 +248,7 @@ ui <- page_fillable(
         color: #c53030;
       }
       .timeline-label {
-        font-size: 0.65rem;
+        font-size: 0.85rem;
         color: #92400e;
         opacity: 0.8;
       }
@@ -272,7 +272,7 @@ ui <- page_fillable(
         margin-top: 0.5rem;
       }
       .timeline-source a {
-        font-size: 0.7rem;
+        font-size: 0.85rem;
         color: #92400e;
       }
       .resource-card {
@@ -297,12 +297,12 @@ ui <- page_fillable(
         color: #234e52;
       }
       .resource-label {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         color: #285e61;
         font-weight: 600;
       }
       .resource-sublabel {
-        font-size: 0.65rem;
+        font-size: 0.8rem;
         color: #4a5568;
       }
       .thv-card {
@@ -325,12 +325,12 @@ ui <- page_fillable(
         color: #22543d;
       }
       .thv-label {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         color: #276749;
         font-weight: 600;
       }
       .thv-compare {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         color: #48bb78;
       }
       .voucher-card {
@@ -355,7 +355,7 @@ ui <- page_fillable(
         color: #2c5282;
       }
       .voucher-label {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         color: #2b6cb0;
         font-weight: 600;
       }
@@ -379,9 +379,36 @@ ui <- page_fillable(
         color: #553c9a;
       }
       .hth-label {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         color: #6b46c1;
         font-weight: 600;
+      }
+      .thv-locked-timeline {
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        border: 2px solid #d97706;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        margin: 1rem 0;
+      }
+      .locked-timeline-title {
+        text-align: center;
+        font-weight: 700;
+        color: #92400e;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+      }
+      .locked-value {
+        color: #c53030 !important;
+      }
+      .locked-line {
+        background: linear-gradient(90deg, #92400e 0%, #c53030 100%) !important;
+      }
+      .locked-note {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #92400e;
+        font-style: italic;
+        margin-top: 0.5rem;
       }
     "))
   ),
@@ -638,10 +665,19 @@ ui <- page_fillable(
           div(class = "thv-compare", "within 6 months of exit")
         )
       ),
+      # Chart showing locked units over time (zero-based y-axis)
+      div(
+        class = "thv-locked-timeline",
+        plotlyOutput("chart_locked", height = "200px"),
+        div(
+          class = "locked-note",
+          "Built by Sound Foundations NW - waiting for sites. Goal: Get this to ZERO."
+        )
+      ),
       plotlyOutput("chart_thv", height = "200px"),
       div(
         class = "source-link", style = "text-align: center;",
-        "Sources: Seattle HSD, Mayor's Office, Sound Foundations NW"
+        "Sources: Seattle HSD, Mayor's Office, Sound Foundations NW, Seattle Times"
       )
     )
   ),
@@ -801,6 +837,10 @@ server <- function(input, output, session) {
 
   output$chart_thv <- renderPlotly({
     chart_thv_outcomes(data$thv)
+  })
+
+  output$chart_locked <- renderPlotly({
+    chart_locked_units(data$housing)
   })
 
   # Data tables
