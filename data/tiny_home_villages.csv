@@ -1,0 +1,11 @@
+year,metric,value,comparison_value,comparison_type,notes,source,source_url,retrieved_date
+2024,villages_count,16,NA,NA,City-funded tiny house villages in Seattle,Seattle HSD via Real Change,https://www.realchangenews.org/news/2025/03/07/seattle-canceled-tiny-house-village-after-backlash-neighbors,2026-01-03
+2024,total_capacity,636,NA,NA,Total units across 16 villages,Seattle HSD via Real Change,https://www.realchangenews.org/news/2025/03/07/seattle-canceled-tiny-house-village-after-backlash-neighbors,2026-01-03
+2024,households_served,1142,NA,NA,Households served in 2024,Seattle HSD via Real Change,https://www.realchangenews.org/news/2025/03/07/seattle-canceled-tiny-house-village-after-backlash-neighbors,2026-01-03
+2024,exit_to_permanent_housing_pct,46,32,national_avg,Exits to permanent housing vs 32% national avg,Mayor Harrell Press Release,https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/,2026-01-03
+2024,return_rate_pct,4,NA,NA,Returned to homelessness within 6 months,Mayor Harrell Press Release,https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/,2026-01-03
+2024,utilization_rate_pct,90,77,system_avg,THV utilization vs 77% system-wide average,KCRHA Five-Year Plan,https://kcrha.org/wp-content/uploads/2023/06/FINAL-KCRHA-Five-Year-Plan-6.1.23.pdf,2026-01-03
+2022,exit_to_permanent_housing_pct,50,14,congregate_shelter,THV exits vs 14-19% congregate shelter,Sound Foundations NW,https://soundfoundationsnw.org/tiny-home-villages-work-and-the-data-to-prove-it/,2026-01-03
+2023,exit_to_permanent_housing_pct,63,19,congregate_shelter,LIHI THV exits vs 14-19% congregate shelter,Sound Foundations NW,https://soundfoundationsnw.org/tiny-home-villages-work-and-the-data-to-prove-it/,2026-01-03
+2025,new_units_announced,104,NA,NA,2 new villages (60 + 44 units) via LIHI/CoLEAD,Mayor Harrell Press Release,https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/,2026-01-03
+2025,new_funding,5900000,NA,NA,$5.9M for 2 new villages,Mayor Harrell Press Release,https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/,2026-01-03

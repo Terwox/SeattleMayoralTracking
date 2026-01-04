@@ -1,0 +1,8 @@
+year,agency,voucher_type,count,notes,source,source_url,retrieved_date
+2024,SHA,housing_choice_voucher_waitlist,24000,Households on HCV waitlist,SHA MTW Plan,https://www.seattlehousing.org/sites/default/files/2024-10/SHA_2025_MTW_Plan_Submitted_10.17.2024.pdf,2026-01-03
+2024,SHA,public_housing_waitlist,5500,Households on public housing waitlist,SHA MTW Plan,https://www.seattlehousing.org/sites/default/files/2024-10/SHA_2025_MTW_Plan_Submitted_10.17.2024.pdf,2026-01-03
+2024,SHA,emergency_housing_voucher,498,EHVs allocated (ends 2026),KCRHA EHV FAQ,https://kcrha.org/emergency-housing-voucher-faq/,2026-01-03
+2024,KCHA,emergency_housing_voucher,762,EHVs allocated (ends 2026),KCRHA EHV FAQ,https://kcrha.org/emergency-housing-voucher-faq/,2026-01-03
+2024,Renton_HA,emergency_housing_voucher,54,EHVs allocated (ends 2026),KCRHA EHV FAQ,https://kcrha.org/emergency-housing-voucher-faq/,2026-01-03
+2024,King_County_Total,emergency_housing_voucher,1314,Total EHVs allocated to King County,KCRHA EHV FAQ,https://kcrha.org/emergency-housing-voucher-faq/,2026-01-03
+2024,SHA,project_based_vouchers,4762,PBVs across 190+ projects,SHA MTW Plan,https://www.seattlehousing.org/sites/default/files/2024-10/SHA_2025_MTW_Plan_Submitted_10.17.2024.pdf,2026-01-03

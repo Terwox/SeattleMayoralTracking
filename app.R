@@ -4,7 +4,7 @@
 
 # Install pacman if not available, then use it for all other packages
 if (!require("pacman", quietly = TRUE)) install.packages("pacman")
-pacman::p_load(shiny, bslib, plotly, dplyr)
+pacman::p_load(shiny, bslib, plotly, dplyr, tidyr)
 
 # Source helper functions
 source("R/data_load.R")
@@ -18,6 +18,10 @@ data <- load_all_data()
 unsheltered_summary <- get_unsheltered_summary(data$pit)
 overdose_summary <- get_overdose_summary(data$overdose)
 housing_summary <- get_housing_summary(data$housing)
+hic_summary <- get_hic_summary(data$hic)
+thv_summary <- get_thv_summary(data$thv)
+voucher_summary <- get_voucher_summary(data$vouchers)
+hth_summary <- get_hth_summary(data$hth)
 last_update <- get_last_update(data)
 
 # UI
@@ -155,14 +159,20 @@ ui <- page_fillable(
         font-size: 0.7rem;
       }
       .housing-card {
-        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-        border: 2px solid #d97706;
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
+        border: 2px solid #d97706 !important;
+        min-height: 180px;
+      }
+      .housing-card .card-body {
+        padding: 1rem !important;
       }
       .housing-stat {
         display: flex;
-        justify-content: space-between;
+        flex-direction: row;
+        justify-content: space-around;
         align-items: center;
         padding: 1rem;
+        gap: 2rem;
       }
       .housing-locked {
         text-align: center;
@@ -201,6 +211,177 @@ ui <- page_fillable(
         text-align: center;
         padding: 0.5rem;
         border-top: 1px solid #d97706;
+      }
+      .housing-timeline {
+        border-top: 1px solid #d97706;
+        padding: 0.75rem 1rem;
+        background: rgba(255,255,255,0.3);
+      }
+      .timeline-title {
+        text-align: center;
+        font-weight: 700;
+        color: #92400e;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      .timeline-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+      }
+      .timeline-point {
+        text-align: center;
+        min-width: 80px;
+      }
+      .timeline-date {
+        font-size: 0.7rem;
+        color: #92400e;
+        font-weight: 600;
+      }
+      .timeline-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #92400e;
+      }
+      .timeline-end .timeline-value {
+        color: #c53030;
+      }
+      .timeline-label {
+        font-size: 0.65rem;
+        color: #92400e;
+        opacity: 0.8;
+      }
+      .timeline-line {
+        flex-grow: 1;
+        height: 3px;
+        background: linear-gradient(90deg, #92400e 0%, #c53030 100%);
+        margin: 0 1rem;
+        position: relative;
+      }
+      .timeline-line::after {
+        content: '\\2192';
+        position: absolute;
+        right: -8px;
+        top: -10px;
+        font-size: 1.2rem;
+        color: #c53030;
+      }
+      .timeline-source {
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+      .timeline-source a {
+        font-size: 0.7rem;
+        color: #92400e;
+      }
+      .resource-card {
+        background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%) !important;
+        border: 2px solid #319795 !important;
+      }
+      .resource-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .resource-item {
+        text-align: center;
+        padding: 0.75rem;
+        background: rgba(255,255,255,0.5);
+        border-radius: 8px;
+      }
+      .resource-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #234e52;
+      }
+      .resource-label {
+        font-size: 0.75rem;
+        color: #285e61;
+        font-weight: 600;
+      }
+      .resource-sublabel {
+        font-size: 0.65rem;
+        color: #4a5568;
+      }
+      .thv-card {
+        background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%) !important;
+        border: 2px solid #38a169 !important;
+      }
+      .thv-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .thv-stat {
+        text-align: center;
+        padding: 0.5rem;
+      }
+      .thv-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #22543d;
+      }
+      .thv-label {
+        font-size: 0.8rem;
+        color: #276749;
+        font-weight: 600;
+      }
+      .thv-compare {
+        font-size: 0.7rem;
+        color: #48bb78;
+      }
+      .voucher-card {
+        background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%) !important;
+        border: 2px solid #3182ce !important;
+      }
+      .voucher-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .voucher-item {
+        text-align: center;
+        padding: 0.5rem;
+        background: rgba(255,255,255,0.5);
+        border-radius: 8px;
+      }
+      .voucher-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2c5282;
+      }
+      .voucher-label {
+        font-size: 0.75rem;
+        color: #2b6cb0;
+        font-weight: 600;
+      }
+      .hth-card {
+        background: linear-gradient(135deg, #faf5ff 0%, #e9d8fd 100%) !important;
+        border: 2px solid #805ad5 !important;
+      }
+      .hth-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .hth-stat {
+        text-align: center;
+        padding: 0.5rem;
+      }
+      .hth-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #553c9a;
+      }
+      .hth-label {
+        font-size: 0.75rem;
+        color: #6b46c1;
+        font-weight: 600;
       }
     "))
   ),
@@ -250,13 +431,30 @@ ui <- page_fillable(
           div(class = "housing-deployed-label", "NEW UNITS DEPLOYED (WILSON)")
         )
       ),
+      # Timeline showing growth of locked units
       div(
-        class = "housing-note",
-        tags$strong(paste0(housing_summary$months_locked, "+ MONTHS IN STORAGE. ")),
-        "First reported Oct 2022 (", format_number(housing_summary$locked_initial), " units). ",
-        "As of ", format(housing_summary$locked_date, "%b %Y"), ": ",
-        format_number(housing_summary$locked), " units sitting unused. ",
-        tags$a(href = housing_summary$locked_source_url, target = "_blank", "(Source)")
+        class = "housing-timeline",
+        div(class = "timeline-title", paste0(housing_summary$months_locked, "+ MONTHS IN STORAGE")),
+        div(
+          class = "timeline-bar",
+          div(
+            class = "timeline-point timeline-start",
+            div(class = "timeline-date", "Oct 2022"),
+            div(class = "timeline-value", format_number(housing_summary$locked_initial)),
+            div(class = "timeline-label", "first reported")
+          ),
+          div(class = "timeline-line"),
+          div(
+            class = "timeline-point timeline-end",
+            div(class = "timeline-date", format(housing_summary$locked_date, "%b %Y")),
+            div(class = "timeline-value", format_number(housing_summary$locked)),
+            div(class = "timeline-label", "now")
+          )
+        ),
+        div(
+          class = "timeline-source",
+          tags$a(href = housing_summary$locked_source_url, target = "_blank", "Source: Seattle Times")
+        )
       )
     )
   ),
@@ -327,7 +525,7 @@ ui <- page_fillable(
     )
   ),
 
-  # Spending data
+  # Spending data - small multiples
   layout_columns(
     col_widths = c(12),
     fill = FALSE,
@@ -337,16 +535,199 @@ ui <- page_fillable(
       card_header(
         class = "card-header-custom",
         div(
-          span("VERIFIED SPENDING DATA (LIMITED)", class = "card-title"),
+          span("VERIFIED SPENDING DATA BY CATEGORY", class = "card-title"),
           actionButton("info_spending", "?", class = "info-btn")
         )
       ),
       card_body(
-        plotlyOutput("chart_spending", height = "200px"),
+        plotlyOutput("chart_spending", height = "280px"),
         div(
           class = "source-link",
-          "Note: Consistent year-over-year spending data is not publicly available. ",
-          "These are verified figures from specific sources - gaps represent missing public data."
+          style = "margin-top: 0.5rem;",
+          HTML("<strong>X</strong> = No verified data available for that year"),
+          br(),
+          tags$span(style = "color: #319795; font-weight: 600;", "Seattle Citywide: "),
+          "KOMO News Analysis",
+          tags$span(style = "margin-left: 1rem; color: #805ad5; font-weight: 600;", "Seattle to KCRHA: "),
+          "Cascade PBS, Seattle HSD",
+          tags$span(style = "margin-left: 1rem; color: #d69e2e; font-weight: 600;", "KCRHA Budget: "),
+          "KCRHA Financials"
+        )
+      )
+    )
+  ),
+
+  # RESOURCE METRICS SECTION
+  h4("SYSTEM RESOURCES (2024 HUD Housing Inventory Count)", style = "margin-top: 1.5rem; margin-bottom: 0.5rem; color: #2d3748; font-weight: 600;"),
+
+  # Housing Inventory Count Card
+  card(
+    class = "index-card resource-card",
+    card_header(
+      class = "card-header-custom",
+      div(
+        span("SHELTER & HOUSING INVENTORY (HUD HIC 2024)", class = "card-title"),
+        actionButton("info_hic", "?", class = "info-btn")
+      )
+    ),
+    card_body(
+      div(
+        class = "resource-grid",
+        div(
+          class = "resource-item",
+          div(class = "resource-value", format_number(hic_summary$emergency_shelter_total)),
+          div(class = "resource-label", "EMERGENCY SHELTER"),
+          div(class = "resource-sublabel", paste0(format_number(hic_summary$emergency_shelter_kcrha), " KCRHA-funded"))
+        ),
+        div(
+          class = "resource-item",
+          div(class = "resource-value", format_number(hic_summary$transitional_total)),
+          div(class = "resource-label", "TRANSITIONAL HOUSING"),
+          div(class = "resource-sublabel", paste0(format_number(hic_summary$transitional_kcrha), " KCRHA-funded"))
+        ),
+        div(
+          class = "resource-item",
+          div(class = "resource-value", format_number(hic_summary$rrh_total)),
+          div(class = "resource-label", "RAPID RE-HOUSING"),
+          div(class = "resource-sublabel", paste0(format_number(hic_summary$rrh_kcrha), " KCRHA-funded"))
+        ),
+        div(
+          class = "resource-item",
+          div(class = "resource-value", format_number(hic_summary$psh_total)),
+          div(class = "resource-label", "PERMANENT SUPPORTIVE"),
+          div(class = "resource-sublabel", paste0(format_number(hic_summary$psh_kcrha), " KCRHA-funded"))
+        )
+      ),
+      div(
+        class = "source-link", style = "text-align: center;",
+        "Source: ",
+        tags$a(href = hic_summary$source_url, target = "_blank", "KCRHA Implementation Board (HUD HIC data)")
+      )
+    )
+  ),
+
+  # Tiny Home Villages Card
+  card(
+    class = "index-card thv-card",
+    card_header(
+      class = "card-header-custom",
+      div(
+        span("TINY HOME VILLAGES: HIGH-PERFORMING SHELTER MODEL", class = "card-title"),
+        actionButton("info_thv", "?", class = "info-btn")
+      )
+    ),
+    card_body(
+      div(
+        class = "thv-stats",
+        div(
+          class = "thv-stat",
+          div(class = "thv-value", format_number(thv_summary$capacity)),
+          div(class = "thv-label", paste0("UNITS (", format_number(thv_summary$villages), " VILLAGES)")),
+          div(class = "thv-compare", paste0(format_number(thv_summary$households_served), " households served in 2024"))
+        ),
+        div(
+          class = "thv-stat",
+          div(class = "thv-value", paste0(thv_summary$exit_rate, "%")),
+          div(class = "thv-label", "EXIT TO PERMANENT HOUSING"),
+          div(class = "thv-compare", paste0("vs ", thv_summary$exit_rate_comparison, "% national avg"))
+        ),
+        div(
+          class = "thv-stat",
+          div(class = "thv-value", paste0(thv_summary$return_rate, "%")),
+          div(class = "thv-label", "RETURN TO HOMELESSNESS"),
+          div(class = "thv-compare", "within 6 months of exit")
+        )
+      ),
+      plotlyOutput("chart_thv", height = "200px"),
+      div(
+        class = "source-link", style = "text-align: center;",
+        "Sources: Seattle HSD, Mayor's Office, Sound Foundations NW"
+      )
+    )
+  ),
+
+  # Housing Vouchers Card
+  layout_columns(
+    col_widths = c(6, 6),
+    fill = FALSE,
+
+    card(
+      class = "index-card voucher-card",
+      card_header(
+        class = "card-header-custom",
+        div(
+          span("HOUSING VOUCHERS (SHA/KCHA)", class = "card-title"),
+          actionButton("info_vouchers", "?", class = "info-btn")
+        )
+      ),
+      card_body(
+        div(
+          class = "voucher-grid",
+          div(
+            class = "voucher-item",
+            div(class = "voucher-value", format_number(voucher_summary$ehv_total)),
+            div(class = "voucher-label", "EMERGENCY HOUSING VOUCHERS"),
+            div(class = "resource-sublabel", "King County total (ends 2026)")
+          ),
+          div(
+            class = "voucher-item",
+            div(class = "voucher-value", format_number(voucher_summary$hcv_waitlist)),
+            div(class = "voucher-label", "HCV WAITLIST (SHA)"),
+            div(class = "resource-sublabel", "Households waiting")
+          ),
+          div(
+            class = "voucher-item",
+            div(class = "voucher-value", format_number(voucher_summary$pbv_sha)),
+            div(class = "voucher-label", "PROJECT-BASED (SHA)"),
+            div(class = "resource-sublabel", "Across 190+ projects")
+          )
+        ),
+        div(
+          class = "source-link", style = "text-align: center;",
+          "Source: ",
+          tags$a(href = voucher_summary$source_url, target = "_blank", "SHA MTW Plan, KCRHA EHV FAQ")
+        )
+      )
+    ),
+
+    # Health Through Housing Card
+    card(
+      class = "index-card hth-card",
+      card_header(
+        class = "card-header-custom",
+        div(
+          span("HEALTH THROUGH HOUSING (KC)", class = "card-title"),
+          actionButton("info_hth", "?", class = "info-btn")
+        )
+      ),
+      card_body(
+        div(
+          class = "hth-stats",
+          div(
+            class = "hth-stat",
+            div(class = "hth-value", format_number(hth_summary$people_served)),
+            div(class = "hth-label", "PEOPLE SERVED")
+          ),
+          div(
+            class = "hth-stat",
+            div(class = "hth-value", format_number(hth_summary$units)),
+            div(class = "hth-label", "UNITS")
+          ),
+          div(
+            class = "hth-stat",
+            div(class = "hth-value", format_number(hth_summary$locations)),
+            div(class = "hth-label", "LOCATIONS")
+          ),
+          div(
+            class = "hth-stat",
+            div(class = "hth-value", paste0(hth_summary$retention_rate, "%")),
+            div(class = "hth-label", "RETENTION RATE")
+          )
+        ),
+        div(
+          class = "source-link", style = "text-align: center;",
+          "Source: ",
+          tags$a(href = hth_summary$source_url, target = "_blank", "King County HTH Dashboard")
         )
       )
     )
@@ -418,6 +799,10 @@ server <- function(input, output, session) {
     chart_spending(data$spending)
   })
 
+  output$chart_thv <- renderPlotly({
+    chart_thv_outcomes(data$thv)
+  })
+
   # Data tables
   output$pit_table <- renderTable({
     data$pit %>%
@@ -485,6 +870,46 @@ server <- function(input, output, session) {
 
   observeEvent(input$info_housing, {
     content <- methodology_content("housing")
+    showModal(modalDialog(
+      title = content$title,
+      content$methodology,
+      easyClose = TRUE,
+      footer = modalButton("Close")
+    ))
+  })
+
+  observeEvent(input$info_hic, {
+    content <- methodology_content("hic")
+    showModal(modalDialog(
+      title = content$title,
+      content$methodology,
+      easyClose = TRUE,
+      footer = modalButton("Close")
+    ))
+  })
+
+  observeEvent(input$info_thv, {
+    content <- methodology_content("thv")
+    showModal(modalDialog(
+      title = content$title,
+      content$methodology,
+      easyClose = TRUE,
+      footer = modalButton("Close")
+    ))
+  })
+
+  observeEvent(input$info_vouchers, {
+    content <- methodology_content("vouchers")
+    showModal(modalDialog(
+      title = content$title,
+      content$methodology,
+      easyClose = TRUE,
+      footer = modalButton("Close")
+    ))
+  })
+
+  observeEvent(input$info_hth, {
+    content <- methodology_content("hth")
     showModal(modalDialog(
       title = content$title,
       content$methodology,

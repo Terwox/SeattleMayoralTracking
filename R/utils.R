@@ -86,6 +86,85 @@ methodology_content <- function(index_name) {
         <p><strong>Why this matters:</strong> These are ready-to-deploy units that could immediately house people but remain unused due to bureaucratic and political barriers.</p>
         <p><strong>Data Gap:</strong> No official city dashboard tracks locked/unused housing inventory. This figure comes from journalism.</p>
       ")
+    ),
+    "hic" = list(
+      title = "Housing Inventory Count (HIC)",
+      methodology = HTML("
+        <p><strong>Data Source:</strong> HUD Housing Inventory Count via KCRHA</p>
+        <p><strong>What it measures:</strong> Point-in-time count of beds and units available in the homeless response system.</p>
+        <p><strong>Categories:</strong></p>
+        <ul>
+          <li><strong>Emergency Shelter:</strong> Short-term crisis beds</li>
+          <li><strong>Transitional Housing:</strong> Time-limited housing with services</li>
+          <li><strong>Rapid Re-Housing:</strong> Short-term rental assistance</li>
+          <li><strong>Permanent Supportive Housing:</strong> Long-term housing with ongoing support</li>
+        </ul>
+        <p><strong>Methodology Notes:</strong></p>
+        <ul>
+          <li>HIC is conducted annually alongside PIT count (January)</li>
+          <li>Includes both HUD-funded and non-HUD funded projects</li>
+          <li>KCRHA-funded subset represents direct regional authority investment</li>
+          <li>18 years of historical data available (2007-2024)</li>
+        </ul>
+        <p><strong>Source:</strong> <a href='https://www.huduser.gov/portal/sites/default/files/xls/2007-2024-HIC-Counts-by-CoC.xlsx' target='_blank'>HUD HIC Data</a></p>
+      ")
+    ),
+    "thv" = list(
+      title = "Tiny Home Villages",
+      methodology = HTML("
+        <p><strong>Data Source:</strong> Seattle HSD, Mayor's Office Press Releases, Sound Foundations NW</p>
+        <p><strong>What it measures:</strong> Capacity and outcomes for city-funded tiny home villages.</p>
+        <p><strong>Key Findings:</strong></p>
+        <ul>
+          <li>16 villages with 636 units serving 1,142 households (2024)</li>
+          <li>46% exit to permanent housing (vs 32% national average)</li>
+          <li>Only 4% return to homelessness within 6 months</li>
+          <li>90% utilization rate (vs 77% system-wide)</li>
+        </ul>
+        <p><strong>Why This Model Works:</strong></p>
+        <ul>
+          <li>Private, secure space increases acceptance rates</li>
+          <li>59% enrollment rate at Friendship Heights vs 21% at DESC Navigation Center</li>
+          <li>KCRHA Five Year Plan calls THV 'the region's best hope at resolving the unsheltered crisis'</li>
+        </ul>
+        <p><strong>Sources:</strong> Mayor Harrell Press Release (July 2025), Sound Foundations NW research</p>
+      ")
+    ),
+    "vouchers" = list(
+      title = "Housing Vouchers",
+      methodology = HTML("
+        <p><strong>Data Sources:</strong> Seattle Housing Authority MTW Reports, KCRHA EHV FAQ</p>
+        <p><strong>What it measures:</strong> Federal housing assistance vouchers allocated to King County.</p>
+        <p><strong>Voucher Types:</strong></p>
+        <ul>
+          <li><strong>Emergency Housing Vouchers (EHV):</strong> 1,314 allocated to King County (ends 2026)</li>
+          <li><strong>Housing Choice Vouchers (HCV):</strong> Tenant-based rental assistance</li>
+          <li><strong>Project-Based Vouchers (PBV):</strong> Tied to specific affordable housing projects</li>
+        </ul>
+        <p><strong>Waitlist Context:</strong></p>
+        <ul>
+          <li>~24,000 households on SHA Housing Choice Voucher waitlist</li>
+          <li>~5,500 households on public housing waitlist</li>
+          <li>SHA opened HCV waitlist in 2024 for first time since 2017</li>
+        </ul>
+        <p><strong>Source:</strong> <a href='https://www.seattlehousing.org/about-us/reports/moving-to-work-reports' target='_blank'>SHA MTW Reports</a></p>
+      ")
+    ),
+    "hth" = list(
+      title = "Health Through Housing",
+      methodology = HTML("
+        <p><strong>Data Source:</strong> King County Health Through Housing Dashboard</p>
+        <p><strong>What it measures:</strong> Outcomes from King County's permanent supportive housing initiative funded by the Health Through Housing sales tax.</p>
+        <p><strong>2024 Results:</strong></p>
+        <ul>
+          <li>1,281 people served (net increase of 370 from 2023)</li>
+          <li>1,434 units across 17 locations in 7 cities</li>
+          <li>95% housing retention rate</li>
+        </ul>
+        <p><strong>Locations:</strong> Auburn, Burien, Federal Way, Kirkland, Redmond, Renton, Seattle</p>
+        <p><strong>What Makes It Different:</strong> HTH specifically serves people experiencing chronic homelessness with high acuity needs, combining housing with wraparound services.</p>
+        <p><strong>Source:</strong> <a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing/health-through-housing-dashboard' target='_blank'>King County HTH Dashboard</a></p>
+      ")
     )
   )
   return(content)
