@@ -1,15 +1,6 @@
 date,total_homeless,unsheltered,sheltered,source,source_url,retrieved_date
-2015-01-29,4505,2813,1692,HUD PIT Count,https://www.hudexchange.info/programs/coc/coc-homeless-populations-and-subpopulations-reports/,2025-01-15
-2017-01-27,5485,3857,1628,HUD PIT Count,https://www.hudexchange.info/programs/coc/coc-homeless-populations-and-subpopulations-reports/,2025-01-15
-2019-01-25,5228,3558,1670,HUD PIT Count,https://www.hudexchange.info/programs/coc/coc-homeless-populations-and-subpopulations-reports/,2025-01-15
-2020-01-24,5578,3826,1752,HUD PIT Count,https://www.hudexchange.info/programs/coc/coc-homeless-populations-and-subpopulations-reports/,2025-01-15
-2022-01-27,13368,9847,3521,HUD PIT Count,https://www.hudexchange.info/programs/coc/coc-homeless-populations-and-subpopulations-reports/,2025-01-15
-2023-01-26,14058,10308,3750,HUD PIT Count,https://www.hudexchange.info/programs/coc/coc-homeless-populations-and-subpopulations-reports/,2025-01-15
-2024-01-25,16385,11875,4510,KCRHA Annual Count,https://kcrha.org/data-overview/,2025-01-15
-2024-04-01,12100,NA,NA,KCRHA Quarterly Estimate,https://kcrha.org/data-overview/,2025-04-15
-2024-07-01,11850,NA,NA,KCRHA Quarterly Estimate,https://kcrha.org/data-overview/,2025-07-15
-2024-10-01,11600,NA,NA,KCRHA Quarterly Estimate,https://kcrha.org/data-overview/,2025-10-15
-2025-01-24,15890,11520,4370,KCRHA Annual Count,https://kcrha.org/data-overview/,2025-02-01
-2025-04-01,11400,NA,NA,KCRHA Quarterly Estimate,https://kcrha.org/data-overview/,2025-04-15
-2025-07-01,11200,NA,NA,KCRHA Quarterly Estimate,https://kcrha.org/data-overview/,2025-07-15
-2025-10-01,10950,NA,NA,KCRHA Quarterly Estimate,https://kcrha.org/data-overview/,2025-10-15
+2018-01-26,12112,NA,NA,Count Us In 2018 Report,https://sccinsight.com/2018/06/01/understanding-the-2018-point-in-time-homeless-count/,2026-01-03
+2019-01-25,11199,5264,5935,Count Us In 2019 - All Home King County,https://allhomekc.org/king-county-point-in-time-pit-count/,2026-01-03
+2020-01-24,11751,5523,6228,King County Executive Press Release,https://kingcounty.gov/en/legacy/elected/executive/constantine/news/release/2020/july/01-homeless-count,2026-01-03
+2022-03-01,13368,7685,5683,KCRHA PIT Count,https://kcrha.org/community-data/king-county-point-in-time-count/,2026-01-03
+2024-02-02,16868,9810,7058,KCRHA PIT Count (Revised),https://kcrha.org/community-data/king-county-point-in-time-count/,2026-01-03

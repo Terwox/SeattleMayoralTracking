@@ -24,95 +24,53 @@ format_change <- function(x, digits = 0) {
   paste0(sign, format_number(x, digits))
 }
 
-# Calculate people that could be housed (1 person per tiny home unit)
-locked_to_people <- function(locked_units, people_per_unit = 1) {
-  locked_units * people_per_unit
-}
-
 # Create methodology modal content
 methodology_content <- function(index_name) {
   content <- switch(index_name,
-                    "unsheltered" = list(
-                      title = "Unsheltered Population Count",
-                      commitment = "\"How many people are sleeping unsheltered on the streets of Seattle in four years\" - Mayor Katie Wilson",
-                      methodology = HTML("
-        <p><strong>Data Sources:</strong></p>
-        <ul>
-          <li>Official PIT counts (biennial) from HUD Exchange</li>
-          <li>Quarterly estimates from KCRHA</li>
-        </ul>
+    "pit" = list(
+      title = "Point-in-Time Homeless Counts",
+      methodology = HTML("
+        <p><strong>Data Source:</strong> KCRHA and HUD Point-in-Time Counts</p>
+        <p><strong>What it measures:</strong> One-night estimate of people experiencing homelessness in King County, conducted in late January (biennial since 2022).</p>
         <p><strong>Methodology Notes:</strong></p>
         <ul>
-          <li>PIT counts are conducted in late January</li>
-          <li>Methodology changed in 2022, making direct comparisons difficult</li>
-          <li>Quarterly estimates use different sampling methods</li>
-          <li>Numbers represent Seattle/King County CoC</li>
+          <li>Counts conducted on a single night in late January</li>
+          <li>Methodology changed in 2022 to Respondent Driven Sampling</li>
+          <li>Pre-2022 and post-2022 counts may not be directly comparable</li>
+          <li>All counts are understood to be undercounts</li>
         </ul>
+        <p><strong>Verified Sources:</strong> Each data point links to its original source.</p>
       ")
-                    ),
-                    "housing" = list(
-                      title = "Emergency Housing Progress",
-                      commitment = "\"4,000 new emergency housing and shelter units in four years\" - Mayor Katie Wilson",
-                      methodology = HTML("
-        <p><strong>Unit Types Counted:</strong></p>
-        <ul>
-          <li><strong>Tiny homes:</strong> Individual or family units in village settings</li>
-          <li><strong>Shelter beds:</strong> Emergency shelter capacity</li>
-          <li><strong>Acquired units:</strong> Hotel/motel conversions, scattered site housing</li>
-        </ul>
-        <p><strong>Status Definitions:</strong></p>
-        <ul>
-          <li><strong>Deployed:</strong> Currently operational and accepting residents</li>
-          <li><strong>Ready but locked:</strong> Built/acquired but not opened (regulatory, staffing, or political barriers)</li>
-          <li><strong>In construction:</strong> Under development with confirmed funding</li>
-        </ul>
-      ")
-                    ),
-                    "overdose" = list(
-                      title = "Homeless Overdose Deaths",
-                      commitment = "No explicit commitment, but a core accountability metric given that approximately 67% of homeless deaths in King County are overdose-related.",
-                      methodology = HTML("
-        <p><strong>Data Source:</strong> King County Medical Examiner via Public Health Seattle & King County</p>
+    ),
+    "overdose" = list(
+      title = "Overdose Deaths",
+      methodology = HTML("
+        <p><strong>Data Source:</strong> King County Medical Examiner / Public Health Seattle & King County</p>
+        <p><strong>What it measures:</strong> Annual total drug overdose deaths in King County (all populations, not homeless-specific).</p>
         <p><strong>Methodology Notes:</strong></p>
         <ul>
-          <li>Data has 2-3 month reporting lag</li>
-          <li>Housing status determined by death scene investigation</li>
-          <li>Fentanyl/meth involvement not mutually exclusive</li>
-          <li>12-month rolling average smooths seasonal variation</li>
+          <li>Annual totals from official public health reporting</li>
+          <li>Includes all drug overdose deaths, not limited to homeless individuals</li>
+          <li>Homeless-specific overdose data is not reliably available</li>
+          <li>2025 figure is preliminary (as of Dec 30)</li>
         </ul>
+        <p><strong>Data Gap:</strong> Homeless-specific overdose data is not publicly reported in a verifiable way.</p>
       ")
-                    ),
-                    "cost" = list(
-                      title = "Cost Per Person Housed",
-                      commitment = "Accountability metric combining spending efficiency with housing outcomes.",
-                      methodology = HTML("
-        <p><strong>Formula:</strong> (City homelessness spending + KCRHA contribution) / Permanent housing placements</p>
-        <p><strong>Data Sources:</strong></p>
+    ),
+    "spending" = list(
+      title = "Homelessness Spending",
+      methodology = HTML("
+        <p><strong>Data Sources:</strong> Seattle City Budget, KCRHA Budget Documents, News Reports</p>
+        <p><strong>What it measures:</strong> Public spending on homelessness programs.</p>
+        <p><strong>Methodology Notes:</strong></p>
         <ul>
-          <li>Numerator: Seattle adopted budget, KCRHA budget documents</li>
-          <li>Denominator: KCRHA System Performance Dashboard</li>
+          <li>Figures come from budget documents and verified news reporting</li>
+          <li>Categories vary by year as reporting changed</li>
+          <li>Not comprehensive - some years have limited public data</li>
         </ul>
-        <p><strong>Limitations:</strong></p>
-        <ul>
-          <li>Not all spending results in placements (includes prevention, outreach, etc.)</li>
-          <li>Placements may result from prior year spending</li>
-          <li>Does not account for returns to homelessness</li>
-        </ul>
+        <p><strong>Data Gap:</strong> Consistent year-over-year spending data is difficult to track due to changing budget categories and agency responsibilities.</p>
       ")
-                    )
+    )
   )
   return(content)
-}
-
-# Data update info
-get_last_update <- function(data_list) {
-  # Get most recent retrieved_date across all datasets
-  dates <- c(
-    max(data_list$pit$retrieved_date, na.rm = TRUE),
-    max(data_list$housing$retrieved_date, na.rm = TRUE),
-    max(data_list$overdose$retrieved_date, na.rm = TRUE),
-    max(data_list$spending$raw$retrieved_date, na.rm = TRUE),
-    max(data_list$placements$raw$retrieved_date, na.rm = TRUE)
-  )
-  max(dates)
 }
