@@ -1,0 +1,18 @@
+year,metric,value,notes,source,source_url,retrieved_date
+2019,king_county_homicides,NA,Pre-pandemic baseline not found,NA,NA,2026-01-04
+2020,king_county_homicides,NA,COVID year,NA,NA,2026-01-04
+2021,king_county_homicides,NA,Post-COVID surge began,NA,NA,2026-01-04
+2022,king_county_homicides,NA,Rising trend,NA,NA,2026-01-04
+2023,king_county_homicides,143,Record high for King County,Seattle Times,https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/,2026-01-04
+2024,king_county_homicides,120,16% decline from 2023 record,Seattle Times,https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/,2026-01-04
+2023,seattle_homicides,NA,Part of KC total,Seattle Times,https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/,2026-01-04
+2024,seattle_homicides,61,58 SPD + 3 WSP investigated,Seattle Times,https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/,2026-01-04
+2024,seattle_violent_crime_rate,8.19,Per 1000 residents (national median: 4),Seattle Green Maids / FBI UCR,https://www.seattlegreenmaids.com/blog/what-is-the-crime-rate-in-seattle-in-2025,2026-01-04
+2024,homeless_shooting_incidents_q1,15,Shots fired connected to homelessness,Mayor Harrell Office,https://harrell.seattle.gov/2024/05/17/one-seattle-homelessness-action-plan-posts-q1-2024-data-updates/,2026-01-04
+2024,homeless_shooting_incidents_q2,8,Shots fired connected to homelessness,Mayor Harrell Office,https://harrell.seattle.gov/2024/12/03/one-seattle-homelessness-action-plan-posts-q3-2024-data-updates/,2026-01-04
+2024,homeless_shooting_incidents_q3,15,31% decrease YoY,Mayor Harrell Office,https://harrell.seattle.gov/2024/12/03/one-seattle-homelessness-action-plan-posts-q3-2024-data-updates/,2026-01-04
+2024,encampment_fires_q3,202,37% decrease YoY,Mayor Harrell Office,https://harrell.seattle.gov/2024/12/03/one-seattle-homelessness-action-plan-posts-q3-2024-data-updates/,2026-01-04
+2024,gun_fatal_shootings_yoy_change,-29,Fatal shooting victims down 29%,Seattle Times,https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/,2026-01-04
+2024,gun_nonfatal_shootings_yoy_change,-13,Nonfatal shooting victims down 13%,Seattle Times,https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/,2026-01-04
+2025,seattle_crime_ytd_change,-9.6,Crime down 9.6% vs same period 2024,Axios Seattle,https://www.axios.com/local/seattle/2025/04/28/crime-drops-2025-seattle-king-county,2026-01-04
+2025,seattle_violent_crime_ytd_change,-20,Violent crime down ~20% vs 2024 pace,Axios Seattle,https://www.axios.com/local/seattle/2025/04/28/crime-drops-2025-seattle-king-county,2026-01-04

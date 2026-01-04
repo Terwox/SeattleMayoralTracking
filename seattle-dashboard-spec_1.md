@@ -57,6 +57,21 @@
 - **Format:** Manual extraction → CSV
 - **Fields:** `fiscal_year`, `category`, `amount`, `source`
 
+### 4a. Cost Per Bed/Unit (Derived Metric)
+- **What:** Mean annual operating cost per shelter bed; mean capital cost per housing unit
+- **Why mean, not median:** For budget accountability, mean captures total spend efficiency. Median would underweight expensive outliers that still drain the budget.
+- **Known ranges (2024-2025):**
+  - Shelter operating: $16,000–$127,000/bed/year (8x variation by type—congregate cheapest, tiny homes most expensive per bed)
+  - Housing capital: $270,000–$500,000/unit (HTH acquisitions ~$270K; new construction ~$400K+)
+  - WSHFC statewide trend: $207K/unit (2019) → $406K/unit (2025), +95.8% over 6 years
+- **Data gap:** No single official source provides consistent year-over-year per-bed cost comparisons across shelter types. Must manually combine:
+  1. KCRHA annual budget by program type (kcrha.org board packets)
+  2. King County Health Through Housing reports (kingcounty.gov)
+  3. Seattle HSD shelter contracts (via public records or budget backup)
+  4. WSHFC Annual Activity Reports for capital cost trends (wshfc.org)
+- **Methodology note:** Total budget by shelter category ÷ reported bed counts = cost/bed. This conflates bed-count changes with cost changes, so track both independently.
+- **Fields:** `fiscal_year`, `shelter_type`, `total_budget`, `bed_count`, `cost_per_bed`, `source_documents`
+
 ### 5. Housing Placements (for cost-per-person calculation)
 - **Source:** KCRHA System Performance Dashboard
 - **URL:** https://kcrha.org/data-overview/
@@ -102,15 +117,16 @@
   - Vertical reference lines at mayoral transitions
   - Breakout by drug type available on hover/click
 
-#### Index 4: Cost per Person Housed
-- **What it measures:** Total homelessness spending ÷ successful permanent housing placements
-- **Why it matters:** Accountability for both spending level AND efficiency
-- **Visualization:** Bar chart by year + trend line
+#### Index 4: Cost Efficiency (Cost per Bed / Cost per Unit)
+- **What it measures:** Mean cost per shelter bed (operating) and per housing unit (capital)
+- **Why it matters:** Tests whether Wilson can reduce costs while increasing supply—currently Seattle's numbers are poor relative to peer cities
+- **Visualization:** Dual bar chart by year (operating vs. capital costs) + trend lines
 - **Key elements:**
-  - Numerator: Total city + KCRHA homelessness spending
-  - Denominator: Permanent housing placements that year
-  - Comparison benchmark: national median cost-per-placement if available
-  - Annotation: sweeps/removals that don't result in housing show up as wasted spend
+  - Cost per shelter bed by type (congregate, enhanced, tiny home, hotel-based)
+  - Cost per housing unit (HTH acquisition vs. new construction)
+  - Comparison: WSHFC statewide trends showing capital cost inflation
+  - Wilson accountability: Can she bend these curves down while adding units?
+- **Data note:** Requires annual manual compilation from multiple sources (see Data Sources 4a). No official year-over-year comparison exists.
 
 ### Secondary Indices (Accessible via tabs or scroll)
 
@@ -154,9 +170,9 @@
 │  └─────────────────────────────────────────────────────────┘   │
 │                                                                 │
 │  ┌──────────────────────────┐ ┌──────────────────────────┐     │
-│  │ OVERDOSE DEATHS          │ │ COST PER PERSON HOUSED   │     │
-│  │ [area chart]             │ │ [bar chart]              │     │
-│  │ 2025 YTD: 247            │ │ 2025: $48,320            │     │
+│  │ OVERDOSE DEATHS          │ │ COST EFFICIENCY          │     │
+│  │ [area chart]             │ │ [dual bar chart]         │     │
+│  │ 2025 YTD: 247            │ │ $47K/bed  |  $312K/unit  │     │
 │  └──────────────────────────┘ └──────────────────────────┘     │
 │                                                                 │
 ├─────────────────────────────────────────────────────────────────┤

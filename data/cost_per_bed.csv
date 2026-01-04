@@ -1,0 +1,14 @@
+fiscal_year,shelter_type,total_budget,bed_count,cost_per_bed,source_documents,source_url,retrieved_date
+2019,statewide_capital,NA,NA,207000,WSHFC Annual Activity Report,https://www.wshfc.org/mhcf/9702019AnnualRpt.pdf,2026-01-03
+2020,statewide_capital,NA,NA,250000,WSHFC Annual Activity Report (est),https://www.wshfc.org/,2026-01-03
+2021,statewide_capital,NA,NA,290000,WSHFC Annual Activity Report (est),https://www.wshfc.org/,2026-01-03
+2022,statewide_capital,NA,NA,320000,WSHFC Annual Activity Report (est),https://www.wshfc.org/,2026-01-03
+2023,statewide_capital,NA,NA,360000,WSHFC Annual Activity Report (est),https://www.wshfc.org/,2026-01-03
+2024,statewide_capital,NA,NA,390000,WSHFC Annual Activity Report,https://www.wshfc.org/,2026-01-03
+2025,statewide_capital,NA,NA,406000,WSHFC Annual Activity Report,https://www.wshfc.org/,2026-01-03
+2024,congregate_shelter,NA,NA,16000,Estimated low-end - shared facilities,KCRHA Budget Analysis,2026-01-03
+2024,enhanced_shelter,NA,NA,45000,Mid-range with services,KCRHA Budget Analysis,2026-01-03
+2024,tiny_home,NA,NA,85000,Higher per-bed due to construction + operations,Sound Foundations NW / KCRHA,2026-01-03
+2024,hotel_based,NA,NA,127000,Highest cost - commercial lease rates,King County HTH Reports,2026-01-03
+2024,hth_acquisition,NA,NA,270000,Health Through Housing acquisitions,King County HTH Dashboard,https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing,2026-01-03
+2024,new_construction,NA,NA,450000,New PSH construction average,Seattle Housing Levy Reports,2026-01-03

@@ -277,6 +277,138 @@ get_hth_summary <- function(hth_df) {
   )
 }
 
+# Load crime statistics data
+load_crime_stats <- function(path = "data/crime_stats.csv") {
+  df <- read_csv(path, col_types = cols(
+    year = col_integer(),
+    metric = col_character(),
+    value = col_double(),
+    notes = col_character(),
+    source = col_character(),
+    source_url = col_character(),
+    retrieved_date = col_date()
+  ))
+  return(df)
+}
+
+# Get crime summary
+get_crime_summary <- function(crime_df) {
+  latest_year <- max(crime_df$year[!is.na(crime_df$value) & crime_df$metric == "king_county_homicides"])
+
+  list(
+    kc_homicides_2024 = crime_df %>% filter(year == 2024, metric == "king_county_homicides") %>% pull(value),
+    kc_homicides_2023 = crime_df %>% filter(year == 2023, metric == "king_county_homicides") %>% pull(value),
+    seattle_homicides_2024 = crime_df %>% filter(year == 2024, metric == "seattle_homicides") %>% pull(value),
+    violent_crime_rate = crime_df %>% filter(year == 2024, metric == "seattle_violent_crime_rate") %>% pull(value),
+    homeless_shootings_q3 = crime_df %>% filter(year == 2024, metric == "homeless_shooting_incidents_q3") %>% pull(value),
+    encampment_fires_q3 = crime_df %>% filter(year == 2024, metric == "encampment_fires_q3") %>% pull(value),
+    crime_ytd_change_2025 = crime_df %>% filter(year == 2025, metric == "seattle_crime_ytd_change") %>% pull(value),
+    violent_ytd_change_2025 = crime_df %>% filter(year == 2025, metric == "seattle_violent_crime_ytd_change") %>% pull(value),
+    source_url = crime_df$source_url[crime_df$metric == "king_county_homicides" & crime_df$year == 2024]
+  )
+}
+
+# Load cost per bed data
+load_cost_per_bed <- function(path = "data/cost_per_bed.csv") {
+  df <- read_csv(path, col_types = cols(
+    fiscal_year = col_integer(),
+    shelter_type = col_character(),
+    total_budget = col_double(),
+    bed_count = col_integer(),
+    cost_per_bed = col_integer(),
+    source_documents = col_character(),
+    source_url = col_character(),
+    retrieved_date = col_date()
+  ))
+  return(df)
+}
+
+# Load placements data
+load_placements <- function(path = "data/placements.csv") {
+  df <- read_csv(path, col_types = cols(
+    quarter = col_character(),
+    year = col_integer(),
+    permanent_housing_placements = col_integer(),
+    returns_to_homelessness = col_integer(),
+    source = col_character(),
+    source_url = col_character(),
+    retrieved_date = col_date()
+  ))
+  return(df)
+}
+
+# Load emergency housing baseline data (Harrell claimed vs actual)
+load_emergency_baseline <- function(path = "data/emergency_housing_baseline.csv") {
+  df <- read_csv(path, col_types = cols(
+    date = col_date(),
+    category = col_character(),
+    count = col_integer(),
+    notes = col_character(),
+    source = col_character(),
+    source_url = col_character(),
+    retrieved_date = col_date()
+  ))
+  return(df)
+}
+
+# Get emergency housing baseline summary
+get_baseline_summary <- function(baseline_df) {
+  list(
+    harrell_claimed = baseline_df %>% filter(category == "harrell_dashboard_claim") %>% pull(count),
+    harrell_minus_replacements = baseline_df %>% filter(category == "harrell_minus_replacements") %>% pull(count),
+    harrell_net_new = baseline_df %>% filter(category == "harrell_net_new") %>% pull(count),
+    replaced_units = baseline_df %>% filter(category == "replaced_relocated_units") %>% pull(count),
+    pre_harrell_units = baseline_df %>% filter(category == "pre_harrell_projects") %>% pull(count),
+    wilson_baseline = baseline_df %>% filter(category == "wilson_baseline") %>% pull(count),
+    source_url = baseline_df %>% filter(category == "harrell_dashboard_claim") %>% pull(source_url)
+  )
+}
+
+# Get cost per bed summary
+get_cost_summary <- function(cost_df) {
+  # Get shelter operating costs (use latest year available for shelter types)
+  shelter_types <- c("congregate_shelter", "enhanced_shelter", "tiny_home", "hotel_based")
+  shelter_year <- cost_df %>%
+    filter(shelter_type %in% shelter_types) %>%
+    pull(fiscal_year) %>%
+    max()
+
+  shelter_costs <- cost_df %>%
+    filter(fiscal_year == shelter_year,
+           shelter_type %in% shelter_types)
+
+  # Get capital costs (use latest year available for capital types)
+  capital_types <- c("hth_acquisition", "new_construction")
+  capital_year <- cost_df %>%
+    filter(shelter_type %in% capital_types) %>%
+    pull(fiscal_year) %>%
+    max()
+
+  capital_costs <- cost_df %>%
+    filter(fiscal_year == capital_year,
+           shelter_type %in% capital_types)
+
+  # Get statewide capital trend
+  capital_trend <- cost_df %>%
+    filter(shelter_type == "statewide_capital") %>%
+    arrange(fiscal_year)
+
+  list(
+    year = shelter_year,
+    shelter_low = min(shelter_costs$cost_per_bed, na.rm = TRUE),
+    shelter_high = max(shelter_costs$cost_per_bed, na.rm = TRUE),
+    shelter_avg = mean(shelter_costs$cost_per_bed, na.rm = TRUE),
+    capital_low = min(capital_costs$cost_per_bed, na.rm = TRUE),
+    capital_high = max(capital_costs$cost_per_bed, na.rm = TRUE),
+    capital_avg = mean(capital_costs$cost_per_bed, na.rm = TRUE),
+    capital_2019 = capital_trend$cost_per_bed[capital_trend$fiscal_year == 2019],
+    capital_2025 = capital_trend$cost_per_bed[capital_trend$fiscal_year == 2025],
+    capital_pct_change = round((capital_trend$cost_per_bed[capital_trend$fiscal_year == 2025] -
+                                 capital_trend$cost_per_bed[capital_trend$fiscal_year == 2019]) /
+                                capital_trend$cost_per_bed[capital_trend$fiscal_year == 2019] * 100, 1)
+  )
+}
+
 # Load all data
 load_all_data <- function() {
   list(
@@ -287,7 +419,11 @@ load_all_data <- function() {
     hic = load_hic_inventory(),
     thv = load_tiny_home_villages(),
     vouchers = load_housing_vouchers(),
-    hth = load_health_through_housing()
+    hth = load_health_through_housing(),
+    costs = load_cost_per_bed(),
+    placements = load_placements(),
+    crime = load_crime_stats(),
+    baseline = load_emergency_baseline()
   )
 }
 
@@ -301,7 +437,11 @@ get_last_update <- function(data_list) {
     max(data_list$hic$retrieved_date, na.rm = TRUE),
     max(data_list$thv$retrieved_date, na.rm = TRUE),
     max(data_list$vouchers$retrieved_date, na.rm = TRUE),
-    max(data_list$hth$retrieved_date, na.rm = TRUE)
+    max(data_list$hth$retrieved_date, na.rm = TRUE),
+    max(data_list$costs$retrieved_date, na.rm = TRUE),
+    max(data_list$placements$retrieved_date, na.rm = TRUE),
+    max(data_list$crime$retrieved_date, na.rm = TRUE),
+    max(data_list$baseline$retrieved_date, na.rm = TRUE)
   )
   max(dates)
 }
