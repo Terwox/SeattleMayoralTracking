@@ -419,7 +419,7 @@ chart_thv_outcomes <- function(thv_df) {
     )
 }
 
-# Chart 6: Locked Tiny Homes Over Time
+# Chart 6: Tiny Homes in Storage Over Time
 chart_locked_units <- function(housing_df) {
   locked_data <- housing_df %>%
     filter(status == "locked_in_storage") %>%
@@ -458,7 +458,7 @@ chart_locked_units <- function(housing_df) {
     ) +
     labs(
       x = NULL,
-      y = "Units Locked",
+      y = "Units in Storage",
       title = "Tiny Homes in Storage"
     ) +
     theme_dashboard() +

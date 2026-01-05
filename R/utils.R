@@ -90,24 +90,24 @@ methodology_content <- function(index_name) {
       ")
     ),
     "housing" = list(
-      title = "Emergency Housing Units",
+      title = "Tiny Homes in Storage",
       methodology = HTML("
         <p><strong>Data Source:</strong> <a href='https://www.seattletimes.com/seattle-news/homeless/250-tiny-houses-sit-locked-in-storage-as-homeless-crisis-rages/' target='_blank'>Seattle Times: Danny Westneat (Oct 2024)</a></p>
-        <p><strong>What it measures:</strong> Tiny homes built but sitting unused in storage.</p>
+        <p><strong>What it measures:</strong> Tiny homes built and awaiting placement in villages.</p>
         <p><strong>Context:</strong></p>
         <ul>
-          <li>As of October 2024, 250+ tiny homes were locked in 3 SODO storage lots</li>
+          <li>As of October 2024, 250+ tiny homes were stored in 3 SODO lots awaiting sites</li>
           <li>Homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a>, largely with private donations</li>
           <li>KCRHA cited 'difficulty finding suitable sites' as the primary obstacle</li>
           <li>This number grew from 71 in 2022 to 250+ in 2024</li>
         </ul>
-        <p><strong>Why this matters:</strong> These are ready-to-deploy units that could immediately house people but remain unused due to bureaucratic and political barriers.</p>
+        <p><strong>Why this matters:</strong> These are ready-to-deploy units awaiting site approval and permitting before they can house people.</p>
         <p><strong>Verified Sources:</strong></p>
         <ul>
           <li><a href='https://www.seattletimes.com/seattle-news/homeless/250-tiny-houses-sit-locked-in-storage-as-homeless-crisis-rages/' target='_blank'>Seattle Times: 250 tiny houses sit locked in storage</a></li>
           <li><a href='https://www.king5.com/article/news/local/homeless/tiny-homes-sitting-storage-seattle/281-abcd1234' target='_blank'>KING 5: Tiny homes investigation</a></li>
         </ul>
-        <p><strong>Data Gap:</strong> No official city dashboard tracks locked/unused housing inventory. This figure comes from journalism.</p>
+        <p><strong>Data Gap:</strong> No official city dashboard tracks stored housing inventory. This figure comes from journalism.</p>
       ")
     ),
     "hic" = list(

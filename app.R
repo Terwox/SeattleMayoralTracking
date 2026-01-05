@@ -540,10 +540,10 @@ ui <- page_fluid(
         class = "gimme-content",
         div(class = "gimme-number", format_number(housing_summary$locked)),
         div(class = "gimme-label", "TINY HOMES IN STORAGE"),
-        div(class = "gimme-sublabel", "Built by volunteers. Ready to deploy. Waiting."),
+        div(class = "gimme-sublabel", "Built by volunteers. Ready to deploy."),
         div(
           class = "gimme-status status-waiting",
-          HTML("&#9888; LOCKED")
+          HTML("&#9888; AWAITING SITES")
         ),
         div(
           class = "gimme-timeline",
@@ -551,7 +551,7 @@ ui <- page_fluid(
         ),
         div(
           class = "gimme-callout",
-          "Zero capital cost. Bureaucratic unlock only. The 'are you serious?' test."
+          "Zero capital cost required. Awaiting site approval."
         )
       )
     )
@@ -609,7 +609,7 @@ ui <- page_fluid(
       div(
         class = "efficiency-content",
         p(style = "font-size: 0.85rem; color: #78350f; text-align: center; margin-bottom: 1rem;",
-          "Can Wilson do more with less? Or just shovel more cash?"),
+          "What does it cost to house one person?"),
         div(
           class = "efficiency-grid",
           div(
@@ -806,7 +806,7 @@ ui <- page_fluid(
           class = "context-card",
           div(
             class = "context-card-header",
-            span(class = "context-card-title", "LOCKED TINY HOMES OVER TIME"),
+            span(class = "context-card-title", "TINY HOMES IN STORAGE OVER TIME"),
             actionButton("info_housing", "?", class = "info-btn",
                         style = "padding: 0 0.4rem; font-size: 0.7rem;")
           ),
@@ -912,11 +912,11 @@ server <- function(input, output, session) {
   observeEvent(input$info_gimme, {
     content <- methodology_content("housing")
     showModal(modalDialog(
-      title = "The Gimme: Locked Tiny Homes",
+      title = "The Gimme: Tiny Homes in Storage",
       HTML("
-        <p><strong>What it is:</strong> 250+ tiny homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a> volunteers, sitting locked in SODO storage lots.</p>
-        <p><strong>Why it matters:</strong> These are ready-to-deploy units with zero capital cost. The only barrier is bureaucratic approval for sites.</p>
-        <p><strong>The test:</strong> If Wilson can't unlock these in Q1 2026, it signals whether her 4,000 target is serious.</p>
+        <p><strong>What it is:</strong> 250+ tiny homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a> volunteers, currently in SODO storage awaiting placement.</p>
+        <p><strong>Why it matters:</strong> These are ready-to-deploy units with zero capital cost. Deployment requires site approval and permitting.</p>
+        <p><strong>Context:</strong> Sound Foundations has indicated these units are earmarked for planned villages. Tracking deployment progress helps measure system capacity.</p>
         <p><strong>Verified Sources:</strong></p>
         <ul>
           <li><a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times: The saga of Seattle's empty tiny homes (Oct 2024)</a></li>
