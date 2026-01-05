@@ -1,6 +1,6 @@
 # Wilson's Homelessness Scorecard
-# Tracking the 4,000-unit promise with verified public data
-# VERIFIED DATA ONLY - All sources traceable
+# Tracking the 4,000-unit promise with sourced public data
+# SOURCED DATA ONLY - All sources traceable
 
 # Install pacman if not available, then use it for all other packages
 if (!require("pacman", quietly = TRUE)) install.packages("pacman")
@@ -220,7 +220,7 @@ ui <- page_fluid(
         text-align: center;
       }
 
-      /* Beat 3: The Gimme */
+      /* Beat 3: Ready to Deploy */
       .gimme-card {
         background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
         border: 2px solid #d97706;
@@ -432,7 +432,7 @@ ui <- page_fluid(
   div(
     class = "dashboard-header",
     h1("WILSON'S HOMELESSNESS SCORECARD", class = "header-title"),
-    p("Tracking the 4,000-unit promise with verified public data", class = "header-subtitle")
+    p("Tracking the 4,000-unit promise with sourced public data", class = "header-subtitle")
   ),
 
   # ============================================
@@ -522,13 +522,13 @@ ui <- page_fluid(
       )
     ),
 
-    # Beat 3: The Gimme
+    # Beat 3: Ready to Deploy
     div(
       class = "beat-card gimme-card",
       div(
         class = "beat-header",
         div(
-          div(class = "beat-title", "THE GIMME")
+          div(class = "beat-title", "READY TO DEPLOY")
         ),
         actionButton("info_gimme", "?", class = "info-btn")
       ),
@@ -536,7 +536,7 @@ ui <- page_fluid(
         class = "gimme-content",
         div(class = "gimme-number", format_number(housing_summary$locked)),
         div(class = "gimme-label", "TINY HOMES IN STORAGE"),
-        div(class = "gimme-sublabel", "Built by volunteers. Ready to deploy."),
+        div(class = "gimme-sublabel", "Built by volunteers. Ready to deploy. (as of Oct 2024)"),
         div(
           class = "gimme-status status-waiting",
           HTML("&#9888; AWAITING SITES")
@@ -574,7 +574,7 @@ ui <- page_fluid(
         class = "outcome-content",
         div(
           class = "outcome-quote",
-          "\"How many people are sleeping unsheltered on the streets of Seattle in four years\" — Wilson's stated success metric"
+          HTML("\"<a href='https://www.knkx.org/politics/2025-10-22/seattle-mayor-election-bruce-harrell-katie-wilson-homeless' target='_blank' style='color: inherit;'>How many people are sleeping unsheltered on the streets of Seattle in four years</a>\" — Wilson's stated success metric")
         ),
         div(
           class = "outcome-metric",
@@ -836,8 +836,7 @@ ui <- page_fluid(
   # ============================================
   div(
     class = "dashboard-footer",
-    span(paste("DATA VERIFIED:", format(last_update, "%B %d, %Y"))),
-    span(" | "),
+    span(paste0("DATA SOURCED: ", format(last_update, "%B %d, %Y"), "; ")),
     span("All data points link to original sources")
   )
 )
@@ -928,7 +927,7 @@ server <- function(input, output, session) {
   observeEvent(input$info_gimme, {
     content <- methodology_content("housing")
     showModal(modalDialog(
-      title = "The Gimme: Tiny Homes in Storage",
+      title = "Ready to Deploy: Tiny Homes in Storage",
       HTML("
         <p><strong>What it is:</strong> 250+ tiny homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a> volunteers, currently in SODO storage awaiting placement.</p>
         <p><strong>Why it matters:</strong> These are ready-to-deploy units with zero capital cost. Deployment requires site approval and permitting.</p>

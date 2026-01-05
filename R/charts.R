@@ -395,15 +395,16 @@ chart_hic_inventory <- function(hic_df) {
       values_to = "beds"
     ) %>%
     mutate(
+      # Use clean labels for the fill aesthetic so legend displays nicely
       funding_label = ifelse(funding_source == "kcrha_funded", "KCRHA-Funded", "Other Sources"),
       hover_text = paste0(program_clean, "\n", funding_label, ": ", format(beds, big.mark = ","))
     )
 
-  p <- ggplot(plot_data, aes(x = program_label, y = beds, fill = funding_source, text = hover_text)) +
+  # Use funding_label (clean names) as fill aesthetic for proper legend display
+  p <- ggplot(plot_data, aes(x = program_label, y = beds, fill = funding_label, text = hover_text)) +
     geom_col(position = "stack", width = 0.6) +
     scale_fill_manual(
-      values = c("kcrha_funded" = "#319795", "other_funded" = "#e2e8f0"),
-      labels = c("kcrha_funded" = "KCRHA", "other_funded" = "Other")
+      values = c("KCRHA-Funded" = "#319795", "Other Sources" = "#e2e8f0")
     ) +
     scale_y_continuous(
       labels = comma,
