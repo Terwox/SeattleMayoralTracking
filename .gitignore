@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# Windows artifacts
+nul
