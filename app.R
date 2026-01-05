@@ -490,8 +490,7 @@ ui <- page_fluid(
         class = "beat-header",
         div(
           div(class = "beat-label", "BEAT 2"),
-          div(class = "beat-title", "THE BASELINE"),
-          div(style = "font-size: 0.7rem; color: #b83232; font-style: italic;", "Fact-checked")
+          div(class = "beat-title", "THE BASELINE")
         ),
         actionButton("info_baseline", "?", class = "info-btn")
       ),
