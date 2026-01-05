@@ -91,13 +91,7 @@ chart_pit_counts <- function(pit_df) {
         "Total: ", format(total_homeless, big.mark = ","), "\n",
         "Unsheltered: ", format(unsheltered, big.mark = ",")
       ),
-      total_label = format(total_homeless, big.mark = ","),
-      # Only show labels for key years: 2019 (baseline) and 2024 (current)
-      unsheltered_label = ifelse(
-        Year %in% c("2019", "2024") & !is.na(unsheltered),
-        format(unsheltered, big.mark = ","),
-        ""
-      )
+      total_label = format(total_homeless, big.mark = ",")
     )
 
   date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
@@ -117,14 +111,6 @@ chart_pit_counts <- function(pit_df) {
       fill = colors$negative,
       width = 100
     ) +
-    # Label for unsheltered - only key years (2019 baseline, 2024 current)
-    geom_text(
-      data = plot_data %>% filter(Year %in% c("2019", "2024"), !is.na(unsheltered)),
-      aes(y = unsheltered + y_max * 0.04, label = format(unsheltered, big.mark = ",")),
-      size = 5,
-      fontface = "bold",
-      color = colors$negative
-    ) +
     scale_y_continuous(
       labels = comma,
       limits = c(0, y_max),
@@ -141,9 +127,23 @@ chart_pit_counts <- function(pit_df) {
     ) +
     theme_dashboard()
 
-  # No extra unsheltered annotations - handled by geom_text above
-  unsheltered_annotations <- list()
-  unsheltered_shapes <- list()
+  # Build unsheltered annotations with white background for key years
+  key_years_data <- plot_data %>% filter(Year %in% c("2019", "2024"), !is.na(unsheltered))
+  unsheltered_annotations <- lapply(1:nrow(key_years_data), function(i) {
+    list(
+      x = key_years_data$date[i],
+      y = key_years_data$unsheltered[i] + y_max * 0.06,
+      text = paste0("<b>", format(key_years_data$unsheltered[i], big.mark = ","), "</b>"),
+      showarrow = FALSE,
+      font = list(size = 16, color = colors$negative, family = "Inter"),
+      bgcolor = "rgba(255,255,255,0.9)",
+      bordercolor = colors$negative,
+      borderwidth = 1,
+      borderpad = 3,
+      xanchor = "center",
+      yanchor = "bottom"
+    )
+  })
 
   # Build mayor shapes and annotations inline
   mayor_shapes <- list()
@@ -172,17 +172,13 @@ chart_pit_counts <- function(pit_df) {
     }
   }
 
-  # Combine all shapes and annotations
-  all_shapes <- c(unsheltered_shapes, mayor_shapes)
+  # Combine all annotations
   all_annotations <- c(unsheltered_annotations, mayor_annotations)
 
   ggplotly(p, tooltip = "text") %>%
-    style(hoverinfo = "skip", traces = 3) %>%
-    # Force text size directly in plotly (ggplot2 size doesn't translate)
-    style(textfont = list(size = 14, color = colors$negative, weight = "bold"), traces = 3) %>%
     layout(
       hovermode = "x unified",
-      shapes = all_shapes,
+      shapes = mayor_shapes,
       annotations = all_annotations
     )
 }
