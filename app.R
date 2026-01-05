@@ -816,30 +816,6 @@ ui <- page_fluid(
         )
       ),
 
-      # Row 5: Statewide Housing Costs (Context)
-      div(
-        class = "context-card",
-        div(
-          class = "context-card-header",
-          span(class = "context-card-title", "STATEWIDE HOUSING COSTS (CONTEXT)"),
-          actionButton("info_statewide_costs", "?", class = "info-btn",
-                      style = "padding: 0 0.4rem; font-size: 0.7rem;")
-        ),
-        div(style = "padding: 0.75rem;",
-          p(style = "font-size: 0.8rem; color: #718096; margin-bottom: 0.5rem;",
-            "For comparison: ALL affordable housing statewide (not homeless-specific). Source: WSHFC."),
-          plotlyOutput("chart_capital_trend", height = "200px"),
-          div(class = "metric-summary",
-            span(style = "font-weight: 700;", paste0("$", format_number(cost_summary$capital_2019/1000), "K")),
-            span(style = "color: #718096;", " (2019) → "),
-            span(style = "font-weight: 700; color: #e53e3e;", paste0("$", format_number(cost_summary$capital_2025/1000), "K")),
-            span(style = "color: #718096;", " (2025)"),
-            br(),
-            span(style = "font-size: 0.8rem; color: #e53e3e; font-weight: 600;",
-                 paste0("+", cost_summary$capital_pct_change, "% increase in 6 years"))
-          )
-        )
-      )
     )
   ),
 
@@ -890,10 +866,6 @@ server <- function(input, output, session) {
 
   output$chart_shelter_costs <- renderPlotly({
     chart_shelter_costs(data$costs)
-  })
-
-  output$chart_capital_trend <- renderPlotly({
-    chart_capital_trend(data$costs)
   })
 
   output$chart_homeless_capital <- renderPlotly({
@@ -1046,23 +1018,6 @@ server <- function(input, output, session) {
     ))
   })
 
-  observeEvent(input$info_statewide_costs, {
-    showModal(modalDialog(
-      title = "Statewide Housing Costs (Context)",
-      HTML("
-        <p><strong>What this shows:</strong> Capital costs per unit for ALL affordable housing projects in Washington State, not just homeless-specific housing.</p>
-        <p><strong>Why it's here:</strong> Provides broader market context for housing costs. These are not the costs of homeless housing specifically.</p>
-        <p><strong>Homeless-specific costs (Beat 5):</strong></p>
-        <ul>
-          <li>HTH Acquisition: ~$270K/unit - King County Health Through Housing program</li>
-          <li>New PSH Construction: ~$450K/unit - New permanent supportive housing</li>
-        </ul>
-        <p><strong>Source:</strong> Washington State Housing Finance Commission (WSHFC) Annual Reports</p>
-      "),
-      easyClose = TRUE,
-      footer = modalButton("Close")
-    ))
-  })
 }
 
 # Run the app
