@@ -443,7 +443,6 @@ ui <- page_fluid(
     div(
       class = "beat-header",
       div(
-        div(class = "beat-label", "Beat 1"),
         div(class = "beat-title", "THE PROMISE")
       ),
       actionButton("info_promise", "?", class = "info-btn")
@@ -489,7 +488,6 @@ ui <- page_fluid(
       div(
         class = "beat-header",
         div(
-          div(class = "beat-label", "BEAT 2"),
           div(class = "beat-title", "THE BASELINE")
         ),
         actionButton("info_baseline", "?", class = "info-btn")
@@ -530,7 +528,6 @@ ui <- page_fluid(
       div(
         class = "beat-header",
         div(
-          div(class = "beat-label", "Beat 3"),
           div(class = "beat-title", "THE GIMME")
         ),
         actionButton("info_gimme", "?", class = "info-btn")
@@ -569,7 +566,6 @@ ui <- page_fluid(
       div(
         class = "beat-header",
         div(
-          div(class = "beat-label", "Beat 4"),
           div(class = "beat-title", "THE OUTCOME")
         ),
         actionButton("info_outcome", "?", class = "info-btn")
@@ -600,7 +596,6 @@ ui <- page_fluid(
       div(
         class = "beat-header",
         div(
-          div(class = "beat-label", "Beat 5"),
           div(class = "beat-title", "THE EFFICIENCY TEST")
         ),
         actionButton("info_efficiency", "?", class = "info-btn")
