@@ -95,7 +95,15 @@ chart_pit_counts <- function(pit_df) {
     )
 
   date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
-  y_max <- max(plot_data$total_homeless, na.rm = TRUE) * 1.15
+  y_max <- max(plot_data$total_homeless, na.rm = TRUE) * 1.25  # More headroom for labels
+
+  # Key years for labels (2019 baseline, 2024 current)
+  key_years_data <- plot_data %>%
+    filter(Year %in% c("2019", "2024"), !is.na(unsheltered)) %>%
+    mutate(
+      label_y = total_homeless + y_max * 0.05,  # Position above the total bar
+      label_text = format(unsheltered, big.mark = ",")
+    )
 
   p <- ggplot(plot_data, aes(x = date, text = hover_text)) +
     # Total homeless bars (background)
@@ -110,6 +118,15 @@ chart_pit_counts <- function(pit_df) {
       aes(y = unsheltered),
       fill = colors$negative,
       width = 100
+    ) +
+    # Unsheltered count labels - positioned above the bars in white space
+    geom_text(
+      data = key_years_data,
+      aes(x = date, y = label_y, label = label_text),
+      color = colors$negative,
+      size = 5,
+      fontface = "bold",
+      inherit.aes = FALSE
     ) +
     scale_y_continuous(
       labels = comma,
@@ -127,27 +144,10 @@ chart_pit_counts <- function(pit_df) {
     ) +
     theme_dashboard()
 
-  # Build unsheltered annotations with white background for key years
-  key_years_data <- plot_data %>% filter(Year %in% c("2019", "2024"), !is.na(unsheltered))
-  unsheltered_annotations <- lapply(1:nrow(key_years_data), function(i) {
-    list(
-      x = key_years_data$date[i],
-      y = key_years_data$unsheltered[i] + y_max * 0.06,
-      text = paste0("<b>", format(key_years_data$unsheltered[i], big.mark = ","), "</b>"),
-      showarrow = FALSE,
-      font = list(size = 16, color = colors$negative, family = "Inter"),
-      bgcolor = "rgba(255,255,255,0.9)",
-      bordercolor = colors$negative,
-      borderwidth = 1,
-      borderpad = 3,
-      xanchor = "center",
-      yanchor = "bottom"
-    )
-  })
-
-  # Build mayor shapes and annotations inline
+  # Build mayor shapes and annotations
   mayor_shapes <- list()
   mayor_annotations <- list()
+
   for (mayor in names(MAYORAL_TRANSITIONS)) {
     m <- MAYORAL_TRANSITIONS[[mayor]]
     if (m$date >= date_range[1] && m$date <= date_range[2]) {
@@ -172,14 +172,11 @@ chart_pit_counts <- function(pit_df) {
     }
   }
 
-  # Combine all annotations
-  all_annotations <- c(unsheltered_annotations, mayor_annotations)
-
   ggplotly(p, tooltip = "text") %>%
     layout(
       hovermode = "x unified",
       shapes = mayor_shapes,
-      annotations = all_annotations
+      annotations = mayor_annotations
     )
 }
 
