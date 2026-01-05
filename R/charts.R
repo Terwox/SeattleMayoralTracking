@@ -80,9 +80,97 @@ theme_dashboard <- function() {
     )
 }
 
-# Chart 1: PIT Counts Over Time (Total and Unsheltered)
+# Chart 1a: Unsheltered Only (for THE OUTCOME card)
 chart_pit_counts <- function(pit_df) {
-  # Prepare data with clean tooltips
+  # Prepare data - unsheltered only
+  plot_data <- pit_df %>%
+    filter(!is.na(unsheltered)) %>%
+    mutate(
+      Year = format(date, "%Y"),
+      hover_text = paste0(Year, ": ", format(unsheltered, big.mark = ","), " unsheltered")
+    )
+
+  date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
+  y_max <- max(plot_data$unsheltered, na.rm = TRUE) * 1.25
+
+  # Key years for labels (2019 baseline, 2024 current)
+  key_years_data <- plot_data %>%
+    filter(Year %in% c("2019", "2024")) %>%
+    mutate(
+      label_y = unsheltered + y_max * 0.05,
+      label_text = format(unsheltered, big.mark = ",")
+    )
+
+  p <- ggplot(plot_data, aes(x = date, text = hover_text)) +
+    # Unsheltered bars only
+    geom_col(
+      aes(y = unsheltered),
+      fill = colors$negative,
+      width = 100
+    ) +
+    # Labels above bars
+    geom_text(
+      data = key_years_data,
+      aes(x = date, y = label_y, label = label_text),
+      color = colors$negative,
+      size = 5,
+      fontface = "bold",
+      inherit.aes = FALSE
+    ) +
+    scale_y_continuous(
+      labels = comma,
+      limits = c(0, y_max),
+      expand = expansion(mult = c(0, 0.02))
+    ) +
+    scale_x_date(
+      date_breaks = "1 year",
+      date_labels = "%Y",
+      limits = date_range
+    ) +
+    labs(
+      x = NULL,
+      y = "People"
+    ) +
+    theme_dashboard()
+
+  # Build mayor shapes and annotations
+  mayor_shapes <- list()
+  mayor_annotations <- list()
+
+  for (mayor in names(MAYORAL_TRANSITIONS)) {
+    m <- MAYORAL_TRANSITIONS[[mayor]]
+    if (m$date >= date_range[1] && m$date <= date_range[2]) {
+      mayor_shapes <- append(mayor_shapes, list(
+        list(
+          type = "line",
+          x0 = m$date, x1 = m$date,
+          y0 = 0, y1 = 1,
+          xref = "x", yref = "paper",
+          line = list(color = colors$mayor_line, width = 1.5, dash = "dash")
+        )
+      ))
+      mayor_annotations <- append(mayor_annotations, list(
+        list(
+          x = m$date, xref = "x",
+          y = 1.02, yref = "paper", yanchor = "bottom",
+          text = m$label,
+          showarrow = FALSE,
+          font = list(size = 11, color = colors$mayor_line, family = "Inter")
+        )
+      ))
+    }
+  }
+
+  ggplotly(p, tooltip = "text") %>%
+    layout(
+      hovermode = "x unified",
+      shapes = mayor_shapes,
+      annotations = mayor_annotations
+    )
+}
+
+# Chart 1b: Full PIT Counts (Total and Unsheltered) for Evidence section
+chart_pit_full <- function(pit_df) {
   plot_data <- pit_df %>%
     mutate(
       Year = format(date, "%Y"),
@@ -90,20 +178,11 @@ chart_pit_counts <- function(pit_df) {
         Year, "\n",
         "Total: ", format(total_homeless, big.mark = ","), "\n",
         "Unsheltered: ", format(unsheltered, big.mark = ",")
-      ),
-      total_label = format(total_homeless, big.mark = ",")
+      )
     )
 
   date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
-  y_max <- max(plot_data$total_homeless, na.rm = TRUE) * 1.25  # More headroom for labels
-
-  # Key years for labels (2019 baseline, 2024 current)
-  key_years_data <- plot_data %>%
-    filter(Year %in% c("2019", "2024"), !is.na(unsheltered)) %>%
-    mutate(
-      label_y = total_homeless + y_max * 0.05,  # Position above the total bar
-      label_text = format(unsheltered, big.mark = ",")
-    )
+  y_max <- max(plot_data$total_homeless, na.rm = TRUE) * 1.15
 
   p <- ggplot(plot_data, aes(x = date, text = hover_text)) +
     # Total homeless bars (background)
@@ -118,15 +197,6 @@ chart_pit_counts <- function(pit_df) {
       aes(y = unsheltered),
       fill = colors$negative,
       width = 100
-    ) +
-    # Unsheltered count labels - positioned above the bars in white space
-    geom_text(
-      data = key_years_data,
-      aes(x = date, y = label_y, label = label_text),
-      color = colors$negative,
-      size = 5,
-      fontface = "bold",
-      inherit.aes = FALSE
     ) +
     scale_y_continuous(
       labels = comma,

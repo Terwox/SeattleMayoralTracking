@@ -653,14 +653,14 @@ ui <- page_fluid(
   ),
 
   # ============================================
-  # THE EVIDENCE (Collapsible supporting data)
+  # MORE CONTEXT (Collapsible supporting data)
   # ============================================
   div(
     class = "context-section",
     div(
       class = "context-header",
       onclick = "Shiny.setInputValue('toggle_context', Math.random())",
-      span(class = "context-title", "THE EVIDENCE"),
+      span(class = "context-title", "MORE CONTEXT"),
       span(class = "context-toggle", id = "context_arrow", HTML("&#9660;"))
     ),
     conditionalPanel(
@@ -725,6 +725,24 @@ ui <- page_fluid(
         ),
         div(style = "padding: 0.75rem;",
           plotlyOutput("chart_spending", height = "180px")
+        )
+      ),
+
+      # Row 2b: Full PIT Data (Total + Unsheltered)
+      div(
+        class = "context-card",
+        div(
+          class = "context-card-header",
+          span(class = "context-card-title", "KING COUNTY PIT COUNTS (Total + Unsheltered)"),
+          actionButton("info_pit_full", "?", class = "info-btn",
+                      style = "padding: 0 0.4rem; font-size: 0.7rem;")
+        ),
+        div(style = "padding: 0.75rem;",
+          plotlyOutput("chart_pit_full", height = "200px"),
+          div(class = "metric-summary",
+            span(style = "color: #718096; font-size: 0.85rem;",
+                 "Grey = Total homeless (sheltered + unsheltered) | Red = Unsheltered only")
+          )
         )
       ),
 
@@ -840,6 +858,10 @@ server <- function(input, output, session) {
   # Charts
   output$chart_pit <- renderPlotly({
     chart_pit_counts(data$pit)
+  })
+
+  output$chart_pit_full <- renderPlotly({
+    chart_pit_full(data$pit)
   })
 
   output$chart_overdose <- renderPlotly({
