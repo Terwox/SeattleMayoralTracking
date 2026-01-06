@@ -93,6 +93,12 @@ chart_pit_counts <- function(pit_df) {
   date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
   y_max <- max(plot_data$unsheltered, na.rm = TRUE) * 1.25
 
+  # Create all year breaks from first data year through 2026
+  first_year <- min(year(plot_data$date))
+  all_years <- seq(first_year, 2026)
+  # Use Jan 25 as typical PIT count date for axis labels
+  all_year_dates <- as.Date(paste0(all_years, "-01-25"))
+
   # Key years for labels (2019 baseline, 2024 current)
   key_years_data <- plot_data %>%
     filter(Year %in% c("2019", "2024")) %>%
@@ -123,8 +129,8 @@ chart_pit_counts <- function(pit_df) {
       expand = expansion(mult = c(0, 0.02))
     ) +
     scale_x_date(
-      date_breaks = "1 year",
-      date_labels = "%Y",
+      breaks = all_year_dates,
+      labels = all_years,
       limits = date_range
     ) +
     labs(
@@ -184,6 +190,11 @@ chart_pit_full <- function(pit_df) {
   date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
   y_max <- max(plot_data$total_homeless, na.rm = TRUE) * 1.15
 
+  # Create all year breaks from first data year through 2026
+  first_year <- min(year(plot_data$date))
+  all_years <- seq(first_year, 2026)
+  all_year_dates <- as.Date(paste0(all_years, "-01-25"))
+
   p <- ggplot(plot_data, aes(x = date, text = hover_text)) +
     # Total homeless bars (background)
     geom_col(
@@ -204,8 +215,8 @@ chart_pit_full <- function(pit_df) {
       expand = expansion(mult = c(0, 0.02))
     ) +
     scale_x_date(
-      date_breaks = "1 year",
-      date_labels = "%Y",
+      breaks = all_year_dates,
+      labels = all_years,
       limits = date_range
     ) +
     labs(
