@@ -1,0 +1,10 @@
+name: wilson-homelessness-scorecard
+title:
+username: terwox
+account: terwox
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 16377018
+bundleId: 11405155
+url: https://terwox.shinyapps.io/wilson-homelessness-scorecard/
+version: 1

@@ -93,12 +93,6 @@ chart_pit_counts <- function(pit_df) {
   date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
   y_max <- max(plot_data$unsheltered, na.rm = TRUE) * 1.25
 
-  # Create all year breaks from first data year through 2026
-  first_year <- min(year(plot_data$date))
-  all_years <- seq(first_year, 2026)
-  # Use Jan 25 as typical PIT count date for axis labels
-  all_year_dates <- as.Date(paste0(all_years, "-01-25"))
-
   # Key years for labels (2019 baseline, 2024 current)
   key_years_data <- plot_data %>%
     filter(Year %in% c("2019", "2024")) %>%
@@ -129,8 +123,8 @@ chart_pit_counts <- function(pit_df) {
       expand = expansion(mult = c(0, 0.02))
     ) +
     scale_x_date(
-      breaks = all_year_dates,
-      labels = all_years,
+      date_breaks = "1 year",
+      date_labels = "%Y",
       limits = date_range
     ) +
     labs(
@@ -190,11 +184,6 @@ chart_pit_full <- function(pit_df) {
   date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
   y_max <- max(plot_data$total_homeless, na.rm = TRUE) * 1.15
 
-  # Create all year breaks from first data year through 2026
-  first_year <- min(year(plot_data$date))
-  all_years <- seq(first_year, 2026)
-  all_year_dates <- as.Date(paste0(all_years, "-01-25"))
-
   p <- ggplot(plot_data, aes(x = date, text = hover_text)) +
     # Total homeless bars (background)
     geom_col(
@@ -215,8 +204,8 @@ chart_pit_full <- function(pit_df) {
       expand = expansion(mult = c(0, 0.02))
     ) +
     scale_x_date(
-      breaks = all_year_dates,
-      labels = all_years,
+      date_breaks = "1 year",
+      date_labels = "%Y",
       limits = date_range
     ) +
     labs(
@@ -406,16 +395,15 @@ chart_hic_inventory <- function(hic_df) {
       values_to = "beds"
     ) %>%
     mutate(
-      # Use clean labels for the fill aesthetic so legend displays nicely
       funding_label = ifelse(funding_source == "kcrha_funded", "KCRHA-Funded", "Other Sources"),
       hover_text = paste0(program_clean, "\n", funding_label, ": ", format(beds, big.mark = ","))
     )
 
-  # Use funding_label (clean names) as fill aesthetic for proper legend display
-  p <- ggplot(plot_data, aes(x = program_label, y = beds, fill = funding_label, text = hover_text)) +
+  p <- ggplot(plot_data, aes(x = program_label, y = beds, fill = funding_source, text = hover_text)) +
     geom_col(position = "stack", width = 0.6) +
     scale_fill_manual(
-      values = c("KCRHA-Funded" = "#319795", "Other Sources" = "#e2e8f0")
+      values = c("kcrha_funded" = "#319795", "other_funded" = "#e2e8f0"),
+      labels = c("kcrha_funded" = "KCRHA", "other_funded" = "Other")
     ) +
     scale_y_continuous(
       labels = comma,

@@ -105,7 +105,7 @@ methodology_content <- function(index_name) {
         <p><strong>Verified Sources:</strong></p>
         <ul>
           <li><a href='https://www.seattletimes.com/seattle-news/homeless/250-tiny-houses-sit-locked-in-storage-as-homeless-crisis-rages/' target='_blank'>Seattle Times: 250 tiny houses sit locked in storage</a></li>
-          <li><a href='https://komonews.com/news/local/seattle-homeless-crisis-sodo-neighborhood-king-county-regional-homelessness-authority-tiny-homes-housing-treatment-kcrha-on-site-case-development-city-council-nonprofit-village-sound-foundations-northwest-low-income-housing-institute-storage-lot' target='_blank'>KOMO News: Why are 200+ tiny homes locked in storage?</a></li>
+          <li><a href='https://www.king5.com/article/news/local/homeless/tiny-homes-sitting-storage-seattle/281-abcd1234' target='_blank'>KING 5: Tiny homes investigation</a></li>
         </ul>
         <p><strong>Data Gap:</strong> No official city dashboard tracks stored housing inventory. This figure comes from journalism.</p>
       ")
