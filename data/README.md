@@ -84,3 +84,22 @@ Quarterly permanent housing placements.
 - **Monthly:** Overdose deaths (with 2-3 month lag)
 - **Quarterly:** Housing units, placements, KCRHA estimates
 - **Annually:** Spending data, official PIT counts (odd years only)
+
+## Update Log
+
+### 2026-01-09
+
+- **Overdose deaths:** Confirmed 2025 final count (908) with context on decline factors
+- **Housing units:** Updated tiny home storage estimates (~150 remaining after LIHI deployments and Tacoma transfer)
+- **Spending:** Added 2026 budget data including federal funding crisis:
+  - $40M gap from HUD CoC rule changes (30% cap on permanent housing funds)
+  - ~4,500 households at risk
+  - City set aside $21.1M reserve and PAUSED shelter expansion
+  - KCRHA facing $4.7M shortfall with hiring freeze
+- **PIT counts:** Added 2026 count dates (Jan 26 - Feb 6)
+- **Context:** Wilson administration "scoping sites" for new villages but no deployments announced yet
+
+### 2026-01-03/04
+
+- Initial data load for dashboard launch
+- Established Wilson baseline (0 units deployed as of inauguration)
