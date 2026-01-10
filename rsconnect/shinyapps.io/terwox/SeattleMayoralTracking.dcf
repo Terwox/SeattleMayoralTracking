@@ -5,6 +5,6 @@ account: terwox
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 16376595
-bundleId: 11405159
+bundleId: 11424742
 url: https://terwox.shinyapps.io/SeattleMayoralTracking/
 version: 1

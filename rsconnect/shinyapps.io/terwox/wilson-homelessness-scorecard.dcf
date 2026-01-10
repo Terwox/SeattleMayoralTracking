@@ -5,6 +5,6 @@ account: terwox
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 16377018
-bundleId: 11405155
+bundleId: 11424735
 url: https://terwox.shinyapps.io/wilson-homelessness-scorecard/
 version: 1
