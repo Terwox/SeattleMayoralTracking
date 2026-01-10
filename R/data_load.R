@@ -10,9 +10,9 @@ library(lubridate)
 load_pit_counts <- function(path = "data/pit_counts.csv") {
   df <- read_csv(path, col_types = cols(
     date = col_date(),
-    total_homeless = col_integer(),
-    unsheltered = col_integer(),
-    sheltered = col_integer(),
+    total_homeless = col_double(),  # Use double to handle NA values
+    unsheltered = col_double(),
+    sheltered = col_double(),
     source = col_character(),
     source_url = col_character(),
     retrieved_date = col_date()
@@ -51,6 +51,14 @@ load_spending <- function(path = "data/spending.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+
+  # Filter to only the main spending categories for the chart
+  # Other categories (federal_funding_gap, seattle_federal_reserve, households_at_risk)
+  # are context/metadata, not actual spending
+  main_categories <- c("seattle_citywide_homelessness", "seattle_to_kcrha",
+                       "kcrha_total_budget", "seattle_non_kcrha")
+  df <- df %>%
+    filter(category %in% main_categories)
 
   return(df)
 }

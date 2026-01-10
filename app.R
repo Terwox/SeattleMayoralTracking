@@ -1034,6 +1034,16 @@ server <- function(input, output, session) {
     ))
   })
 
+  observeEvent(input$info_pit_full, {
+    content <- methodology_content("pit")
+    showModal(modalDialog(
+      title = content$title,
+      content$methodology,
+      easyClose = TRUE,
+      footer = modalButton("Close")
+    ))
+  })
+
 }
 
 # Run the app

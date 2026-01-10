@@ -286,13 +286,18 @@ chart_overdose <- function(overdose_df) {
 
 # Chart 3: Spending Over Time - Small Multiples by Category (shared Y-axis)
 chart_spending <- function(spending_df) {
-  all_years <- 2018:2025
+  all_years <- 2018:2026
 
   category_labels <- c(
     "seattle_citywide_homelessness" = "Seattle Citywide",
     "seattle_to_kcrha" = "Seattle to KCRHA",
-    "kcrha_total_budget" = "KCRHA Budget"
+    "kcrha_total_budget" = "KCRHA Budget",
+    "seattle_non_kcrha" = "Seattle non-KCRHA"
   )
+
+  # Filter to only categories we have labels for
+  spending_df <- spending_df %>%
+    filter(category %in% names(category_labels))
 
   expanded <- spending_df %>%
     mutate(amount_m = amount / 1e6) %>%
@@ -307,7 +312,8 @@ chart_spending <- function(spending_df) {
                           paste0(year, ": No data"),
                           paste0(year, ": $", round(amount_m), "M")),
       bar_label = ifelse(is.na(amount_m), "", paste0("$", round(amount_m), "M"))
-    )
+    ) %>%
+    filter(!is.na(category_label))  # Remove any rows with unmapped categories
 
   # Shared max for all facets (for proper comparison)
   global_max <- max(expanded$amount_m, na.rm = TRUE) * 1.15
@@ -334,26 +340,28 @@ chart_spending <- function(spending_df) {
       na.rm = TRUE
     ) +
     scale_fill_manual(
-      values = c("KCRHA Budget" = "#d69e2e", "Seattle Citywide" = "#319795", "Seattle to KCRHA" = "#805ad5"),
-      guide = "none"
+      values = c("KCRHA Budget" = "#d69e2e", "Seattle Citywide" = "#319795",
+                 "Seattle to KCRHA" = "#805ad5", "Seattle non-KCRHA" = "#38a169"),
+      guide = "none",
+      drop = TRUE
     ) +
     scale_y_continuous(
       labels = function(x) paste0("$", x, "M"),
       limits = c(0, global_max),
       expand = expansion(mult = c(0, 0.02))
     ) +
-    facet_wrap(~ category_label, ncol = 3) +
+    facet_wrap(~ category_label, ncol = 4) +
     labs(x = NULL, y = NULL) +
     theme_dashboard() +
     theme(
       strip.text = element_text(size = 10, face = "bold", color = colors$primary),
       strip.background = element_rect(fill = "#f7fafc", color = NA),
       panel.spacing = unit(0.8, "lines"),
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 9)
+      axis.text.x = element_text(angle = 45, hjust = 1, size = 8)
     )
 
   ggplotly(p, tooltip = "text") %>%
-    style(hoverinfo = "skip", traces = 4:9) %>%  # Skip X markers and text labels
+    style(hoverinfo = "skip", traces = 5:12) %>%  # Skip X markers and text labels
     layout(hovermode = "x unified")
 }
 
