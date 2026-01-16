@@ -2,7 +2,7 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd R Shiny dashboard for Seattle mayoral accountability\n\nImplement complete dashboard tracking Mayor Wilson''s homelessness\ncommitments with 4 primary indices:\n- Unsheltered population count with PIT data\n- Emergency housing progress toward 4,000 units \\(with locked units callout\\)\n- Homeless overdose deaths with rolling average\n- Cost per person housed\n\nIncludes seed data \\(2015-2025\\), interactive Plotly charts,\nmethodology modals, mobile-responsive layout, and full documentation.\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit:*)"
     ]
   }
 }
