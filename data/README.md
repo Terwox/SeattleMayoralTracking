@@ -87,6 +87,12 @@ Quarterly permanent housing placements.
 
 ## Update Log
 
+### 2026-01-19
+
+- **Wilson executive order:** Added Jan 15 EO to accelerate shelter/housing - interdepartmental team to identify sites, recommendations due March 2026. No specific targets or funding yet.
+- **KCRHA layoffs:** Added 2025 layoff data - 13 employees laid off (22% staff reduction) due to $4.7M budget shortfall
+- **PIT count 2026:** Count scheduled to begin Jan 26 (next week)
+
 ### 2026-01-09
 
 - **Overdose deaths:** Confirmed 2025 final count (908) with context on decline factors
