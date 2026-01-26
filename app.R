@@ -645,7 +645,7 @@ ui <- page_fluid(
         tags$li(tags$strong("Cost per person housed: "),
                 "Requires placement data KCRHA doesn't publish quarterly."),
         tags$li(tags$strong("Current locked unit count: "),
-                "250 figure from Oct 2024. No official tracking exists.")
+                "~150 as of Jan 2026 (down from 250 in Oct 2024). No official tracking exists.")
       ),
       p(style = "font-style: italic; color: #718096; font-size: 0.8rem; margin: 0.5rem 0 0 0;",
         "The absence of verifiable public data is itself an accountability issue.")
@@ -838,7 +838,13 @@ ui <- page_fluid(
     class = "dashboard-footer",
     span(paste("DATA VERIFIED:", format(last_update, "%B %d, %Y"))),
     span(" | "),
-    span("All data points link to original sources")
+    span("All data points link to original sources"),
+    span(" | "),
+    tags$a(
+      href = "https://github.com/Terwox/SeattleMayoralTracking/issues/new?template=data-submission.md",
+      target = "_blank",
+      "Have a source? Report missing data"
+    )
   )
 )
 
@@ -930,13 +936,19 @@ server <- function(input, output, session) {
     showModal(modalDialog(
       title = "The Gimme: Tiny Homes in Storage",
       HTML("
-        <p><strong>What it is:</strong> 250+ tiny homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a> volunteers, currently in SODO storage awaiting placement.</p>
+        <p><strong>What it is:</strong> ~150 tiny homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a> volunteers, currently in SODO storage awaiting placement.</p>
         <p><strong>Why it matters:</strong> These are ready-to-deploy units with zero capital cost. Deployment requires site approval and permitting.</p>
+        <p><strong>Change History:</strong></p>
+        <ul>
+          <li><strong>Oct 2024:</strong> 250+ in storage</li>
+          <li><strong>Jan 2026:</strong> ~150 in storage</li>
+          <li><strong>What changed:</strong> ~100 deployed to new LIHI villages (Harrell, July 2025); 65 sent to Tacoma</li>
+        </ul>
         <p><strong>Context:</strong> Sound Foundations has indicated these units are earmarked for planned villages. Tracking deployment progress helps measure system capacity.</p>
         <p><strong>Verified Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times: The saga of Seattle's empty tiny homes (Oct 2024)</a></li>
-          <li><a href='https://www.kiro7.com/news/local/governor-seattle-mayor-visit-factory-back-tiny-house-villages-efficient-homelessness-solution/R6L2MYFB7RG35H2C5W4KHBQG7Q/' target='_blank'>KIRO 7: Governor, Mayor visit Sound Foundations factory</a></li>
+          <li><a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times: The saga of Seattle's empty tiny homes</a></li>
+          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank'>Mayor Harrell: Tiny home expansion (July 2025)</a></li>
         </ul>
       "),
       easyClose = TRUE,

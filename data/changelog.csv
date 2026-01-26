@@ -1,0 +1,7 @@
+change_date,metric_file,metric_name,old_value,new_value,direction,attribution,source,source_url,notes
+2026-01-09,housing_units.csv,tiny_homes_in_storage,250,150,decrease_good,harrell,Seattle Times,https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/,~100 deployed to LIHI villages; 65 transferred to Tacoma
+2026-01-09,overdose_deaths.csv,annual_deaths_2025,949,908,decrease_good,external,King County Public Health,https://kingcounty.gov/en/dept/dph/health-safety/disease-illness/drug-overdose,Final 2025 count; lowest since 2021
+2026-01-09,spending.csv,federal_funding_gap,NA,40000000,increase_bad,external,PubliCola,https://publicola.com/,HUD CoC rule changes create 30% cap on permanent housing funds
+2026-01-09,spending.csv,households_at_risk,NA,4500,increase_bad,external,PubliCola,https://publicola.com/,Households at risk from federal funding gap
+2026-01-19,spending.csv,kcrha_layoffs,NA,13,increase_bad,external,FOX 13,https://www.fox13seattle.com/,22% staff reduction due to $4.7M shortfall
+2026-01-19,housing_units.csv,wilson_executive_order,NA,0,neutral,wilson,Mayor Wilson Office,https://wilson.seattle.gov/2026/01/15/mayor-wilson-announces-executive-orders-to-accelerate-shelter-and-improve-transit/,EO to accelerate shelter; interdepartmental team to identify sites; recommendations due March 2026

@@ -75,6 +75,13 @@ methodology_content <- function(index_name) {
           <li><a href='https://kcrha.org/about/financials/' target='_blank'>KCRHA Budget Documents</a></li>
         </ul>
         <p><strong>What it measures:</strong> Public spending on homelessness programs.</p>
+        <p><strong>Change History (2026):</strong></p>
+        <ul>
+          <li><strong>Federal funding gap:</strong> $40M shortfall from HUD CoC rule changes (30% cap on permanent housing funds) - ~4,500 households at risk</li>
+          <li><strong>City response:</strong> $21.1M reserve set aside; shelter expansion PAUSED</li>
+          <li><strong>KCRHA layoffs:</strong> 13 employees (22% staff reduction) due to $4.7M shortfall</li>
+          <li><strong>Attribution:</strong> Federal policy change (external); budget response decisions (Wilson administration)</li>
+        </ul>
         <p><strong>Methodology Notes:</strong></p>
         <ul>
           <li>Figures come from budget documents and verified news reporting</li>
@@ -84,7 +91,7 @@ methodology_content <- function(index_name) {
         <p><strong>Verified Sources:</strong></p>
         <ul>
           <li><a href='https://www.seattletimes.com/seattle-news/homeless/homeless-spending-seattle-king-county/' target='_blank'>Seattle Times: Homeless spending analysis</a></li>
-          <li><a href='https://publicola.com/2024/01/17/homelessness-authority-proposes-cuts/' target='_blank'>PubliCola: KCRHA budget coverage</a></li>
+          <li><a href='https://publicola.com/' target='_blank'>PubliCola: KCRHA budget coverage</a></li>
         </ul>
         <p><strong>Data Gap:</strong> Consistent year-over-year spending data is difficult to track due to changing budget categories and agency responsibilities.</p>
       ")
@@ -92,20 +99,26 @@ methodology_content <- function(index_name) {
     "housing" = list(
       title = "Tiny Homes in Storage",
       methodology = HTML("
-        <p><strong>Data Source:</strong> <a href='https://www.seattletimes.com/seattle-news/homeless/250-tiny-houses-sit-locked-in-storage-as-homeless-crisis-rages/' target='_blank'>Seattle Times: Danny Westneat (Oct 2024)</a></p>
+        <p><strong>Data Source:</strong> <a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times: Danny Westneat</a></p>
         <p><strong>What it measures:</strong> Tiny homes built and awaiting placement in villages.</p>
+        <p><strong>Change History:</strong></p>
+        <ul>
+          <li><strong>Current (Jan 2026):</strong> ~150 tiny homes in storage (<a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times</a>)</li>
+          <li><strong>Previously (Oct 2024):</strong> 250+ in storage</li>
+          <li><strong>Change:</strong> ~100 deployed to new LIHI villages (Harrell announcement July 2025); 65 transferred to Tacoma</li>
+          <li><strong>Attribution:</strong> Decrease attributable to Harrell administration actions before Jan 6, 2026</li>
+        </ul>
         <p><strong>Context:</strong></p>
         <ul>
-          <li>As of October 2024, 250+ tiny homes were stored in 3 SODO lots awaiting sites</li>
           <li>Homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a>, largely with private donations</li>
           <li>KCRHA cited 'difficulty finding suitable sites' as the primary obstacle</li>
-          <li>This number grew from 71 in 2022 to 250+ in 2024</li>
+          <li>This number grew from 71 in 2022 to 250+ in 2024, now decreasing</li>
         </ul>
         <p><strong>Why this matters:</strong> These are ready-to-deploy units awaiting site approval and permitting before they can house people.</p>
         <p><strong>Verified Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattletimes.com/seattle-news/homeless/250-tiny-houses-sit-locked-in-storage-as-homeless-crisis-rages/' target='_blank'>Seattle Times: 250 tiny houses sit locked in storage</a></li>
-          <li><a href='https://www.king5.com/article/news/local/homeless/tiny-homes-sitting-storage-seattle/281-abcd1234' target='_blank'>KING 5: Tiny homes investigation</a></li>
+          <li><a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times: The saga of Seattle's empty tiny homes</a></li>
+          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank'>Mayor Harrell: Expansion announcement (July 2025)</a></li>
         </ul>
         <p><strong>Data Gap:</strong> No official city dashboard tracks stored housing inventory. This figure comes from journalism.</p>
       ")

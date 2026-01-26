@@ -2,6 +2,15 @@
 
 This directory contains the seed data for the Seattle Mayoral Accountability Dashboard.
 
+## Change Tracking
+
+Two files track data changes:
+
+- **`changelog.csv`** - Structured change log (machine-readable). Records what changed, old/new values, direction (good/bad), and attribution (Harrell/Wilson/external).
+- **Update Log** (below) - Narrative context for each update session.
+
+See `CLAUDE.md` for the full update workflow.
+
 ## Files
 
 ### pit_counts.csv
