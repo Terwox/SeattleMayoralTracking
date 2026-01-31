@@ -96,6 +96,16 @@ Quarterly permanent housing placements.
 
 ## Update Log
 
+### 2026-01-30
+
+- **Crime stats:** Added 2025 year-end data - Seattle homicides down to ~25 (53% decline from 2024), total crime projected down 23%
+- **Health Through Housing:** Major update with 2025 data release - 1,900 cumulative served, 954 units open, 480 in development, $33K/year operating cost
+- **Housing vouchers:** Added SHA 2025 portfolio (37,495 individuals, 8,114 vouchers, 8,777 units); EHV funding ending 2026; KCHA waitlist still closed
+- **Tiny home villages:** West Seattle combined RV/THV proposal on state land; Raven Village (Ballard) LIHI/Chief Seattle Club; LIHI requesting 6 more villages; 18 total LIHI villages
+- **PIT count:** Updated to UNDERWAY status (started Jan 26); uses respondent-driven sampling with UW
+- **KCRHA budget:** Revised total to $199M (was $205M); budget vote still pending due to board quorum issues
+- **Housing units:** Added West Seattle proposal
+
 ### 2026-01-19
 
 - **Wilson executive order:** Added Jan 15 EO to accelerate shelter/housing - interdepartmental team to identify sites, recommendations due March 2026. No specific targets or funding yet.

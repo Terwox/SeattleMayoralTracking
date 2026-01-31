@@ -16,3 +16,5 @@ year,metric,value,notes,source,source_url,retrieved_date
 2024,gun_nonfatal_shootings_yoy_change,-13,Nonfatal shooting victims down 13%,Seattle Times,https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/,2026-01-04
 2025,seattle_crime_ytd_change,-9.6,Crime down 9.6% vs same period 2024,Axios Seattle,https://www.axios.com/local/seattle/2025/04/28/crime-drops-2025-seattle-king-county,2026-01-04
 2025,seattle_violent_crime_ytd_change,-20,Violent crime down ~20% vs 2024 pace,Axios Seattle,https://www.axios.com/local/seattle/2025/04/28/crime-drops-2025-seattle-king-county,2026-01-04
+2025,seattle_homicides,25,Down from 53 in 2024 (~53% decline); 49% drop through Sep per Major Cities Chiefs,The Center Square,https://www.thecentersquare.com/washington/article_5904a14c-5e91-4c4f-804f-4d5a92208811.html,2026-01-30
+2025,seattle_total_crime_change,-23,Projected 42500 total crimes vs 55120 in 2024; vehicle theft down 32%,Axios Seattle,https://www.axios.com/local/seattle/2025/04/28/crime-drops-2025-seattle-king-county,2026-01-30

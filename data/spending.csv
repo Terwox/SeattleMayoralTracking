@@ -5,7 +5,7 @@ year,category,amount,source,source_url,retrieved_date
 2025,seattle_to_kcrha,104600000,Seattle Human Services Dept,https://www.seattle.gov/human-services/about-us/funding,2026-01-03
 2025,kcrha_total_budget,230000000,KCRHA Financials,https://kcrha.org/about/financials/,2026-01-03
 2026,seattle_to_kcrha,118930000,58% of KCRHA budget,Seattle City Council,https://council.seattle.gov/2025/11/20/seattle-city-council-passes-2026-budget-summary-of-whats-included/,2026-01-09
-2026,kcrha_total_budget,205000000,Down from $206.87M in 2025; $4.7M shortfall prompting hiring freeze,The Center Square,https://www.thecentersquare.com/washington/article_c61a1b08-44e1-47a2-a3ed-344392b6be6f.html,2026-01-09
+2026,kcrha_total_budget,199000000,Revised to $199M (3.8% decrease from 2025); budget vote delayed to Jan due to board turnover/quorum issues; staff cut from 106 to 84,The Center Square,https://www.thecentersquare.com/washington/article_c61a1b08-44e1-47a2-a3ed-344392b6be6f.html,2026-01-30
 2026,seattle_non_kcrha,106070000,Seattle total ($225M) minus Seattle-to-KCRHA ($119M) = non-KCRHA programs,Seattle City Council,https://council.seattle.gov/2025/11/20/seattle-city-council-passes-2026-budget-summary-of-whats-included/,2026-01-09
 2026,federal_funding_gap,40000000,HUD CoC rule changes create $40M gap; 30% cap on permanent housing (was 80%+),PubliCola,https://publicola.com/2025/11/17/federal-funding-changes-could-create-thousands-of-new-homeless-seattle-residents/,2026-01-09
 2026,seattle_federal_reserve,21100000,$11.8M for housing/shelter + $9M for federal cut backfill; shelter expansion PAUSED,Seattle City Council,https://council.seattle.gov/2025/11/20/seattle-city-council-passes-2026-budget-summary-of-whats-included/,2026-01-09

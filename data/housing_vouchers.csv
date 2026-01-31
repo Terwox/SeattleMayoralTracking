@@ -6,3 +6,8 @@ year,agency,voucher_type,count,notes,source,source_url,retrieved_date
 2024,Renton_HA,emergency_housing_voucher,54,EHVs allocated (ends 2026),KCRHA EHV FAQ,https://kcrha.org/emergency-housing-voucher-faq/,2026-01-03
 2024,King_County_Total,emergency_housing_voucher,1314,Total EHVs allocated to King County,KCRHA EHV FAQ,https://kcrha.org/emergency-housing-voucher-faq/,2026-01-03
 2024,SHA,project_based_vouchers,4762,PBVs across 190+ projects,SHA MTW Plan,https://www.seattlehousing.org/sites/default/files/2024-10/SHA_2025_MTW_Plan_Submitted_10.17.2024.pdf,2026-01-03
+2025,SHA,individuals_served,37495,Total individuals served by SHA,SHA Website,https://www.seattlehousing.org/,2026-01-30
+2025,SHA,tenant_based_vouchers,8114,Active tenant-based vouchers,SHA Website,https://www.seattlehousing.org/,2026-01-30
+2025,SHA,sha_managed_units,8777,SHA-owned/managed units,SHA Website,https://www.seattlehousing.org/,2026-01-30
+2026,SHA,ehv_funding_status,0,EHV federal funding ends 2026; SHA maintaining through wind-down,SHA Federal Impacts,https://www.seattlehousing.org/potential-federal-impacts-seattle-housing-authority,2026-01-30
+2026,KCHA,waitlist_status,0,Waitlist closed since 2020 lottery; no reopening announced,KCHA Website,https://www.kcha.org/housing/vouchers/lottery,2026-01-30
