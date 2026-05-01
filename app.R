@@ -29,11 +29,20 @@ last_update <- get_last_update(data)
 
 # Calculate progress toward 4,000
 wilson_target <- 4000
-wilson_current <- 0  # Starting from verified baseline on Jan 6, 2026
+wilson_current <- housing_summary$deployed_wilson  # net new since Jan 6, 2026
 wilson_inherited <- baseline_summary$harrell_net_new  # ~1,300 verified
 wilson_locked_gimme <- housing_summary$locked  # 250+ easy wins
 politics_path_total <- wilson_inherited + wilson_locked_gimme  # ~1,550 "inherited"
 politics_path_needed <- wilson_target - politics_path_total  # ~2,450 new needed
+
+# Annualized pace based on days since Wilson inauguration
+wilson_inauguration <- as.Date("2026-01-06")
+years_in_term <- as.numeric(Sys.Date() - wilson_inauguration) / 365.25
+wilson_current_pace_label <- if (years_in_term > 0 && wilson_current > 0) {
+  paste0(format_number(round(wilson_current / years_in_term)), " units/year")
+} else {
+  "TBD (just started)"
+}
 
 # UI
 ui <- page_fluid(
@@ -470,7 +479,7 @@ ui <- page_fluid(
       div(
         class = "pace-info",
         "Pace needed: ", span(class = "pace-needed", "1,000 units/year"),
-        " | Current pace: ", span(class = "pace-needed", "TBD (just started)")
+        " | Current pace: ", span(class = "pace-needed", wilson_current_pace_label)
       )
     )
   ),
