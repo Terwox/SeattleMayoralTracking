@@ -56,12 +56,12 @@ methodology_content <- function(index_name) {
           <li>Annual totals from official public health reporting</li>
           <li>Includes all drug overdose deaths, not limited to homeless individuals</li>
           <li>Homeless-specific overdose data is not reliably available</li>
-          <li>2025 figure is preliminary (as of Dec 30)</li>
+          <li>2025 figure (908) is the final year-end count: 13.3% drop from 2024 (1,047), 32.2% drop from 2023 peak (1,340)</li>
         </ul>
         <p><strong>Verified Sources:</strong></p>
         <ul>
-          <li><a href='https://kingcounty.gov/en/dept/dph/health-safety/disease-illness/drug-overdose/overdose-data-dashboard' target='_blank'>King County Overdose Data Dashboard</a></li>
-          <li><a href='https://www.seattletimes.com/seattle-news/health/king-county-overdose-deaths-2024/' target='_blank'>Seattle Times: King County overdose deaths coverage</a></li>
+          <li><a href='https://kingcounty.gov/en/dept/dph/health-safety/medical-examiner/reports-dashboards/overdose-deaths-dashboard' target='_blank'>King County Overdose Data Dashboard</a></li>
+          <li><a href='https://dchsblog.com/2026/03/10/update-on-king-countys-response-to-the-opioid-overdose-crisis/' target='_blank'>King County DCHS: March 2026 opioid response update</a></li>
         </ul>
         <p><strong>Data Gap:</strong> Homeless-specific overdose data is not publicly reported in a verifiable way.</p>
       ")
@@ -77,9 +77,12 @@ methodology_content <- function(index_name) {
         <p><strong>What it measures:</strong> Public spending on homelessness programs.</p>
         <p><strong>Change History (2026):</strong></p>
         <ul>
-          <li><strong>Federal funding gap:</strong> $40M shortfall from HUD CoC rule changes (30% cap on permanent housing funds) - ~4,500 households at risk</li>
-          <li><strong>City response:</strong> $21.1M reserve set aside; shelter expansion PAUSED</li>
-          <li><strong>KCRHA layoffs:</strong> 13 employees (22% staff reduction) due to $4.7M shortfall</li>
+          <li><strong>HUD NOFO confirmed:</strong> Max $19M for Seattle region (71% cut from typical $65M) — federal side of the gap firmed up at ~$40M (Apr 2026)</li>
+          <li><strong>King County backfill:</strong> Mosqueda amendment acknowledged gap 'at least $36M'; supplemental reserve proposal requested from Exec by March</li>
+          <li><strong>Federal funding gap:</strong> $40M shortfall from HUD CoC rule changes (30% cap on permanent housing funds) — ~4,500 households at risk</li>
+          <li><strong>City response:</strong> $21.1M reserve set aside; Wilson March legislation reallocates $4.8M ($3.3M revolving loan + $1.5M Downtown Health fund) for shelter expansion</li>
+          <li><strong>KCRHA layoffs:</strong> 13 employees (22% staff reduction) due to $4.7M shortfall; staff cut from 106 to 84</li>
+          <li><strong>KCRHA 2026 budget:</strong> $199M finalized (3.8% decrease from 2025); Seattle is 58% of total at $118.93M</li>
           <li><strong>Attribution:</strong> Federal policy change (external); budget response decisions (Wilson administration)</li>
         </ul>
         <p><strong>Methodology Notes:</strong></p>
@@ -165,6 +168,13 @@ methodology_content <- function(index_name) {
           <li>Only 4% return to homelessness within 6 months</li>
           <li>90% utilization rate (vs 77% system-wide)</li>
         </ul>
+        <p><strong>2026 Developments:</strong></p>
+        <ul>
+          <li><strong>Olympic Hills (Lake City):</strong> Opened Feb 2026 — 45 units, 24/7 staffing, LIHI + PDA partnership. First village opened under Wilson administration.</li>
+          <li><strong>Raven Village (Ballard):</strong> Operational; 22 units, LIHI + Chief Seattle Club; serves Indigenous community.</li>
+          <li><strong>West Seattle:</strong> Combined RV/THV site officially announced Feb 2026 with religious sponsor.</li>
+          <li><strong>Wilson legislation (Mar 4 2026):</strong> Targets 1,000 new shelter units in 2026; raises per-site cap from 100 to 150 (250 per district allowed); references LA model for larger villages; allocates $4.8M.</li>
+        </ul>
         <p><strong>Why This Model Works:</strong></p>
         <ul>
           <li>Private, secure space increases acceptance rates</li>
@@ -173,8 +183,9 @@ methodology_content <- function(index_name) {
         </ul>
         <p><strong>Verified Sources:</strong></p>
         <ul>
-          <li><a href='https://harrell.seattle.gov/2024/07/15/tiny-home-villages-report/' target='_blank'>Mayor Harrell Press Release (July 2024)</a></li>
-          <li><a href='https://kcrha.org/wp-content/uploads/2023/04/KCRHA-Five-Year-Plan.pdf' target='_blank'>KCRHA Five Year Plan (PDF)</a></li>
+          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank'>Mayor Harrell Press Release (July 2025)</a></li>
+          <li><a href='https://wilson.seattle.gov/2026/03/04/neighbor-by-neighbor-mayor-announces-legislation-to-rapidly-expand-shelter-and-calls-on-whole-city-to-be-part-of-the-solution/' target='_blank'>Mayor Wilson: Neighbor by Neighbor (March 2026)</a></li>
+          <li><a href='https://kcrha.org/wp-content/uploads/2023/06/FINAL-KCRHA-Five-Year-Plan-6.1.23.pdf' target='_blank'>KCRHA Five Year Plan (PDF)</a></li>
         </ul>
       ")
     ),
@@ -216,6 +227,19 @@ methodology_content <- function(index_name) {
           <li>1,281 people served (net increase of 370 from 2023)</li>
           <li>1,434 units across 17 locations in 7 cities</li>
           <li>95% housing retention rate</li>
+        </ul>
+        <p><strong>2025 Results (mid-year update):</strong></p>
+        <ul>
+          <li>1,900 cumulative residents served since 2021 launch</li>
+          <li>954 units currently open; 480 units in development</li>
+          <li>$33,000 annual operating cost per unit (vs ~$91,000 for jail)</li>
+        </ul>
+        <p><strong>2026 Milestones:</strong></p>
+        <ul>
+          <li><strong>Major milestone (Feb 2026):</strong> >1,000 formerly homeless KC residents now housed through HTH</li>
+          <li><strong>Booker House (Jan 2026):</strong> Grand opening in South King County — new PSH for people exiting homelessness</li>
+          <li><strong>Sweetgrass Flats:</strong> 84 PSH units leasing up Q1 2026 (Chief Seattle Club operator, Seattle acquisition/rehab)</li>
+          <li><strong>Q4 2026:</strong> 100 additional PSH units anticipated to complete</li>
         </ul>
         <p><strong>Locations:</strong> Auburn, Burien, Federal Way, Kirkland, Redmond, Renton, Seattle</p>
         <p><strong>What Makes It Different:</strong> HTH specifically serves people experiencing chronic homelessness with high acuity needs, combining housing with wraparound services.</p>
@@ -280,14 +304,20 @@ methodology_content <- function(index_name) {
           <li>15 shooting incidents connected to homelessness in Q3 2024 (down 31% YoY)</li>
           <li>202 encampment fires in Q3 2024 (down 37% YoY)</li>
         </ul>
-        <p><strong>2025 Trends:</strong></p>
+        <p><strong>2025 Final (SPD Year in Review, Feb 2026):</strong></p>
         <ul>
-          <li>Crime down 9.6% citywide vs same period 2024</li>
-          <li>Violent crime down ~20% vs 2024 pace</li>
-          <li>Seattle was only major US city with zero homicides early in 2025</li>
+          <li><strong>Homicides: 37</strong> (down 36% from 58 in 2024) — lowest since pre-pandemic</li>
+          <li>Homicide clearance rate: 86% (up from 57% in 2024; well above 61% national average)</li>
+          <li>Overall crime down 18% YoY (revised from April 2025 projection of -23%)</li>
+          <li>People struck by gunfire: -36%</li>
+          <li>Stolen vehicles: -24% (1,821 fewer victims)</li>
+          <li>Burglaries: -18% (1,571 fewer victims)</li>
+          <li>Aggravated assaults: -8% (320 fewer victims)</li>
+          <li>Firearm recoveries: 1,500 (+74% from 2024)</li>
         </ul>
         <p><strong>Verified Sources:</strong></p>
         <ul>
+          <li><a href='https://spdblotter.seattle.gov/2026/02/02/2025-spd-year-in-review/' target='_blank'>SPD 2025 Year in Review (Feb 2026)</a></li>
           <li><a href='https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/' target='_blank'>Seattle Times: King County homicides 2024</a></li>
           <li><a href='https://harrell.seattle.gov/2024/12/03/one-seattle-homelessness-action-plan-posts-q3-2024-data-updates/' target='_blank'>Mayor's Office Q3 2024 Report</a></li>
         </ul>
@@ -315,6 +345,12 @@ methodology_content <- function(index_name) {
           <li>To hold her accountable, we must count only <em>truly new</em> units added after Jan 6, 2026</li>
           <li>Units already in construction/acquisition shouldn't count toward her goal</li>
           <li>Replacements for closed facilities shouldn't count as 'new'</li>
+        </ul>
+        <p><strong>Wilson's 2026 Targets (Year 1):</strong></p>
+        <ul>
+          <li><strong>1,000 units in 2026</strong> per March 'Neighbor by Neighbor' legislation (1/4 of 4-year pledge)</li>
+          <li>Year-1 progress (as of Apr 2026): 45 units (Olympic Hills/Lake City) — first deployment under Wilson</li>
+          <li>Pipeline includes: West Seattle RV/THV combined site, Raven Village (existing), and 6 villages requested by LIHI</li>
         </ul>
         <p><strong>Our Methodology:</strong> This dashboard will track Wilson's progress from a baseline of ZERO on Jan 6, 2026. Only units that break ground, are acquired, or open <em>after</em> that date will count.</p>
         <p><strong>Source:</strong> <a href='https://www.axios.com/local/seattle/2025/09/30/seattle-homelessness-housing-harrell-promise-shortfall' target='_blank'>Axios Seattle: Seattle Mayor Harrell falls short on 2,000-housing-unit pledge</a></p>

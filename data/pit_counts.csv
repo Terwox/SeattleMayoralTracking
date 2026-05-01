@@ -1,7 +1,7 @@
 date,total_homeless,unsheltered,sheltered,source,source_url,retrieved_date
-2018-01-26,12112,NA,NA,Count Us In 2018 Report,https://sccinsight.com/2018/06/01/understanding-the-2018-point-in-time-homeless-count/,2026-01-03
-2019-01-25,11199,5264,5935,Count Us In 2019 - All Home King County,https://allhomekc.org/king-county-point-in-time-pit-count/,2026-01-03
-2020-01-24,11751,5523,6228,King County Executive Press Release,https://kingcounty.gov/en/legacy/elected/executive/constantine/news/release/2020/july/01-homeless-count,2026-01-03
-2022-03-01,13368,7685,5683,KCRHA PIT Count,https://kcrha.org/community-data/king-county-point-in-time-count/,2026-01-03
-2024-02-02,16868,9810,7058,KCRHA PIT Count (Revised) - highest count in KC history; 23% increase from 2022,https://kcrha.org/community-data/king-county-point-in-time-count/,2026-01-03
-2026-01-26,NA,NA,NA,2026 PIT Count UNDERWAY Jan 26 - Feb 6; uses respondent-driven sampling (UW partnership) not volunteer headcounts; results expected later in 2026,https://kcrha.org/community-data/king-county-point-in-time-count/,2026-01-30
+2018-01-26,12112,NA,NA,Count Us In 2018 Report,https://sccinsight.com/2018/06/01/understanding-the-2018-point-in-time-homeless-count/,2026-04-30
+2019-01-25,11199,5264,5935,Count Us In 2019 - All Home King County,https://allhomekc.org/king-county-point-in-time-pit-count/,2026-04-30
+2020-01-24,11751,5523,6228,King County Executive Press Release,https://kingcounty.gov/en/legacy/elected/executive/constantine/news/release/2020/july/01-homeless-count,2026-04-30
+2022-03-01,13368,7685,5683,KCRHA PIT Count,https://kcrha.org/community-data/king-county-point-in-time-count/,2026-04-30
+2024-02-02,16868,9810,7058,KCRHA PIT Count (Revised) - highest count in KC history; 23% increase from 2022,https://kcrha.org/community-data/king-county-point-in-time-count/,2026-04-30
+2026-01-26,NA,NA,NA,2026 PIT Count completed Jan 26 - Feb 6 using respondent-driven sampling (UW partnership); preliminary high-level report expected mid-May 2026; full report summer 2026; KCRHA leadership anticipates continued increase,https://kcrha.org/community-data/king-county-point-in-time-count/,2026-04-30

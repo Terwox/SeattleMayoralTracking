@@ -96,6 +96,19 @@ Quarterly permanent housing placements.
 
 ## Update Log
 
+### 2026-04-30
+
+Q1 2026 sweep (76 days since last refresh):
+
+- **Crime stats correction:** SPD Year in Review (Feb 2 2026) put 2025 Seattle homicides at **37** — not 25 as previously recorded from a Center Square mid-count projection. Overall crime fell 18% (also revised from -23% projection). Added gunfire (-36% victims), stolen vehicles (-24%), burglaries (-18%), and firearm recoveries (1,500, +74%).
+- **Wilson EO follow-up landed:** March 4 "Neighbor by Neighbor" legislation announced — 1,000-unit shelter target for 2026; $4.8M reallocated ($3.3M revolving loan + $1.5M dormant Downtown Health fund); per-site cap raised 100→150, with 250-per-district allowed; FAS Director gets direct lease-signing authority. Mayor's office cited LA as the model for larger villages (April 2026 community briefing).
+- **First Wilson-era village deployed:** Olympic Hills (Lake City, 3121 NE 133rd St) opened February 2026 — 45 units, 24/7 staffing, LIHI + PDA partnership.
+- **West Seattle site officially announced** in Feb (was a January proposal); religious sponsor revealed.
+- **HUD funding gap firmed up:** NOFO max confirmed at $19M (71% cut from typical $65M). King County Councilmember Mosqueda's amendment acknowledged the gap at "at least $36M" and asked for a March supplemental reserve.
+- **Health Through Housing milestone:** >1,000 formerly homeless KC residents now housed. Booker House opened Jan 2026 in South KC; Sweetgrass Flats (Chief Seattle Club, 84 PSH units) leasing up Q1 2026; 100 more PSH units anticipated Q4 2026.
+- **PIT 2026 status:** count complete (Jan 26–Feb 6); preliminary high-level report expected mid-May 2026; full report summer 2026. KCRHA leadership signaling expected increase.
+- **Overdose 2025:** 908 confirmed final (no change); 13.3% drop from 2024's 1,047, 32.2% drop from 2023 peak of 1,340.
+
 ### 2026-01-30
 
 - **Crime stats:** Added 2025 year-end data - Seattle homicides down to ~25 (53% decline from 2024), total crime projected down 23%

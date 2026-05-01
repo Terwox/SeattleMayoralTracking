@@ -47,6 +47,7 @@ load_spending <- function(path = "data/spending.csv") {
     year = col_integer(),
     category = col_character(),
     amount = col_double(),
+    notes = col_character(),
     source = col_character(),
     source_url = col_character(),
     retrieved_date = col_date()
