@@ -8,3 +8,6 @@ nul
 
 # oh-my-claudecode state
 .omc/
+
+# OMX local runtime artifacts
+.omx/
