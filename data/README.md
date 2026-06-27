@@ -20,13 +20,13 @@ Point-in-Time homeless population counts.
 |-------|------|-------------|
 | date | date | Date of count (YYYY-MM-DD) |
 | total_homeless | integer | Total homeless population |
-| unsheltered | integer | People sleeping outside (NA for quarterly estimates) |
-| sheltered | integer | People in shelters (NA for quarterly estimates) |
+| unsheltered | integer | People sleeping outside (NA only when a source does not report it) |
+| sheltered | integer | People in shelters (NA only when a source does not report it) |
 | source | string | Data source name |
-| source_url | string | URL to source |
+| source_url | string | URL to source or repo-local source-note path |
 | retrieved_date | date | Date data was retrieved |
 
-**Notes:** Official HUD PIT counts are biennial (odd years). KCRHA publishes quarterly estimates that may use different methodology.
+**Notes:** The dashboard uses official full PIT counts as the benchmark. KCRHA's 2022, 2024, and 2026 counts use respondent-driven sampling and are not directly comparable to pre-2022 methodology. No comparable quarterly unsheltered estimate series is used here.
 
 ### housing_units.csv
 Emergency housing and shelter unit inventory.
@@ -35,27 +35,25 @@ Emergency housing and shelter unit inventory.
 |-------|------|-------------|
 | date | date | Date of record |
 | unit_type | enum | tiny_home, shelter_bed, or acquired_unit |
-| status | enum | deployed, ready_locked, or construction |
+| status | enum | locked_in_storage, announced_deployment, deployed_wilson, executive_order, proposed_west_seattle, confirmed_west_seattle, or wilson_legislation_target |
 | count | integer | Number of units |
-| location | string | General location |
-| operator | string | Operating organization |
-| source_url | string | URL to source |
+| notes | string | Context and counting caveats |
+| source | string | Source name |
+| source_url | string | URL to source or repo-local source-note path |
 | retrieved_date | date | Date data was retrieved |
 
 ### overdose_deaths.csv
-Monthly overdose fatalities in King County.
+Annual overdose fatalities in King County.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| month | date | First day of month (YYYY-MM-DD) |
+| year | integer | Calendar year |
 | total_overdose_deaths | integer | All overdose deaths in county |
-| homeless_overdose_deaths | integer | Deaths among homeless population |
-| fentanyl_involved | integer | Deaths involving fentanyl |
-| meth_involved | integer | Deaths involving methamphetamine |
-| source_url | string | URL to source |
+| source | string | Data source name |
+| source_url | string | URL to source or repo-local source-note path |
 | retrieved_date | date | Date data was retrieved |
 
-**Notes:** Data has 2-3 month reporting lag. Numbers may be revised.
+**Notes:** This file does not contain homeless-specific overdose deaths. The dashboard treats that as a public-data gap rather than inferring a subgroup count.
 
 ### spending.csv
 Annual homelessness-related spending.
@@ -66,7 +64,7 @@ Annual homelessness-related spending.
 | category | enum | city_homelessness or kcrha_contribution |
 | amount | integer | Dollar amount |
 | source | string | Data source name |
-| source_url | string | URL to source |
+| source_url | string | URL to source or repo-local source-note path |
 | retrieved_date | date | Date data was retrieved |
 
 ### placements.csv
@@ -77,7 +75,7 @@ Quarterly permanent housing placements.
 | quarter | string | Quarter (YYYY-QN format) |
 | permanent_housing_placements | integer | Number of placements |
 | returns_to_homelessness | integer | Returns within 12 months |
-| source_url | string | URL to source |
+| source_url | string | URL to source or repo-local source-note path |
 | retrieved_date | date | Date data was retrieved |
 
 ## Data Sources
@@ -91,10 +89,19 @@ Quarterly permanent housing placements.
 ## Update Schedule
 
 - **Monthly:** Overdose deaths (with 2-3 month lag)
-- **Quarterly:** Housing units, placements, KCRHA estimates
-- **Annually:** Spending data, official PIT counts (odd years only)
+- **As reported:** Housing units, placements, and policy changes
+- **When released:** Spending data and official PIT/HIC counts
 
 ## Update Log
+
+### 2026-06-27
+
+Methodology and data-framing update:
+
+- **Official 2026 PIT/HIC values added:** KCRHA's 2026 initial report records **18,365** total people experiencing homelessness in King County: **11,829 unsheltered** and **6,536 sheltered**. This replaces the prior placeholder row.
+- **Evidence tiers added:** Primary dashboard beats now distinguish official, reported, inferred, and gap claims at point of use.
+- **Methodology tightened:** Baseline and cost-efficiency cards are now framed as inferred calculations/signals rather than official counts or clean cost-per-person outcomes.
+- **Source docs corrected:** Removed stale language implying KCRHA quarterly homeless estimates are available for this dashboard.
 
 ### 2026-04-30
 
@@ -106,7 +113,7 @@ Q1 2026 sweep (76 days since last refresh):
 - **West Seattle site officially announced** in Feb (was a January proposal); religious sponsor revealed.
 - **HUD funding gap firmed up:** NOFO max confirmed at $19M (71% cut from typical $65M). King County Councilmember Mosqueda's amendment acknowledged the gap at "at least $36M" and asked for a March supplemental reserve.
 - **Health Through Housing milestone:** >1,000 formerly homeless KC residents now housed. Booker House opened Jan 2026 in South KC; Sweetgrass Flats (Chief Seattle Club, 84 PSH units) leasing up Q1 2026; 100 more PSH units anticipated Q4 2026.
-- **PIT 2026 status:** count complete (Jan 26–Feb 6); preliminary high-level report expected mid-May 2026; full report summer 2026. KCRHA leadership signaling expected increase.
+- **PIT 2026 status at that time:** count complete (Jan 26-Feb 6), before report release. Superseded by the 2026-06-27 update above.
 - **Overdose 2025:** 908 confirmed final (no change); 13.3% drop from 2024's 1,047, 32.2% drop from 2023 peak of 1,340.
 
 ### 2026-01-30
@@ -128,7 +135,7 @@ Q1 2026 sweep (76 days since last refresh):
 ### 2026-01-09
 
 - **Overdose deaths:** Confirmed 2025 final count (908) with context on decline factors
-- **Housing units:** Updated tiny home storage estimates (~150 remaining after LIHI deployments and Tacoma transfer)
+- **Housing units:** Updated tiny home storage estimate (~150 remaining after 104 Harrell-announced LIHI units); this is an inferred estimate from a reported baseline, not an official inventory
 - **Spending:** Added 2026 budget data including federal funding crisis:
   - $40M gap from HUD CoC rule changes (30% cap on permanent housing funds)
   - ~4,500 households at risk

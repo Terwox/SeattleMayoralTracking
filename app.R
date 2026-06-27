@@ -1,6 +1,6 @@
 # Wilson's Homelessness Scorecard
-# Tracking the 4,000-unit promise with verified public data
-# VERIFIED DATA ONLY - All sources traceable
+# Tracking the 4,000-unit promise with evidence-labeled public data
+# Source-traced public data - evidence tier visible at point of use
 
 # Install pacman if not available, then use it for all other packages
 if (!require("pacman", quietly = TRUE)) install.packages("pacman")
@@ -31,7 +31,7 @@ last_update <- get_last_update(data)
 wilson_target <- 4000
 wilson_current <- housing_summary$deployed_wilson  # net new since Jan 6, 2026
 wilson_inherited <- baseline_summary$harrell_net_new  # ~1,300 verified
-wilson_locked_gimme <- housing_summary$locked  # 250+ easy wins
+wilson_locked_gimme <- housing_summary$locked  # reported stored capacity, not operational units
 politics_path_total <- wilson_inherited + wilson_locked_gimme  # ~1,550 "inherited"
 politics_path_needed <- wilson_target - politics_path_total  # ~2,450 new needed
 
@@ -63,13 +63,15 @@ ui <- page_fluid(
         background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
         color: white;
         padding: 1.5rem 2rem;
-        margin: -1rem -1rem 1.5rem -1rem;
+        margin: -1rem -0.75rem 1.5rem -0.75rem;
+        max-width: calc(100% + 1.5rem);
+        overflow-x: hidden;
       }
       .header-title {
         font-size: 1.75rem;
         font-weight: 700;
         margin: 0;
-        letter-spacing: 0.02em;
+        letter-spacing: 0;
       }
       .header-subtitle {
         font-size: 1rem;
@@ -79,7 +81,7 @@ ui <- page_fluid(
 
       /* Beat cards */
       .beat-card {
-        border-radius: 12px;
+        border-radius: 8px;
         margin-bottom: 1.5rem;
         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       }
@@ -93,7 +95,7 @@ ui <- page_fluid(
       .beat-label {
         font-size: 0.7rem;
         font-weight: 700;
-        letter-spacing: 0.1em;
+        letter-spacing: 0;
         text-transform: uppercase;
         opacity: 0.7;
       }
@@ -101,6 +103,51 @@ ui <- page_fluid(
         font-size: 1rem;
         font-weight: 700;
         margin: 0.25rem 0 0 0;
+      }
+      .beat-title-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .evidence-badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 1.25rem;
+        padding: 0.15rem 0.45rem;
+        border-radius: 999px;
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        line-height: 1;
+        border: 1px solid currentColor;
+        white-space: nowrap;
+      }
+      .evidence-official {
+        color: #1b5e20;
+        background: rgba(198, 246, 213, 0.75);
+      }
+      .evidence-reported {
+        color: #744210;
+        background: rgba(254, 235, 200, 0.85);
+      }
+      .evidence-inferred {
+        color: #2c5282;
+        background: rgba(190, 227, 248, 0.75);
+      }
+      .evidence-gap {
+        color: #742a2a;
+        background: rgba(254, 215, 215, 0.75);
+      }
+      .evidence-note {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin: 0.5rem 0;
+        color: #4a5568;
+        font-size: 0.82rem;
+        line-height: 1.35;
       }
       .info-btn {
         padding: 0.1rem 0.5rem;
@@ -145,7 +192,7 @@ ui <- page_fluid(
       }
       .progress-bar-wrapper {
         background: rgba(255,255,255,0.7);
-        border-radius: 12px;
+        border-radius: 8px;
         height: 40px;
         overflow: hidden;
         position: relative;
@@ -153,7 +200,7 @@ ui <- page_fluid(
       .progress-bar-fill {
         height: 100%;
         background: linear-gradient(90deg, #3182ce 0%, #63b3ed 100%);
-        border-radius: 12px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -441,7 +488,7 @@ ui <- page_fluid(
   div(
     class = "dashboard-header",
     h1("WILSON'S HOMELESSNESS SCORECARD", class = "header-title"),
-    p("Tracking the 4,000-unit promise with verified public data", class = "header-subtitle")
+    p("Tracking the 4,000-unit promise with evidence-labeled public data", class = "header-subtitle")
   ),
 
   # ============================================
@@ -452,7 +499,10 @@ ui <- page_fluid(
     div(
       class = "beat-header",
       div(
-        div(class = "beat-title", "THE PROMISE")
+        class = "beat-title-row",
+        div(class = "beat-title", "THE PROMISE"),
+        evidence_badge("reported", "Pledge reported"),
+        evidence_badge("official", "2026 package official")
       ),
       actionButton("info_promise", "?", class = "info-btn")
     ),
@@ -495,11 +545,13 @@ ui <- page_fluid(
     div(
       class = "beat-card baseline-card",
       div(
-        class = "beat-header",
-        div(
-          div(class = "beat-title", "THE BASELINE")
-        ),
-        actionButton("info_baseline", "?", class = "info-btn")
+      class = "beat-header",
+      div(
+          class = "beat-title-row",
+          div(class = "beat-title", "THE BASELINE"),
+          evidence_badge("inferred")
+      ),
+      actionButton("info_baseline", "?", class = "info-btn")
       ),
       div(
         class = "baseline-content",
@@ -514,7 +566,7 @@ ui <- page_fluid(
           div(
             class = "baseline-item",
             div(class = "baseline-value baseline-actual", paste0("<", format_number(baseline_summary$harrell_net_new))),
-            div(class = "baseline-label", "Verified actual")
+            div(class = "baseline-label", "Inferred actual")
           )
         ),
         div(
@@ -526,7 +578,7 @@ ui <- page_fluid(
         ),
         div(
           class = "source-link",
-          tags$a(href = baseline_summary$source_url, target = "_blank", "Source: Axios Seattle")
+          tags$a(href = baseline_summary$source_url, target = "_blank", rel = "noopener noreferrer", "Source: Axios Seattle")
         )
       )
     ),
@@ -535,17 +587,19 @@ ui <- page_fluid(
     div(
       class = "beat-card gimme-card",
       div(
-        class = "beat-header",
-        div(
-          div(class = "beat-title", "THE GIMME")
-        ),
-        actionButton("info_gimme", "?", class = "info-btn")
+      class = "beat-header",
+      div(
+          class = "beat-title-row",
+          div(class = "beat-title", "THE GIMME"),
+          evidence_badge("reported")
+      ),
+      actionButton("info_gimme", "?", class = "info-btn")
       ),
       div(
         class = "gimme-content",
         div(class = "gimme-number", format_number(housing_summary$locked)),
         div(class = "gimme-label", "TINY HOMES IN STORAGE"),
-        div(class = "gimme-sublabel", "Built by volunteers. Ready to deploy."),
+        div(class = "gimme-sublabel", "Reported ready; sites and operations still gate deployment."),
         div(
           class = "gimme-status status-waiting",
           HTML("&#9888; AWAITING SITES")
@@ -556,7 +610,7 @@ ui <- page_fluid(
         ),
         div(
           class = "gimme-callout",
-          "Zero capital cost required. Awaiting site approval."
+          "Capital already covered. Site approval and operations still matter."
         )
       )
     )
@@ -573,11 +627,13 @@ ui <- page_fluid(
     div(
       class = "beat-card outcome-card",
       div(
-        class = "beat-header",
-        div(
-          div(class = "beat-title", "THE OUTCOME")
-        ),
-        actionButton("info_outcome", "?", class = "info-btn")
+      class = "beat-header",
+      div(
+          class = "beat-title-row",
+          div(class = "beat-title", "THE OUTCOME"),
+          evidence_badge("official")
+      ),
+      actionButton("info_outcome", "?", class = "info-btn")
       ),
       div(
         class = "outcome-content",
@@ -588,12 +644,16 @@ ui <- page_fluid(
         div(
           class = "outcome-metric",
           span(class = "outcome-value", format_number(unsheltered_summary$current)),
-          span(class = "outcome-label", "unsheltered (Jan 2024 baseline)")
+          span(class = "outcome-label", paste0("King County PIT proxy (", format(unsheltered_summary$latest_date, "%b %Y"), ")"))
+        ),
+        div(
+          class = "gimme-sublabel",
+          "Official countywide proxy; not a Seattle-only street count."
         ),
         plotlyOutput("chart_pit", height = "200px"),
         div(
           class = "source-link",
-          tags$a(href = unsheltered_summary$latest_source_url, target = "_blank",
+          tags$a(href = unsheltered_summary$latest_source_url, target = "_blank", rel = "noopener noreferrer",
                  paste0("Source: ", unsheltered_summary$latest_source))
         )
       )
@@ -603,16 +663,18 @@ ui <- page_fluid(
     div(
       class = "beat-card efficiency-card",
       div(
-        class = "beat-header",
-        div(
-          div(class = "beat-title", "THE EFFICIENCY TEST")
-        ),
-        actionButton("info_efficiency", "?", class = "info-btn")
+      class = "beat-header",
+      div(
+          class = "beat-title-row",
+          div(class = "beat-title", "THE EFFICIENCY TEST"),
+          evidence_badge("inferred")
+      ),
+      actionButton("info_efficiency", "?", class = "info-btn")
       ),
       div(
         class = "efficiency-content",
         p(style = "font-size: 0.85rem; color: #78350f; text-align: center; margin-bottom: 1rem;",
-          "What does it cost to house one person?"),
+          "What cost pressure does the system face?"),
         div(
           class = "efficiency-grid",
           div(
@@ -647,14 +709,14 @@ ui <- page_fluid(
     ),
     div(style = "padding: 0.75rem;",
       tags$ul(style = "font-size: 0.85rem; color: #4a5568; margin: 0;",
-        tags$li(tags$strong("Quarterly homeless estimates: "),
-                "KCRHA does not publish these. Only biennial PIT counts exist."),
+        tags$li(tags$strong("Comparable interim estimates: "),
+                "No comparable quarterly unsheltered series is used here. Full sheltered + unsheltered PIT counts are the official benchmark."),
         tags$li(tags$strong("Homeless-specific overdose deaths: "),
                 "Not publicly reported in verifiable format."),
-        tags$li(tags$strong("Cost per person housed: "),
-                "Requires placement data KCRHA doesn't publish quarterly."),
+        tags$li(tags$strong("Cost-per-outcome denominator: "),
+                "Requires a consistent placement denominator the public sources do not provide."),
         tags$li(tags$strong("Current locked unit count: "),
-                "~150 as of Jan 2026 (down from 250 in Oct 2024). No official tracking exists.")
+                "~150 estimated as of Jan 2026 (down from 250 in Oct 2024 after 104 Harrell-announced units). No official tracking exists.")
       ),
       p(style = "font-style: italic; color: #718096; font-size: 0.8rem; margin: 0.5rem 0 0 0;",
         "The absence of verifiable public data is itself an accountability issue.")
@@ -845,13 +907,13 @@ ui <- page_fluid(
   # ============================================
   div(
     class = "dashboard-footer",
-    span(paste("DATA VERIFIED:", format(last_update, "%B %d, %Y"))),
+    span(paste("DATA SOURCED:", format(last_update, "%B %d, %Y"))),
     span(" | "),
-    span("All data points link to original sources"),
+    span("Evidence tiers distinguish official, reported, inferred, and missing data"),
     span(" | "),
     tags$a(
       href = "https://github.com/Terwox/SeattleMayoralTracking/issues/new?template=data-submission.md",
-      target = "_blank",
+      target = "_blank", rel = "noopener noreferrer",
       "Have a source? Report missing data"
     )
   )
@@ -916,13 +978,15 @@ server <- function(input, output, session) {
     showModal(modalDialog(
       title = "The Promise: 4,000 Units",
       HTML("
-        <p><strong>What she said:</strong> Mayor Wilson pledged 4,000 new emergency housing and shelter units in her four-year term (Jan 2026 - Jan 2030).</p>
-        <p><strong>Pace check:</strong> To hit the target, she needs to average 1,000 units per year.</p>
-        <p><strong>Our methodology:</strong> We count only units that break ground, are acquired, or become operational AFTER January 6, 2026. No credit for inherited projects.</p>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Evidence tiers:</strong> <span class='evidence-badge evidence-reported'>Pledge reported</span> <span class='evidence-badge evidence-official'>2026 package official</span> The four-year pledge is public reporting; the 2026 1,000-unit package is an official mayoral statement.</p>
+        <p><strong>What she said:</strong> Mayor Wilson pledged 4,000 new emergency housing and shelter units in her four-year term (Jan 2026 - Jan 2030). Her March 4, 2026 Neighbor by Neighbor package set a first-year target of 1,000 new shelter and emergency housing units.</p>
+        <p><strong>Pace check:</strong> To hit the four-year target, she needs to average 1,000 units per year.</p>
+        <p><strong>Our methodology:</strong> We count only units that break ground, are acquired, or become operational after January 6, 2026. Inherited projects, replacements, reported expectations, and proposed sites stay separate until operational evidence exists.</p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://www.king5.com/article/news/local/seattle/katie-wilson-to-be-inaugurated-friday-as-seattle-mayor-becoming-third-woman-to-lead-city/281-8979c5a3-ce20-4f55-90eb-15e79be912aa' target='_blank'>KING 5: Wilson inauguration coverage</a></li>
-          <li><a href='https://www.fox13seattle.com/news/katie-wilson-sworn-in-seattle-mayor' target='_blank'>FOX 13: Wilson sworn in, pledges focus on affordability</a></li>
+          <li><a href='https://wilson.seattle.gov/2026/03/04/neighbor-by-neighbor-mayor-announces-legislation-to-rapidly-expand-shelter-and-calls-on-whole-city-to-be-part-of-the-solution/' target='_blank' rel='noopener noreferrer'>Mayor Wilson: Neighbor by Neighbor legislation</a></li>
+          <li><a href='https://www.king5.com/article/news/local/seattle/katie-wilson-to-be-inaugurated-friday-as-seattle-mayor-becoming-third-woman-to-lead-city/281-8979c5a3-ce20-4f55-90eb-15e79be912aa' target='_blank' rel='noopener noreferrer'>KING 5: Wilson inauguration coverage</a></li>
+          <li><a href='https://www.fox13seattle.com/news/katie-wilson-sworn-in-seattle-mayor' target='_blank' rel='noopener noreferrer'>FOX 13: Wilson sworn in, pledges focus on affordability</a></li>
         </ul>
       "),
       easyClose = TRUE,
@@ -941,23 +1005,23 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$info_gimme, {
-    content <- methodology_content("housing")
     showModal(modalDialog(
       title = "The Gimme: Tiny Homes in Storage",
       HTML("
-        <p><strong>What it is:</strong> ~150 tiny homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a> volunteers, currently in SODO storage awaiting placement.</p>
-        <p><strong>Why it matters:</strong> These are ready-to-deploy units with zero capital cost. Deployment requires site approval and permitting.</p>
+        <p><strong>Evidence tier:</strong> <span class='evidence-badge evidence-reported'>Reported</span> Public reporting; no official stored-unit dashboard exists.</p>
+        <p><strong>What it is:</strong> ~150 tiny homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank' rel='noopener noreferrer'>Sound Foundations NW</a> volunteers, reported in SODO storage awaiting placement.</p>
+        <p><strong>Why it matters:</strong> These units appear capital-ready, but deployment still depends on approved sites, permitting, operating funding, service staffing, and opening dates.</p>
         <p><strong>Change History:</strong></p>
         <ul>
           <li><strong>Oct 2024:</strong> 250+ in storage</li>
           <li><strong>Jan 2026:</strong> ~150 in storage</li>
-          <li><strong>What changed:</strong> ~100 deployed to new LIHI villages (Harrell, July 2025); 65 sent to Tacoma</li>
+          <li><strong>What changed:</strong> 104 units were announced for two new LIHI villages under Harrell in July 2025</li>
         </ul>
         <p><strong>Context:</strong> Sound Foundations has indicated these units are earmarked for planned villages. Tracking deployment progress helps measure system capacity.</p>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times: The saga of Seattle's empty tiny homes</a></li>
-          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank'>Mayor Harrell: Tiny home expansion (July 2025)</a></li>
+          <li><a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank' rel='noopener noreferrer'>Seattle Times: The saga of Seattle's empty tiny homes</a></li>
+          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank' rel='noopener noreferrer'>Mayor Harrell: Tiny home expansion (July 2025)</a></li>
         </ul>
       "),
       easyClose = TRUE,

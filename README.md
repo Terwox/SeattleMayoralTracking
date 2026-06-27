@@ -10,20 +10,25 @@ A public-facing dashboard tracking Seattle Mayor Katie Wilson's performance on h
 
 ### Primary Indices
 
-1. **Unsheltered Population Count** - People sleeping outside in Seattle
-   - Wilson's commitment: Track unsheltered count over four years
-   - Data: HUD PIT counts (biennial) + KCRHA quarterly estimates
-
-2. **Emergency Housing Progress** - Progress toward 4,000 units
+1. **The Promise** - Progress toward 4,000 new emergency housing and shelter units
    - Wilson's commitment: "4,000 new emergency housing and shelter units in four years"
-   - Highlights units that are "ready but locked"
+   - Shows the reported four-year pledge separately from the official 2026 package
 
-3. **Homeless Overdose Deaths** - Monthly fatalities among homeless population
-   - ~67% of homeless deaths in King County are overdose-related
-   - Includes 12-month rolling average
+2. **The Baseline** - Reconciles inherited claims against stricter net-new counting
+   - Inferred from public reporting, not an official city baseline
+   - Separates replacement, pre-existing, and Wilson-era operational capacity
 
-4. **Cost Per Person Housed** - Spending efficiency metric
-   - Total spending divided by successful permanent housing placements
+3. **The Gimme** - Reported deployable tiny-home capacity blocked by sites and operations
+   - Uses reported evidence because no official stored-unit dashboard exists
+   - Distinguishes capital-ready from operational
+
+4. **The Outcome** - King County unsheltered PIT proxy
+   - Uses official PIT/HIC counts, with methodology caveats
+   - Not a Seattle-only street count and not a causal policy measure
+
+5. **The Efficiency Test** - Cost pressure across shelter beds and housing units
+   - Inferred comparison from heterogeneous public cost sources
+   - Not a clean cost-per-person-housed denominator
 
 ## Running Locally
 
@@ -57,7 +62,7 @@ seattle-mayor-dashboard/
 ├── data/
 │   ├── pit_counts.csv       # Point-in-Time counts
 │   ├── housing_units.csv    # Emergency housing inventory
-│   ├── overdose_deaths.csv  # Monthly overdose data
+│   ├── overdose_deaths.csv  # Annual King County overdose totals
 │   ├── spending.csv         # Annual spending
 │   ├── placements.csv       # Housing placements
 │   └── README.md            # Data dictionary
@@ -75,9 +80,9 @@ seattle-mayor-dashboard/
 
 Data requires manual curation (no live APIs available). Update schedule:
 
-- **Monthly:** Overdose deaths (with 2-3 month lag)
-- **Quarterly:** Housing units, placements, KCRHA estimates
-- **Annually:** Spending data, official PIT counts
+- **Annually/as released:** King County overdose totals
+- **As reported:** Housing units, placements, and policy changes
+- **When released:** Spending data and official PIT/HIC counts
 
 See [docs/sources.md](docs/sources.md) for full source list.
 
@@ -96,8 +101,8 @@ If you have access to official data not currently tracked (especially real-time 
 
 ## Design Philosophy
 
-- **Data speaks for itself** - Minimal editorializing, maximum clarity
-- **Confrontational through transparency** - Not rhetoric
+- **Evidence-labeled data** - Readers can see what is official, reported, inferred, or missing
+- **Confrontational through transparency** - Sharp accountability with visible claim boundaries
 - **Mobile-friendly** - Designed for quick checks on phones
 - **Sober, professional tone** - This is a tool, not a campaign site
 

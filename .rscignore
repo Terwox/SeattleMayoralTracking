@@ -1,0 +1,19 @@
+.git
+.gitattributes
+.github
+.claude
+.omc
+.omx
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+AGENTS.md
+CHANGELOG.md
+CLAUDE.md
+LICENSE
+README.md
+MEtrics update compass_artifact_wf-0c77db84-962e-4bd1-988d-c40c15e8d337_text_markdown.md
+docs
+seattle-dashboard-spec_1.md
+seattle-dashboard-spec_2.md
