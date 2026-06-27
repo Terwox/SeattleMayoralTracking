@@ -1,10 +1,26 @@
 # Data Loading and Validation Functions
 # Seattle Mayoral Accountability Dashboard
-# VERIFIED DATA ONLY - All sources traceable
+# Source-traced public data - evidence tiers handled in UI/docs
 
 library(readr)
 library(dplyr)
 library(lubridate)
+
+require_columns <- function(df, required, path) {
+  missing <- setdiff(required, names(df))
+  if (length(missing) > 0) {
+    stop(
+      sprintf(
+        "Missing required column(s) in %s: %s",
+        path,
+        paste(missing, collapse = ", ")
+      ),
+      call. = FALSE
+    )
+  }
+
+  df
+}
 
 # Load PIT counts data (verified biennial counts only)
 load_pit_counts <- function(path = "data/pit_counts.csv") {
@@ -17,6 +33,10 @@ load_pit_counts <- function(path = "data/pit_counts.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "date", "total_homeless", "unsheltered", "sheltered", "source",
+    "source_url", "retrieved_date"
+  ), path)
 
   df <- df %>%
     arrange(date) %>%
@@ -34,6 +54,9 @@ load_overdose_deaths <- function(path = "data/overdose_deaths.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "year", "total_overdose_deaths", "source", "source_url", "retrieved_date"
+  ), path)
 
   df <- df %>%
     arrange(year)
@@ -52,6 +75,10 @@ load_spending <- function(path = "data/spending.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "year", "category", "amount", "notes", "source", "source_url",
+    "retrieved_date"
+  ), path)
 
   # Filter to only the main spending categories for the chart
   # Other categories (federal_funding_gap, seattle_federal_reserve, households_at_risk)
@@ -76,6 +103,10 @@ load_housing_units <- function(path = "data/housing_units.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "date", "unit_type", "status", "count", "notes", "source", "source_url",
+    "retrieved_date"
+  ), path)
 
   return(df)
 }
@@ -170,6 +201,10 @@ load_hic_inventory <- function(path = "data/hic_inventory.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "year", "program_type", "kcrha_funded", "total_system",
+    "pct_of_system", "source", "source_url", "retrieved_date"
+  ), path)
   return(df)
 }
 
@@ -186,6 +221,10 @@ load_tiny_home_villages <- function(path = "data/tiny_home_villages.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "year", "metric", "value", "comparison_value", "comparison_type",
+    "notes", "source", "source_url", "retrieved_date"
+  ), path)
   return(df)
 }
 
@@ -201,6 +240,10 @@ load_housing_vouchers <- function(path = "data/housing_vouchers.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "year", "agency", "voucher_type", "count", "notes", "source",
+    "source_url", "retrieved_date"
+  ), path)
   return(df)
 }
 
@@ -215,6 +258,10 @@ load_health_through_housing <- function(path = "data/health_through_housing.csv"
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "year", "metric", "value", "notes", "source", "source_url",
+    "retrieved_date"
+  ), path)
   return(df)
 }
 
@@ -297,6 +344,10 @@ load_crime_stats <- function(path = "data/crime_stats.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "year", "metric", "value", "notes", "source", "source_url",
+    "retrieved_date"
+  ), path)
   return(df)
 }
 
@@ -329,6 +380,10 @@ load_cost_per_bed <- function(path = "data/cost_per_bed.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "fiscal_year", "shelter_type", "total_budget", "bed_count",
+    "cost_per_bed", "source_documents", "source_url", "retrieved_date"
+  ), path)
   return(df)
 }
 
@@ -343,6 +398,10 @@ load_placements <- function(path = "data/placements.csv") {
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "quarter", "year", "permanent_housing_placements",
+    "returns_to_homelessness", "source", "source_url", "retrieved_date"
+  ), path)
   return(df)
 }
 
@@ -357,6 +416,10 @@ load_emergency_baseline <- function(path = "data/emergency_housing_baseline.csv"
     source_url = col_character(),
     retrieved_date = col_date()
   ))
+  df <- require_columns(df, c(
+    "date", "category", "count", "notes", "source", "source_url",
+    "retrieved_date"
+  ), path)
   return(df)
 }
 

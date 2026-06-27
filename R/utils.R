@@ -24,32 +24,60 @@ format_change <- function(x, digits = 0) {
   paste0(sign, format_number(x, digits))
 }
 
+# Compact evidence labels used by scorecard cards and methodology modals.
+evidence_badge <- function(tier, label = NULL) {
+  tier_key <- tolower(gsub("[^a-z]", "-", tier))
+  if (is.null(label)) {
+    label <- switch(
+      tier_key,
+      "official" = "Official",
+      "reported" = "Reported",
+      "inferred" = "Inferred",
+      "gap" = "Gap",
+      tier
+    )
+  }
+
+  tags$span(class = paste("evidence-badge", paste0("evidence-", tier_key)), label)
+}
+
+evidence_note <- function(tier, text, label = NULL) {
+  tags$div(
+    class = "evidence-note",
+    evidence_badge(tier, label),
+    tags$span(text)
+  )
+}
+
 # Create methodology modal content
 methodology_content <- function(index_name) {
   content <- switch(index_name,
     "pit" = list(
       title = "Point-in-Time Homeless Counts",
       methodology = HTML("
-        <p><strong>Data Source:</strong> <a href='https://kcrha.org/data-overview/king-county-point-in-time-count/' target='_blank'>KCRHA Point-in-Time Counts</a> and <a href='https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/' target='_blank'>HUD PIT Data</a></p>
-        <p><strong>What it measures:</strong> One-night estimate of people experiencing homelessness in King County, conducted in late January (biennial since 2022).</p>
+        <p><strong>Evidence tier:</strong> <span class='evidence-badge evidence-official'>Official</span> Agency-reported PIT/HIC count.</p>
+        <p><strong>Data Source:</strong> <a href='https://kcrha.org/wp-content/uploads/2026/06/KCRHA_Point-in-Time-Count-2026_Executive-Report.pdf' target='_blank' rel='noopener noreferrer'>KCRHA 2026 PIT/HIC Initial Report</a>, <a href='https://kcrha.org/data-overview/king-county-point-in-time-count/' target='_blank' rel='noopener noreferrer'>KCRHA Point-in-Time Counts</a>, and <a href='https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/' target='_blank' rel='noopener noreferrer'>HUD PIT Data</a></p>
+        <p><strong>What it measures:</strong> One-night estimate of people experiencing homelessness in King County. The latest full sheltered + unsheltered report is the January 26, 2026 PIT/HIC count.</p>
         <p><strong>Methodology Notes:</strong></p>
         <ul>
           <li>Counts conducted on a single night in late January</li>
-          <li>Methodology changed in 2022 to Respondent Driven Sampling</li>
+          <li>2022, 2024, and 2026 counts use respondent-driven sampling with University of Washington partnership</li>
           <li>Pre-2022 and post-2022 counts may not be directly comparable</li>
           <li>All counts are understood to be undercounts</li>
+          <li>2026 KCRHA report shows 18,365 total people experiencing homelessness: 11,829 unsheltered and 6,536 sheltered</li>
         </ul>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://kcrha.org/wp-content/uploads/2024/05/Count-Us-In-2024-Final-Report.pdf' target='_blank'>2024 Count Us In Report (PDF)</a></li>
-          <li><a href='https://kcrha.org/wp-content/uploads/2022/06/PIT-2022-Infograph-v7.pdf' target='_blank'>2022 PIT Infographic (PDF)</a></li>
+          <li><a href='https://kcrha.org/wp-content/uploads/2026/06/KCRHA_Point-in-Time-Count-2026_Executive-Report.pdf' target='_blank' rel='noopener noreferrer'>2026 KCRHA PIT/HIC Initial Report (PDF)</a></li>
+          <li><a href='https://kcrha.org/wp-content/uploads/2024/05/Count-Us-In-2024-Final-Report.pdf' target='_blank' rel='noopener noreferrer'>2024 Count Us In Report (PDF)</a></li>
+          <li><a href='https://kcrha.org/wp-content/uploads/2022/06/PIT-2022-Infograph-v7.pdf' target='_blank' rel='noopener noreferrer'>2022 PIT Infographic (PDF)</a></li>
         </ul>
       ")
     ),
     "overdose" = list(
       title = "Overdose Deaths",
       methodology = HTML("
-        <p><strong>Data Source:</strong> <a href='https://kingcounty.gov/en/dept/dph/health-safety/disease-illness/drug-overdose' target='_blank'>King County Medical Examiner / Public Health Seattle & King County</a></p>
+        <p><strong>Data Source:</strong> <a href='https://kingcounty.gov/en/dept/dph/health-safety/disease-illness/drug-overdose' target='_blank' rel='noopener noreferrer'>King County Medical Examiner / Public Health Seattle & King County</a></p>
         <p><strong>What it measures:</strong> Annual total drug overdose deaths in King County (all populations, not homeless-specific).</p>
         <p><strong>Methodology Notes:</strong></p>
         <ul>
@@ -58,10 +86,10 @@ methodology_content <- function(index_name) {
           <li>Homeless-specific overdose data is not reliably available</li>
           <li>2025 figure (908) is the final year-end count: 13.3% drop from 2024 (1,047), 32.2% drop from 2023 peak (1,340)</li>
         </ul>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://kingcounty.gov/en/dept/dph/health-safety/medical-examiner/reports-dashboards/overdose-deaths-dashboard' target='_blank'>King County Overdose Data Dashboard</a></li>
-          <li><a href='https://dchsblog.com/2026/03/10/update-on-king-countys-response-to-the-opioid-overdose-crisis/' target='_blank'>King County DCHS: March 2026 opioid response update</a></li>
+          <li><a href='https://kingcounty.gov/en/dept/dph/health-safety/medical-examiner/reports-dashboards/overdose-deaths-dashboard' target='_blank' rel='noopener noreferrer'>King County Overdose Data Dashboard</a></li>
+          <li><a href='https://dchsblog.com/2026/03/10/update-on-king-countys-response-to-the-opioid-overdose-crisis/' target='_blank' rel='noopener noreferrer'>King County DCHS: March 2026 opioid response update</a></li>
         </ul>
         <p><strong>Data Gap:</strong> Homeless-specific overdose data is not publicly reported in a verifiable way.</p>
       ")
@@ -71,8 +99,8 @@ methodology_content <- function(index_name) {
       methodology = HTML("
         <p><strong>Data Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattle.gov/city-budget-office/budget-archives' target='_blank'>Seattle City Budget Archives</a></li>
-          <li><a href='https://kcrha.org/about/financials/' target='_blank'>KCRHA Budget Documents</a></li>
+          <li><a href='https://www.seattle.gov/city-budget-office/budget-archives' target='_blank' rel='noopener noreferrer'>Seattle City Budget Archives</a></li>
+          <li><a href='https://kcrha.org/about/financials/' target='_blank' rel='noopener noreferrer'>KCRHA Budget Documents</a></li>
         </ul>
         <p><strong>What it measures:</strong> Public spending on homelessness programs.</p>
         <p><strong>Change History (2026):</strong></p>
@@ -91,10 +119,10 @@ methodology_content <- function(index_name) {
           <li>Categories vary by year as reporting changed</li>
           <li>Not comprehensive - some years have limited public data</li>
         </ul>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattletimes.com/seattle-news/homeless/homeless-spending-seattle-king-county/' target='_blank'>Seattle Times: Homeless spending analysis</a></li>
-          <li><a href='https://publicola.com/' target='_blank'>PubliCola: KCRHA budget coverage</a></li>
+          <li><a href='https://www.seattletimes.com/seattle-news/homeless/homeless-spending-seattle-king-county/' target='_blank' rel='noopener noreferrer'>Seattle Times: Homeless spending analysis</a></li>
+          <li><a href='https://publicola.com/' target='_blank' rel='noopener noreferrer'>PubliCola: KCRHA budget coverage</a></li>
         </ul>
         <p><strong>Data Gap:</strong> Consistent year-over-year spending data is difficult to track due to changing budget categories and agency responsibilities.</p>
       ")
@@ -102,34 +130,35 @@ methodology_content <- function(index_name) {
     "housing" = list(
       title = "Tiny Homes in Storage",
       methodology = HTML("
-        <p><strong>Data Source:</strong> <a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times: Danny Westneat</a></p>
+        <p><strong>Evidence tier:</strong> <span class='evidence-badge evidence-reported'>Reported</span> Public reporting and named public statements; no official stored-unit inventory exists.</p>
+        <p><strong>Data Source:</strong> <a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank' rel='noopener noreferrer'>Seattle Times: Danny Westneat</a></p>
         <p><strong>What it measures:</strong> Tiny homes built and awaiting placement in villages.</p>
         <p><strong>Change History:</strong></p>
         <ul>
-          <li><strong>Current (Jan 2026):</strong> ~150 tiny homes in storage (<a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times</a>)</li>
+          <li><strong>Current (Jan 2026):</strong> ~150 tiny homes in storage, estimated from the October 2024 reported baseline minus later Harrell-announced deployments</li>
           <li><strong>Previously (Oct 2024):</strong> 250+ in storage</li>
-          <li><strong>Change:</strong> ~100 deployed to new LIHI villages (Harrell announcement July 2025); 65 transferred to Tacoma</li>
-          <li><strong>Attribution:</strong> Decrease attributable to Harrell administration actions before Jan 6, 2026</li>
+          <li><strong>Change:</strong> 104 units announced for two new LIHI villages under Harrell in July 2025</li>
+          <li><strong>Wilson-era operational count:</strong> 45 Olympic Hills units are counted as deployed under Wilson; reported expected or proposed sites are not counted as operational</li>
         </ul>
         <p><strong>Context:</strong></p>
         <ul>
-          <li>Homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank'>Sound Foundations NW</a>, largely with private donations</li>
+          <li>Homes built by <a href='https://www.soundfoundationsnw.org/' target='_blank' rel='noopener noreferrer'>Sound Foundations NW</a>, largely with private donations</li>
           <li>KCRHA cited 'difficulty finding suitable sites' as the primary obstacle</li>
-          <li>This number grew from 71 in 2022 to 250+ in 2024, now decreasing</li>
+          <li>This number grew from 71 in 2022 to 250+ in 2024; the later remaining count is an estimate, not an official inventory</li>
         </ul>
-        <p><strong>Why this matters:</strong> These are ready-to-deploy units awaiting site approval and permitting before they can house people.</p>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Why this matters:</strong> These are reported ready-to-deploy units, but they still require sites, permitting, operations, and service capacity before they can house people.</p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank'>Seattle Times: The saga of Seattle's empty tiny homes</a></li>
-          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank'>Mayor Harrell: Expansion announcement (July 2025)</a></li>
+          <li><a href='https://www.seattletimes.com/seattle-news/the-saga-of-seattles-empty-tiny-homes-is-building-to-a-head/' target='_blank' rel='noopener noreferrer'>Seattle Times: The saga of Seattle's empty tiny homes</a></li>
+          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank' rel='noopener noreferrer'>Mayor Harrell: Expansion announcement (July 2025)</a></li>
         </ul>
-        <p><strong>Data Gap:</strong> No official city dashboard tracks stored housing inventory. This figure comes from journalism.</p>
+        <p><strong>Data Gap:</strong> No official city dashboard tracks stored housing inventory. The October 2024 baseline comes from journalism; the later remaining count is inferred from reported deployment announcements.</p>
       ")
     ),
     "hic" = list(
       title = "Housing Inventory Count (HIC)",
       methodology = HTML("
-        <p><strong>Data Source:</strong> <a href='https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/' target='_blank'>HUD Housing Inventory Count</a> via <a href='https://kcrha.org/data-overview/' target='_blank'>KCRHA</a></p>
+        <p><strong>Data Source:</strong> <a href='https://www.hudexchange.info/resource/3031/pit-and-hic-data-since-2007/' target='_blank' rel='noopener noreferrer'>HUD Housing Inventory Count</a> via <a href='https://kcrha.org/data-overview/' target='_blank' rel='noopener noreferrer'>KCRHA</a></p>
         <p><strong>What it measures:</strong> Point-in-time count of beds and units available in the homeless response system.</p>
         <p><strong>Categories:</strong></p>
         <ul>
@@ -145,10 +174,10 @@ methodology_content <- function(index_name) {
           <li>KCRHA-funded subset represents direct regional authority investment</li>
           <li>18 years of historical data available (2007-2024)</li>
         </ul>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://www.huduser.gov/portal/sites/default/files/xls/2007-2024-HIC-Counts-by-CoC.xlsx' target='_blank'>HUD HIC Data (Excel download)</a></li>
-          <li><a href='https://kcrha.org/data-overview/king-county-point-in-time-count/' target='_blank'>KCRHA Data Overview</a></li>
+          <li><a href='https://www.huduser.gov/portal/sites/default/files/xls/2007-2024-HIC-Counts-by-CoC.xlsx' target='_blank' rel='noopener noreferrer'>HUD HIC Data (Excel download)</a></li>
+          <li><a href='https://kcrha.org/data-overview/king-county-point-in-time-count/' target='_blank' rel='noopener noreferrer'>KCRHA Data Overview</a></li>
         </ul>
       ")
     ),
@@ -157,8 +186,8 @@ methodology_content <- function(index_name) {
       methodology = HTML("
         <p><strong>Data Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattle.gov/human-services/reports-and-data' target='_blank'>Seattle Human Services Department</a></li>
-          <li><a href='https://www.soundfoundationsnw.org/research' target='_blank'>Sound Foundations NW</a></li>
+          <li><a href='https://www.seattle.gov/human-services/reports-and-data' target='_blank' rel='noopener noreferrer'>Seattle Human Services Department</a></li>
+          <li><a href='https://www.soundfoundationsnw.org/research' target='_blank' rel='noopener noreferrer'>Sound Foundations NW</a></li>
         </ul>
         <p><strong>What it measures:</strong> Capacity and outcomes for city-funded tiny home villages.</p>
         <p><strong>Key Findings:</strong></p>
@@ -181,11 +210,11 @@ methodology_content <- function(index_name) {
           <li>59% enrollment rate at Friendship Heights vs 21% at DESC Navigation Center</li>
           <li>KCRHA Five Year Plan calls THV 'the region's best hope at resolving the unsheltered crisis'</li>
         </ul>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank'>Mayor Harrell Press Release (July 2025)</a></li>
-          <li><a href='https://wilson.seattle.gov/2026/03/04/neighbor-by-neighbor-mayor-announces-legislation-to-rapidly-expand-shelter-and-calls-on-whole-city-to-be-part-of-the-solution/' target='_blank'>Mayor Wilson: Neighbor by Neighbor (March 2026)</a></li>
-          <li><a href='https://kcrha.org/wp-content/uploads/2023/06/FINAL-KCRHA-Five-Year-Plan-6.1.23.pdf' target='_blank'>KCRHA Five Year Plan (PDF)</a></li>
+          <li><a href='https://harrell.seattle.gov/2025/07/30/mayor-harrell-announces-expansion-of-available-shelter-adding-more-than-100-new-tiny-houses/' target='_blank' rel='noopener noreferrer'>Mayor Harrell Press Release (July 2025)</a></li>
+          <li><a href='https://wilson.seattle.gov/2026/03/04/neighbor-by-neighbor-mayor-announces-legislation-to-rapidly-expand-shelter-and-calls-on-whole-city-to-be-part-of-the-solution/' target='_blank' rel='noopener noreferrer'>Mayor Wilson: Neighbor by Neighbor (March 2026)</a></li>
+          <li><a href='https://kcrha.org/wp-content/uploads/2023/06/FINAL-KCRHA-Five-Year-Plan-6.1.23.pdf' target='_blank' rel='noopener noreferrer'>KCRHA Five Year Plan (PDF)</a></li>
         </ul>
       ")
     ),
@@ -194,8 +223,8 @@ methodology_content <- function(index_name) {
       methodology = HTML("
         <p><strong>Data Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattlehousing.org/about-us/reports/moving-to-work-reports' target='_blank'>Seattle Housing Authority MTW Reports</a></li>
-          <li><a href='https://kcrha.org/emergency-housing-vouchers/' target='_blank'>KCRHA Emergency Housing Vouchers</a></li>
+          <li><a href='https://www.seattlehousing.org/about-us/reports/moving-to-work-reports' target='_blank' rel='noopener noreferrer'>Seattle Housing Authority MTW Reports</a></li>
+          <li><a href='https://kcrha.org/emergency-housing-vouchers/' target='_blank' rel='noopener noreferrer'>KCRHA Emergency Housing Vouchers</a></li>
         </ul>
         <p><strong>What it measures:</strong> Federal housing assistance vouchers allocated to King County.</p>
         <p><strong>Voucher Types:</strong></p>
@@ -210,17 +239,17 @@ methodology_content <- function(index_name) {
           <li>~5,500 households on public housing waitlist</li>
           <li>SHA opened HCV waitlist in 2024 for first time since 2017</li>
         </ul>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattlehousing.org/about-us/reports/moving-to-work-reports' target='_blank'>SHA MTW Reports</a></li>
-          <li><a href='https://www.seattletimes.com/seattle-news/homeless/seattle-housing-voucher-waitlist-opens/' target='_blank'>Seattle Times: Housing voucher waitlist coverage</a></li>
+          <li><a href='https://www.seattlehousing.org/about-us/reports/moving-to-work-reports' target='_blank' rel='noopener noreferrer'>SHA MTW Reports</a></li>
+          <li><a href='https://www.seattletimes.com/seattle-news/homeless/seattle-housing-voucher-waitlist-opens/' target='_blank' rel='noopener noreferrer'>Seattle Times: Housing voucher waitlist coverage</a></li>
         </ul>
       ")
     ),
     "hth" = list(
       title = "Health Through Housing",
       methodology = HTML("
-        <p><strong>Data Source:</strong> <a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing/health-through-housing-dashboard' target='_blank'>King County Health Through Housing Dashboard</a></p>
+        <p><strong>Data Source:</strong> <a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing/health-through-housing-dashboard' target='_blank' rel='noopener noreferrer'>King County Health Through Housing Dashboard</a></p>
         <p><strong>What it measures:</strong> Outcomes from King County's permanent supportive housing initiative funded by the Health Through Housing sales tax.</p>
         <p><strong>2024 Results:</strong></p>
         <ul>
@@ -243,24 +272,25 @@ methodology_content <- function(index_name) {
         </ul>
         <p><strong>Locations:</strong> Auburn, Burien, Federal Way, Kirkland, Redmond, Renton, Seattle</p>
         <p><strong>What Makes It Different:</strong> HTH specifically serves people experiencing chronic homelessness with high acuity needs, combining housing with wraparound services.</p>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing/health-through-housing-dashboard' target='_blank'>King County HTH Dashboard</a></li>
-          <li><a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing' target='_blank'>HTH Program Overview</a></li>
+          <li><a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing/health-through-housing-dashboard' target='_blank' rel='noopener noreferrer'>King County HTH Dashboard</a></li>
+          <li><a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing' target='_blank' rel='noopener noreferrer'>HTH Program Overview</a></li>
         </ul>
       ")
     ),
     "costs" = list(
-      title = "Cost Efficiency",
+      title = "Cost Signals",
       methodology = HTML("
+        <p><strong>Evidence tier:</strong> <span class='evidence-badge evidence-inferred'>Inferred</span> Dashboard comparison across heterogeneous public cost sources.</p>
         <p><strong>Data Sources:</strong></p>
         <ul>
-          <li><a href='https://kcrha.org/about/financials/' target='_blank'>KCRHA Budget Documents</a></li>
-          <li><a href='https://www.wshfc.org/mhcf/annualreports.htm' target='_blank'>WSHFC Annual Activity Reports</a></li>
-          <li><a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing' target='_blank'>King County HTH Reports</a></li>
+          <li><a href='https://kcrha.org/about/financials/' target='_blank' rel='noopener noreferrer'>KCRHA Budget Documents</a></li>
+          <li><a href='https://www.wshfc.org/mhcf/annualreports.htm' target='_blank' rel='noopener noreferrer'>WSHFC Annual Activity Reports</a></li>
+          <li><a href='https://kingcounty.gov/en/dept/dchs/human-social-services/community-funded-initiatives/health-through-housing' target='_blank' rel='noopener noreferrer'>King County HTH Reports</a></li>
         </ul>
-        <p><strong>What it measures:</strong> Mean cost per shelter bed (operating) and per housing unit (capital).</p>
-        <p><strong>Why Mean vs Median:</strong> For budget accountability, mean captures total spend efficiency. Median would underweight expensive outliers that still drain the budget.</p>
+        <p><strong>What it measures:</strong> Directional cost pressure: per shelter bed operating costs and per housing unit capital costs. It is not a clean cost-per-person-housed denominator.</p>
+        <p><strong>Why Mean vs Median:</strong> For budget accountability, mean captures total spend pressure. Median would underweight expensive outliers that still drain the budget.</p>
         <p><strong>Shelter Operating Costs (2024):</strong></p>
         <ul>
           <li><strong>Congregate:</strong> ~$16K/bed/year (lowest - shared facilities)</li>
@@ -274,13 +304,13 @@ methodology_content <- function(index_name) {
           <li><strong>New Construction:</strong> ~$400-500K/unit</li>
           <li><strong>WSHFC Statewide Trend:</strong> $207K (2019) to $406K (2025) = +96% in 6 years</li>
         </ul>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://publicola.com/2023/10/cost-per-unit-affordable-housing/' target='_blank'>PubliCola: Cost per unit analysis</a></li>
-          <li><a href='https://www.seattletimes.com/seattle-news/homeless/seattle-shelter-costs-analysis/' target='_blank'>Seattle Times: Shelter costs investigation</a></li>
+          <li><a href='https://publicola.com/2023/10/cost-per-unit-affordable-housing/' target='_blank' rel='noopener noreferrer'>PubliCola: Cost per unit analysis</a></li>
+          <li><a href='https://www.seattletimes.com/seattle-news/homeless/seattle-shelter-costs-analysis/' target='_blank' rel='noopener noreferrer'>Seattle Times: Shelter costs investigation</a></li>
         </ul>
         <p><strong>Data Gap:</strong> No single official source provides consistent year-over-year per-bed cost comparisons across shelter types. These figures require manual compilation from multiple sources.</p>
-        <p><strong>Methodology:</strong> Total budget by shelter category / reported bed counts = cost/bed. This conflates bed-count changes with cost changes, so both should be tracked independently.</p>
+        <p><strong>Methodology:</strong> Total budget by shelter category / reported bed counts = cost/bed where available. This conflates bed-count changes with cost changes, so the dashboard treats it as an efficiency pressure signal, not causal proof.</p>
       ")
     ),
     "crime" = list(
@@ -288,8 +318,8 @@ methodology_content <- function(index_name) {
       methodology = HTML("
         <p><strong>Data Sources:</strong></p>
         <ul>
-          <li><a href='https://www.seattle.gov/police/information-and-data/crime-dashboard' target='_blank'>Seattle Police Department Crime Dashboard</a></li>
-          <li><a href='https://kingcounty.gov/en/dept/dph/health-safety/medical-examiner' target='_blank'>King County Medical Examiner</a></li>
+          <li><a href='https://www.seattle.gov/police/information-and-data/crime-dashboard' target='_blank' rel='noopener noreferrer'>Seattle Police Department Crime Dashboard</a></li>
+          <li><a href='https://kingcounty.gov/en/dept/dph/health-safety/medical-examiner' target='_blank' rel='noopener noreferrer'>King County Medical Examiner</a></li>
         </ul>
         <p><strong>What it measures:</strong> Homicides, violent crime rates, and incidents connected to homeless encampments.</p>
         <p><strong>King County Homicides (2024):</strong></p>
@@ -315,11 +345,11 @@ methodology_content <- function(index_name) {
           <li>Aggravated assaults: -8% (320 fewer victims)</li>
           <li>Firearm recoveries: 1,500 (+74% from 2024)</li>
         </ul>
-        <p><strong>Verified Sources:</strong></p>
+        <p><strong>Sources:</strong></p>
         <ul>
-          <li><a href='https://spdblotter.seattle.gov/2026/02/02/2025-spd-year-in-review/' target='_blank'>SPD 2025 Year in Review (Feb 2026)</a></li>
-          <li><a href='https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/' target='_blank'>Seattle Times: King County homicides 2024</a></li>
-          <li><a href='https://harrell.seattle.gov/2024/12/03/one-seattle-homelessness-action-plan-posts-q3-2024-data-updates/' target='_blank'>Mayor's Office Q3 2024 Report</a></li>
+          <li><a href='https://spdblotter.seattle.gov/2026/02/02/2025-spd-year-in-review/' target='_blank' rel='noopener noreferrer'>SPD 2025 Year in Review (Feb 2026)</a></li>
+          <li><a href='https://www.seattletimes.com/seattle-news/law-justice/homicides-in-king-county-dipped-in-2024-but-more-kids-among-the-dead/' target='_blank' rel='noopener noreferrer'>Seattle Times: King County homicides 2024</a></li>
+          <li><a href='https://harrell.seattle.gov/2024/12/03/one-seattle-homelessness-action-plan-posts-q3-2024-data-updates/' target='_blank' rel='noopener noreferrer'>Mayor's Office Q3 2024 Report</a></li>
         </ul>
         <p><strong>Data Gap:</strong> Homeless-specific crime victimization and perpetration data is not systematically tracked or published.</p>
       ")
@@ -327,7 +357,8 @@ methodology_content <- function(index_name) {
     "baseline" = list(
       title = "Emergency Housing Baseline: What Counts as 'New'?",
       methodology = HTML("
-        <p><strong>Data Source:</strong> <a href='https://www.axios.com/local/seattle/2025/09/30/seattle-homelessness-housing-harrell-promise-shortfall' target='_blank'>Axios Seattle fact-check (September 2025)</a></p>
+        <p><strong>Evidence tier:</strong> <span class='evidence-badge evidence-inferred'>Inferred</span> Dashboard reconciliation from a reported fact-check, not an official city baseline.</p>
+        <p><strong>Data Source:</strong> <a href='https://www.axios.com/local/seattle/2025/09/30/seattle-homelessness-housing-harrell-promise-shortfall' target='_blank' rel='noopener noreferrer'>Axios Seattle fact-check (September 2025)</a></p>
         <p><strong>The Problem:</strong> Mayor Harrell claimed ~2,000 units opened during his term, but this count included units that shouldn't count as 'new':</p>
         <ul>
           <li><strong>194 units</strong> were replacements/relocations (old shelter closed, new one opened = net zero)</li>
@@ -352,8 +383,8 @@ methodology_content <- function(index_name) {
           <li>Year-1 progress (as of Apr 2026): 45 units (Olympic Hills/Lake City) — first deployment under Wilson</li>
           <li>Pipeline includes: West Seattle RV/THV combined site, Raven Village (existing), and 6 villages requested by LIHI</li>
         </ul>
-        <p><strong>Our Methodology:</strong> This dashboard will track Wilson's progress from a baseline of ZERO on Jan 6, 2026. Only units that break ground, are acquired, or open <em>after</em> that date will count.</p>
-        <p><strong>Source:</strong> <a href='https://www.axios.com/local/seattle/2025/09/30/seattle-homelessness-housing-harrell-promise-shortfall' target='_blank'>Axios Seattle: Seattle Mayor Harrell falls short on 2,000-housing-unit pledge</a></p>
+        <p><strong>Our Methodology:</strong> This dashboard tracks Wilson's progress from a baseline of ZERO on Jan 6, 2026. Only units that break ground, are acquired, or open <em>after</em> that date count as Wilson-era additions. Reported or expected units stay separate until operational evidence exists.</p>
+        <p><strong>Source:</strong> <a href='https://www.axios.com/local/seattle/2025/09/30/seattle-homelessness-housing-harrell-promise-shortfall' target='_blank' rel='noopener noreferrer'>Axios Seattle: Seattle Mayor Harrell falls short on 2,000-housing-unit pledge</a></p>
       ")
     )
   )

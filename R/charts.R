@@ -1,6 +1,6 @@
 # Chart Components
 # Seattle Mayoral Accountability Dashboard
-# VERIFIED DATA ONLY
+# Source-traced public data
 
 library(ggplot2)
 library(scales)
@@ -90,12 +90,18 @@ chart_pit_counts <- function(pit_df) {
       hover_text = paste0(Year, ": ", format(unsheltered, big.mark = ","), " unsheltered")
     )
 
-  date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
+  date_range <- c(
+    min(plot_data$date) - 60,
+    max(max(plot_data$date) + 60, MAYORAL_TRANSITIONS$wilson$date + 90)
+  )
   y_max <- max(plot_data$unsheltered, na.rm = TRUE) * 1.25
 
-  # Key years for labels (2019 baseline, 2024 current)
+  latest_year <- as.character(max(as.integer(plot_data$Year), na.rm = TRUE))
+  key_years <- unique(c("2019", latest_year))
+
+  # Key years for labels (2019 pre-pandemic baseline and latest official PIT)
   key_years_data <- plot_data %>%
-    filter(Year %in% c("2019", "2024")) %>%
+    filter(Year %in% key_years) %>%
     mutate(
       label_y = unsheltered + y_max * 0.05,
       label_text = format(unsheltered, big.mark = ",")
@@ -181,7 +187,10 @@ chart_pit_full <- function(pit_df) {
       )
     )
 
-  date_range <- c(min(plot_data$date) - 60, MAYORAL_TRANSITIONS$wilson$date + 90)
+  date_range <- c(
+    min(plot_data$date) - 60,
+    max(max(plot_data$date) + 60, MAYORAL_TRANSITIONS$wilson$date + 90)
+  )
   y_max <- max(plot_data$total_homeless, na.rm = TRUE) * 1.15
 
   p <- ggplot(plot_data, aes(x = date, text = hover_text)) +
