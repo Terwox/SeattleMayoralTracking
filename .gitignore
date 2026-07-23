@@ -9,11 +9,12 @@ nul
 # oh-my-claudecode state
 .omc/
 
-# OMX local runtime artifacts
-.omx/
 
 # Session and generated artifacts
 __pycache__/
 *.pyc
 *.pyo
 .ipynb_checkpoints/
+
+# OMX local runtime artifacts
+.omx/
